@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Making An Indicator With Pure CSS | Erichain&#39;s Causeries</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="简单的说明一下，使用这个标题并不就是说要使用全英文来写这篇文章，主要是实在想不到更好的叫法了，也不知道怎么样能够更好的翻译成中文。 可以简单地理解为：使用 CSS 来实现一个阅读文章时的简单的进度条效果。 本文所需要用到的背景知识点包括：background-size, linear-gradient, calc() 函数， vh 单位。  Indicator 是什么？可以把它看作是一个指标，这">
+<meta name="keywords" content="css">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Making An Indicator With Pure CSS">
+<meta property="og:url" content="https://erichain.me/2016/08/23/2016-08-23-making-indicator-with-pure-css/index.html">
+<meta property="og:site_name" content="Erichain's Causeries">
+<meta property="og:description" content="简单的说明一下，使用这个标题并不就是说要使用全英文来写这篇文章，主要是实在想不到更好的叫法了，也不知道怎么样能够更好的翻译成中文。 可以简单地理解为：使用 CSS 来实现一个阅读文章时的简单的进度条效果。 本文所需要用到的背景知识点包括：background-size, linear-gradient, calc() 函数， vh 单位。  Indicator 是什么？可以把它看作是一个指标，这">
+<meta property="og:image" content="https://sfault-image.b0.upaiyun.com/159/376/1593764135-57bc54702c2fd">
+<meta property="og:image" content="https://sfault-image.b0.upaiyun.com/338/644/3386442365-57bc547edc66a">
+<meta property="og:image" content="https://sfault-image.b0.upaiyun.com/298/232/2982321310-57bc549102013">
+<meta property="og:updated_time" content="2017-04-05T15:24:06.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Making An Indicator With Pure CSS">
+<meta name="twitter:description" content="简单的说明一下，使用这个标题并不就是说要使用全英文来写这篇文章，主要是实在想不到更好的叫法了，也不知道怎么样能够更好的翻译成中文。 可以简单地理解为：使用 CSS 来实现一个阅读文章时的简单的进度条效果。 本文所需要用到的背景知识点包括：background-size, linear-gradient, calc() 函数， vh 单位。  Indicator 是什么？可以把它看作是一个指标，这">
+<meta name="twitter:image" content="https://sfault-image.b0.upaiyun.com/159/376/1593764135-57bc54702c2fd">
+  
+    <link rel="alternate" href="/atom.xml" title="Erichain&#39;s Causeries" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Erichain&#39;s Causeries</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">A website to record Erichain&#39;s life.</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://erichain.me"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-2016-08-23-making-indicator-with-pure-css" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/08/23/2016-08-23-making-indicator-with-pure-css/" class="article-date">
+  <time datetime="2016-08-23T00:00:00.000Z" itemprop="datePublished">2016-08-23</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Front-End/">Front-End</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Making An Indicator With Pure CSS
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>简单的说明一下，使用这个标题并不就是说要使用全英文来写这篇文章，主要是实在想不到更好的叫法了，也不知道怎么样能够更好的翻译成中文。</p>
+<p>可以简单地理解为：<strong>使用 CSS 来实现一个阅读文章时的简单的进度条效果。</strong></p>
+<p>本文所需要用到的背景知识点包括：<code>background-size, linear-gradient, calc() 函数， vh 单位</code>。</p>
+</blockquote>
+<p>Indicator 是什么？可以把它看作是一个指标，这种指标其实很常见，在我们阅读文章的时候，我们会将文章向上滚动，一些网站的做法就是给用户一个指标，标示用户已经读了多少内容了，这个指标就类似于一个进度条的样子，鼠标每向上或者向下滚动一点，这“进度条”会增加或者减少一点。用户阅读完毕的时候，它的长度也会达到整个网页的宽度。</p>
+<p>一般情况下，如果要实现一个这样的效果，我们首先想到的肯定是使用 JavaScript。通过使用 JavaScript 来根据用户滚动的距离，然后，将这个距离和 Indicator 的总长度以及剩余内容的高度综合进行比较，进行一些换算，然后改变 Indicator 的长度，这样，就实现了一个 Indicator 了。</p>
+<p>本文不会讲解如何使用 JavaScript 来实现此效果，如果有需要的，可以参考 <a href="https://codepen.io/Erichain/pen/BzEXkv?editors=0010" target="_blank" rel="external">Bloomberg Article Scroll Indicator</a>。</p>
+<p>那么，本文主要讲解的就是如何使用 CSS 来实现此效果。</p>
+<p>首先，我们将 HTML 都写好了(由于涉及到滚动，所以，可以随意的多加点内容，此处只是示范性地写了一点内容，具体的读者可以自行添加更多内容)：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">header</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Scroll Indicator<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">header</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">main</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">h2</span>&gt;</span>I was interested to see if I could make a scroll indicator like this with just CSS.<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>You can! But maybe you shouldn't. This is an interesting consequence of a bunch of hacks held together with duct tape. It uses z-index hacks, gradient hacks and tricks with calc and viewport units.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>Having said that, hacks are not always bad. I love hacks and many of us have made quite a good living selling floats and clearfixes.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>The techniques used here are well supported, if not conventional. If you can read the CSS, understand how it works, and how to change it, and you think this works better for you than JavaScript, feel free to implement it. Just be aware of the z-index behaviour and possible conflict with other CSS using negative z-index.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">hr</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>Cras mattis consectetur purus sit amet fermentum. Donec id elit non mi porta gravida at eget metus. Donec id elit non mi porta gravida at eget metus. Aenean lacinia bibendum nulla sed consectetur.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">h3</span>&gt;</span>Tristique Aenean Etiam Cras<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>Donec id elit non mi porta gravida at eget metus. Donec ullamcorper nulla non metus auctor fringilla. Nulla vitae elit libero, a pharetra augue. Donec sed odio dui. Donec id elit non mi porta gravida at eget metus. Praesent commodo cursus magna, vel scelerisque nisl consectetur et.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>Cras mattis consectetur purus sit amet fermentum. Donec id elit non mi porta gravida at eget metus. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Etiam porta sem malesuada magna mollis euismod. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec ullamcorper nulla non metus auctor fringilla.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Donec ullamcorper nulla non metus auctor fringilla. Sed posuere consectetur est at lobortis. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Aenean lacinia bibendum nulla sed consectetur. Nulla vitae elit libero, a pharetra augue.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>Donec sed odio dui. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Cras mattis consectetur purus sit amet fermentum. Maecenas sed diam eget risus varius blandit sit amet non magna.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">main</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>然后，我们简单的调整一下样式：</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">html</span>,</div><div class="line"><span class="selector-tag">body</span> &#123;</div><div class="line">    <span class="attribute">margin</span>: <span class="number">0</span>;</div><div class="line">    <span class="attribute">padding</span>: <span class="number">0</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-tag">body</span> &#123;</div><div class="line">	<span class="attribute">font-family</span>: <span class="string">"Times New Roman"</span>, Courier, monospace;</div><div class="line">	<span class="attribute">font-size</span>: <span class="number">1.25rem</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>由于我们滚动的时候，需要让 <code>header</code> 保持不动，所以，需要给它设置 <code>position: fixed;</code>：</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">header</span> &#123;</div><div class="line">    <span class="attribute">position</span>: fixed;</div><div class="line">    <span class="attribute">top</span>: <span class="number">0</span>;</div><div class="line">    <span class="attribute">width</span>: <span class="number">100%</span>;</div><div class="line">    <span class="attribute">height</span>: <span class="number">125px</span>;</div><div class="line">    <span class="attribute">padding</span>: <span class="number">0</span> <span class="number">10%</span>;</div><div class="line">    <span class="attribute">background</span>: <span class="number">#ffffff</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>然后，为了避免 <code>main</code> 元素包含的内容被 <code>header</code> 覆盖，我们需要让 <code>main</code> 往下挪一些，同时给它设置一个 <code>padding</code>：</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">main &#123;</div><div class="line">    <span class="attribute">margin-top</span>: <span class="number">125px</span>;</div><div class="line">    <span class="attribute">padding</span>: <span class="number">10px</span> <span class="number">10%</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>OK，大概的调整就这些，我们现在来构思如何实现这个 Amazing 的效果。</p>
+<p>按照使用 JavaScript 来实现这个效果的思想，那么，我们就需要先去计算一个百分比——也就是滚动的文章长度与总的剩余文章长度的比。</p>
+<p>如下图所示：</p>
+<p><img src="https://sfault-image.b0.upaiyun.com/159/376/1593764135-57bc54702c2fd" alt="Indicator JavaScript"></p>
+<p>假设我们文章的总长度为 <code>a</code>，以红色的线为界限，超出红线上的部分即为滚动的距离。那么，我们此刻滚动的距离为 <code>x</code>，<code>z</code> 代表的是滚动的进度百分比，红线的总长度 <code>y</code> 即为我们的 Indicator 的总长度，也就是所谓的 100%。那么，我们需要的肯定是以下的关系：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">x / a === z / y;</div></pre></td></tr></table></figure>
+<p>那么，计算出来的滚动的进度百分比 <code>z</code> 应该就是：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">z = (x * y) / a;</div></pre></td></tr></table></figure>
+<p>好了，这是 JavaScript 的大概思路，我们已经了解了，我们先把这个结果放这儿，来看看如何使用 CSS 来实现。</p>
+<p>在这里，我们需要用到两个 CSS 属性和一个 CSS 方法和一个 CSS 单位——<code>linear-gradient, background-position 和 calc() 和 vh</code>。</p>
+<blockquote>
+<p>简单的介绍一下这两个属性：</p>
+<p><code>background-position</code> 接受 1 到 4 个参数，默认值为 <code>0% 0%</code>。可以设置的值有 <code>top right bottom left center</code>，前四个值后面还可以跟具体的数值或者百分比。如果不加方向说明，直接设置数值或者百分比，位置则会以 <code>left top</code> 进行定位。<strong>注意：此处的 <code>top right bottom left</code> 定位是以 <code>padding-box(即 padding 的外沿框)</code> 进行定位的。</strong><br>若要了解详细内容，可查看 <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/background-position" target="_blank" rel="external">background-position | MDN</a>。</p>
+<p>关于 <code>linear-gradient</code>，即用来创建线性渐变。这个函数可接受多个参数值，其中，第一个表示渐变的方向，如果不写的话，默认为 <code>to bottom</code>，其余分别是 <code>to top | left | right</code>，后面的参数表示渐变的颜色，可以有多个颜色，每一个颜色后面还可以指定颜色的渐变位置。<br><strong>注意：由于 <code>linear-gradient</code> 生成的是一个 CSS image 对象，所以，这个函数只能应用在需要的数据类型是 image 的属性(如 <code>background-image</code>, <code>background</code>)上。也就是说，如果在 <code>color</code> 或者 <code>background-color</code> 属性上应用这个函数的话，将会不起作用。</strong><br>若要了解详细内容，可查看 <a href="https://www.google.com/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=1&amp;ved=0ahUKEwj8q-vgptXOAhUHKZQKHaRoARkQFggeMAA&amp;url=https%3A%2F%2Fdeveloper.mozilla.org%2Fen-US%2Fdocs%2FWeb%2FCSS%2Flinear-gradient&amp;usg=AFQjCNGAxCVsqUsyi3eKCZtfY_1mogvBOA&amp;sig2=_lxb9pGmaIB3HuO3vZ1VJw" target="_blank" rel="external">linear-gradient | MDN</a>。</p>
+<p>关于 <code>calc()</code> 函数，可以用来动态计算 CSS 的属性值。比如 <code>calc(100px - 10px)</code> 最终结果就为 <code>90px</code>;<br><strong>注意：为了让这个函数向上兼容，以后可能会在 calc 的内部允许使用关键字(或者说变量)，而这些关键字(或者变量)就包含连字符(即减号)，所以，为了避免解析冲突，要在运算符的前后加上空格。其中，+ 和 - 前后必须加上空格，* 和 / 前后不要求，但为了一致性，最好也都加上空格。</strong><br>若要了解详细内容，可查看 <a href="https://www.google.com/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=3&amp;ved=0ahUKEwiys7Xnr9XOAhVFmZQKHcKUBacQFggrMAI&amp;url=https%3A%2F%2Fdeveloper.mozilla.org%2Fen-US%2Fdocs%2FWeb%2FCSS%2Fcalc&amp;usg=AFQjCNF5twSLhepdlzZqBQpdyDyquf7QEQ&amp;sig2=3ygEHlH7kC027eG_IuJQFw" target="_blank" rel="external">calc | MDN</a>。</p>
+<p>关于 <code>vh</code> 单位，这个单位代表的意思即 <code>ViewHeight</code>，即浏览器可视区域的高度。与百分比类似，<code>100vh = height: 100%</code>。<br>若要了解详细内容，可查看 <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/length" target="_blank" rel="external">length | MDN</a>。</p>
+</blockquote>
+<p>那么，我们使用 CSS 实现的话，思路和 JavaScript 稍微有一点区别。但原理是一样的，我们仍然需要计算一个比例。</p>
+<p>还是来看一张图：</p>
+<p><img src="https://sfault-image.b0.upaiyun.com/338/644/3386442365-57bc547edc66a" alt="Indicator CSS"></p>
+<p>我们将我们的我们让 Indicator 的宽度和 <code>body</code> 等宽(好吧，其实就是 100%，此处这样话会好理解一点)，然后，注意到黄色的三角形了吗，当我们向上滚动的时候，黄色的三角形也会跟着向上滚动，同时，它会和长度为 <code>y</code> 的 Indicator 发生交叉，Indicator 会从三角形截出一段距离 <code>z</code>。这时候，黄色三角形向上移动的距离是 <code>x</code>。那么，要达到 Indicator 的效果，我么肯定要满足下面的条件：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">x / a === z / y;</div></pre></td></tr></table></figure>
+<p>所以，这样计算出来，我们的 <code>z</code> 就是：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">z = (x * y) / a;</div></pre></td></tr></table></figure>
+<p>注意到没，其实和我们上面的使用 JavaScript 时的计算结果是一样的。所以，原理相同，我们只需要变通一下就好了。</p>
+<p>那么，怎么用 CSS 写出来呢？</p>
+<p>注意到黄色三角形了吗，它上面还有一个白色三角形，它们两个是对称的，由两种不同的颜色组成，正好可以将其作为我们的 Indicator 的高亮色和默认色。</p>
+<p>我们把这两种颜色作为 <code>body</code> 的背景颜色，文章就在这个背景的上面，那么，我们滚动文章的时候，背景也会跟着动，就会有以上图中的效果了。</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">body</span> &#123;</div><div class="line">	<span class="attribute">background</span>: linear-gradient(to right top, <span class="number">#0089f2</span> <span class="number">50%</span>, <span class="number">#DDD</span> <span class="number">50%</span>);</div><div class="line">	<span class="attribute">background-position</span>: <span class="number">0</span> <span class="number">125px</span>;</div><div class="line">	<span class="attribute">background-size</span>: <span class="number">100%</span> calc(<span class="number">100%</span> - <span class="number">100vh</span> + <span class="number">5px</span>);</div><div class="line">	<span class="attribute">background-repeat</span>: no-repeat;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>注意到第一个属性的设置了吗，我们将两个颜色的位置都设置成了 <code>50%</code>，那么，这就相当于简便的过渡区域趋于无限小，看上去就相当于两种颜色累积在一起。</p>
+<p>第二个属性，我们将背景的位置进行了更改，将其往下移动了 <code>125px</code>，这个距离正好是我们的 <code>header</code> 的高度。这样，在我们没有滚动的时候，Indicator 的进度将会是 0；。</p>
+<p>第三个属性，看着这么长一个计算的等式，其实计算的是我们的剩余文章的长度。<code>100%</code> 即文章的总长度，<code>100vh</code> 即我们所看到的文章的长度，至于那个 <code>5px</code> 是什么，那是我们预留出来显示 Indicator 的高度。</p>
+<p>OK，我们现在来看效果将会是下面这张图片显示的样子。</p>
+<p><img src="https://sfault-image.b0.upaiyun.com/298/232/2982321310-57bc549102013" alt="Indicator Effect"></p>
+<p>我们看到，当我们向上滚动的时候，<code>header</code> 和 <code>main</code> 的交界处的蓝色区域在变化，对，这就是我们将要实现的 Indicator 的原型。</p>
+<p>那么，既然是一个 Indicator，那他就应该有一个 Indicator 的样子。我们需要把下面的那些全部遮住，只留出 Indicator 的那一条 progress bar。</p>
+<p>所以，我们继续完善代码：</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">body</span>:before &#123;</div><div class="line">    <span class="attribute">content</span>:<span class="string">''</span>;</div><div class="line">    <span class="attribute">position</span>: fixed;</div><div class="line">    <span class="attribute">top</span>: <span class="number">127px</span>;</div><div class="line">    <span class="attribute">bottom</span>: <span class="number">0</span>;</div><div class="line">    <span class="attribute">width</span>: <span class="number">100%</span>;</div><div class="line">    <span class="attribute">z-index</span>: -<span class="number">1</span>;</div><div class="line">    <span class="attribute">background</span>: white;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>我们通过使用一个伪元素来把 <code>body</code> 中多余的背景给隐藏掉。</p>
+<p>设置 <code>top: 127px;</code> 目的即让 Indicator 的高度为 <code>2px</code>，即到顶部的距离减去 <code>header</code> 的距离。</p>
+<p>至此，我们使用 CSS 制作的 Indicator 就上大功告成了。</p>
+<p>下面是我们实现的所有代码和效果：</p>
+<p></p><p data-height="265" data-theme-id="0" data-slug-hash="PzggNB" data-default-tab="html,result" data-user="Erichain" data-embed-version="2" data-preview="true" class="codepen">See the Pen <a href="http://codepen.io/Erichain/pen/PzggNB/" target="_blank" rel="external">CSS only scroll indicator</a> by Erichain (<a href="http://codepen.io/Erichain" target="_blank" rel="external">@Erichain</a>) on <a href="http://codepen.io" target="_blank" rel="external">CodePen</a>.</p><p></p>
+<script async src="//assets.codepen.io/assets/embed/ei.js"></script>
+
+<blockquote>
+<p>本文参考自 <a href="https://codepen.io/MadeByMike/pen/ZOrEmr?editors=1100，我在此基础上对其进行了一些优化。如果有问题，欢迎在评论区留言，Feel" target="_blank" rel="external">https://codepen.io/MadeByMike/pen/ZOrEmr?editors=1100，我在此基础上对其进行了一些优化。如果有问题，欢迎在评论区留言，Feel</a> Free To Ask。</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://erichain.me/2016/08/23/2016-08-23-making-indicator-with-pure-css/" data-id="cj154uq4t00265ophg1ijssyr" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/08/01/2016-08-01-css-link-specificity/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          CSS Link 伪类特性
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/08/28/2016-08-28-progressive-loading-images-with-blur-effect/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">使用模糊效果逐步加载图片 (仿 Medium)</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Angular-Front-End/">Angular Front-End</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Front-End/">Front-End</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Front-End-Full-Stack/">Front-End Full-Stack</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Front-End-Responsive/">Front-End Responsive</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Full-Stack/">Full-Stack</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Full-Stack-Mobile/">Full-Stack Mobile</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular/">angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bower/">bower</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/coffeescript/">coffeescript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css3/">css3</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/express/">express</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gem/">gem</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git-flow/">git-flow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html5/">html5</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ionic/">ionic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jquery/">jquery</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mongodb/">mongodb</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/">npm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ruby/">ruby</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sass/">sass</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/android/" style="font-size: 10px;">android</a> <a href="/tags/angular/" style="font-size: 15px;">angular</a> <a href="/tags/bower/" style="font-size: 10px;">bower</a> <a href="/tags/coffeescript/" style="font-size: 10px;">coffeescript</a> <a href="/tags/css/" style="font-size: 20px;">css</a> <a href="/tags/css3/" style="font-size: 10px;">css3</a> <a href="/tags/express/" style="font-size: 10px;">express</a> <a href="/tags/gem/" style="font-size: 10px;">gem</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/git-flow/" style="font-size: 10px;">git-flow</a> <a href="/tags/html5/" style="font-size: 10px;">html5</a> <a href="/tags/ionic/" style="font-size: 10px;">ionic</a> <a href="/tags/javascript/" style="font-size: 17.5px;">javascript</a> <a href="/tags/jquery/" style="font-size: 10px;">jquery</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/mac/" style="font-size: 12.5px;">mac</a> <a href="/tags/mongodb/" style="font-size: 10px;">mongodb</a> <a href="/tags/node/" style="font-size: 12.5px;">node</a> <a href="/tags/npm/" style="font-size: 12.5px;">npm</a> <a href="/tags/ruby/" style="font-size: 10px;">ruby</a> <a href="/tags/sass/" style="font-size: 10px;">sass</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">July 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/10/16/2016-10-16-css-negative-margin/">理解并运用 CSS 的负 margin 值</a>
+          </li>
+        
+          <li>
+            <a href="/2016/09/05/2016-09-05-how-to-implement-responsive-font-size/">如何实现 font-size 的响应式</a>
+          </li>
+        
+          <li>
+            <a href="/2016/08/28/2016-08-28-progressive-loading-images-with-blur-effect/">使用模糊效果逐步加载图片 (仿 Medium)</a>
+          </li>
+        
+          <li>
+            <a href="/2016/08/23/2016-08-23-making-indicator-with-pure-css/">Making An Indicator With Pure CSS</a>
+          </li>
+        
+          <li>
+            <a href="/2016/08/01/2016-08-01-css-link-specificity/">CSS Link 伪类特性</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 Erichain<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

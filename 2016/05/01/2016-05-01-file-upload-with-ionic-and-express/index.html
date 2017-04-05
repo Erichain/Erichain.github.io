@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>使用Ionic和Express实现文件上传 | Erichain&#39;s Causeries</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="使用Ionic搭建移动App的时候，会遇到要向服务器上传图片或者文件的情况。普通的做法是可以使用表单来实现。但是，ngCordova提供了文件操作的插件，在构建App的时候可以直接使用。 客户端 注意，以下步骤的前提是在App的模块中已经注入了ngCordova模块。  1、安装插件 首先，在客户端，要安装上ngCordova所提供的文件操作的插件File Transfer。 使用以下命令进行安装">
+<meta name="keywords" content="ionic,express">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用Ionic和Express实现文件上传">
+<meta property="og:url" content="https://erichain.me/2016/05/01/2016-05-01-file-upload-with-ionic-and-express/index.html">
+<meta property="og:site_name" content="Erichain's Causeries">
+<meta property="og:description" content="使用Ionic搭建移动App的时候，会遇到要向服务器上传图片或者文件的情况。普通的做法是可以使用表单来实现。但是，ngCordova提供了文件操作的插件，在构建App的时候可以直接使用。 客户端 注意，以下步骤的前提是在App的模块中已经注入了ngCordova模块。  1、安装插件 首先，在客户端，要安装上ngCordova所提供的文件操作的插件File Transfer。 使用以下命令进行安装">
+<meta property="og:updated_time" content="2017-04-05T15:24:06.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用Ionic和Express实现文件上传">
+<meta name="twitter:description" content="使用Ionic搭建移动App的时候，会遇到要向服务器上传图片或者文件的情况。普通的做法是可以使用表单来实现。但是，ngCordova提供了文件操作的插件，在构建App的时候可以直接使用。 客户端 注意，以下步骤的前提是在App的模块中已经注入了ngCordova模块。  1、安装插件 首先，在客户端，要安装上ngCordova所提供的文件操作的插件File Transfer。 使用以下命令进行安装">
+  
+    <link rel="alternate" href="/atom.xml" title="Erichain&#39;s Causeries" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Erichain&#39;s Causeries</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">A website to record Erichain&#39;s life.</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://erichain.me"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-2016-05-01-file-upload-with-ionic-and-express" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/05/01/2016-05-01-file-upload-with-ionic-and-express/" class="article-date">
+  <time datetime="2016-05-01T00:00:00.000Z" itemprop="datePublished">2016-05-01</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Full-Stack/">Full-Stack</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      使用Ionic和Express实现文件上传
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>使用Ionic搭建移动App的时候，会遇到要向服务器上传图片或者文件的情况。普通的做法是可以使用表单来实现。但是，ngCordova提供了文件操作的插件，在构建App的时候可以直接使用。</p>
+<h3 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h3><blockquote>
+<p>注意，以下步骤的前提是在App的模块中已经注入了<code>ngCordova</code>模块。</p>
+</blockquote>
+<p><strong>1、安装插件</strong></p>
+<p>首先，在客户端，要安装上ngCordova所提供的文件操作的插件<code>File Transfer</code>。</p>
+<p>使用以下命令进行安装：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cordova plugin add cordova-plugin-file-transfer</div></pre></td></tr></table></figure>
+<p><strong>2、实现</strong></p>
+<p>然后，按照ngCordova官方文档所提供的方法，可以像下面这样来进行文件的上传：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">app.controller([<span class="string">'$cordovaFileTransfer'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"> $cordovaFileTransfer </span>) </span>&#123;</div><div class="line"></div><div class="line">	<span class="comment">// 一定要将代码放在事件监听中</span></div><div class="line">	<span class="comment">// 表示设备准备好了之后才能执行里面的代码</span></div><div class="line">    <span class="built_in">document</span>.addEventListener(<span class="string">'deviceready'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="keyword">var</span> uploadOptions = <span class="keyword">new</span> FileUploadOptions(),</div><div class="line">            server = <span class="string">'your_server_api'</span>,</div><div class="line">            imgPath = <span class="string">'your_img_path'</span>;</div><div class="line"></div><div class="line">        <span class="comment">// 注意此处设置的fileKey，Express服务端中也需要这个</span></div><div class="line">        uploadOptions.fileKey = <span class="string">'file'</span>;</div><div class="line">        uploadOptions.fileName = imgPath.substr(imgPath.lastIndexOf(<span class="string">'/'</span>) + <span class="number">1</span>);</div><div class="line">        uploadOptions.mimeType = <span class="string">'image/jpeg'</span>;</div><div class="line">        uploadOptions.chunkedMode = <span class="literal">false</span>;</div><div class="line"></div><div class="line">        $cordovaFileTransfer.upload( server, imgPath, uploadOptions )</div><div class="line">            .then(<span class="function"><span class="keyword">function</span> (<span class="params"> result </span>) </span>&#123;</div><div class="line">                <span class="comment">// 上传成功</span></div><div class="line">            &#125;, <span class="function"><span class="keyword">function</span> (<span class="params"> error </span>) </span>&#123;</div><div class="line">                <span class="comment">// 上传失败</span></div><div class="line">            &#125;, <span class="function"><span class="keyword">function</span> (<span class="params"> progress </span>) </span>&#123;</div><div class="line">                <span class="comment">// 上传进度</span></div><div class="line">            &#125;);</div><div class="line"></div><div class="line">    &#125;, <span class="literal">false</span>);</div><div class="line">&#125;]);</div></pre></td></tr></table></figure>
+<p>以上为客户端的文件上传实现代码。</p>
+<h3 id="服务端"><a href="#服务端" class="headerlink" title="服务端"></a>服务端</h3><p>服务端采用Express来实现，要接受来自客户端的文件，需要使用<a href="https://github.com/expressjs/multer" target="_blank" rel="external">multer</a>模块。可以使用<code>npm install --save multer</code>进行安装。</p>
+<p>multer可接受单个文件的上传和多个文件的上传。此处只涉及单个文件上传。</p>
+<p>在服务端，首先创建一个<code>fileUpload.js</code>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* fileUpload.js */</span></div><div class="line"><span class="keyword">var</span> multer = <span class="built_in">require</span>(<span class="string">'multer'</span>),</div><div class="line">    storage = multer.diskStorage(&#123;</div><div class="line">        <span class="attr">destination</span>: <span class="function"><span class="keyword">function</span> (<span class="params"> req, file, callback </span>) </span>&#123;</div><div class="line">		    <span class="comment">// 注意，此处的uploads目录是从项目的根目录开始寻找</span></div><div class="line">		    <span class="comment">// 如果没有的话，需要手动新建此文件夹</span></div><div class="line">            callback(<span class="literal">null</span>, <span class="string">'./uploads'</span>);</div><div class="line">        &#125;,</div><div class="line">        <span class="attr">filename</span>: <span class="function"><span class="keyword">function</span> (<span class="params"> req, file, callback </span>) </span>&#123;</div><div class="line">	        </div><div class="line">	        <span class="comment">// multer不会自动添加文件后缀名，需要手动添加</span></div><div class="line">            callback(<span class="literal">null</span>, file.fieldname + <span class="string">'-'</span> + <span class="built_in">Date</span>.now() + <span class="string">'.'</span> + file.mimetype.split(<span class="string">'/'</span>)[<span class="number">1</span>]);</div><div class="line">        &#125;</div><div class="line">    &#125;),</div><div class="line"></div><div class="line">    upload = multer(&#123;</div><div class="line">        <span class="attr">storage</span>: storage,</div><div class="line">        <span class="attr">limits</span>: <span class="number">1000000</span></div><div class="line">    &#125;).single(<span class="string">'file'</span>);</div><div class="line"></div><div class="line"><span class="comment">// 将文件上传封装为一个模块，以供其他地方使用</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">uploadFile</span>(<span class="params"> req, res </span>) </span>&#123;</div><div class="line">    upload(req, res, <span class="function"><span class="keyword">function</span> (<span class="params"> error </span>) </span>&#123;</div><div class="line">        <span class="keyword">if</span> ( error ) &#123;</div><div class="line">            <span class="built_in">console</span>.error(<span class="built_in">JSON</span>.stringify(error));</div><div class="line">            <span class="keyword">return</span> res.end(<span class="string">'Error uploading file.'</span>);</div><div class="line">        &#125;</div><div class="line">        <span class="built_in">console</span>.log(<span class="string">'Success!'</span>);</div><div class="line">        res.end(<span class="string">'File is uploaded'</span>);</div><div class="line">    &#125;);</div><div class="line">&#125;</div><div class="line"></div><div class="line">exports.uploadFile = uploadFile;</div></pre></td></tr></table></figure>
+<p>然后，创建一个<code>router.js</code>，通过路由来调用文件上传。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* router.js */</span></div><div class="line"><span class="keyword">var</span> router = <span class="built_in">require</span>(<span class="string">'express'</span>).Router(),</div><div class="line">    uploadPhoto = <span class="built_in">require</span>(<span class="string">'/modules/path/fileUpload'</span>).uploadFile;</div><div class="line"></div><div class="line">router.all(<span class="string">'/photo_upload'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"> req, res </span>) </span>&#123;</div><div class="line">    uploadFile(req, res);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>以上就是一个简单的使用Ionic和Express实现的文件上传。</p>
+<p>参考自<a href="https://codeforgeek.com/2014/11/file-uploads-using-node-js/" target="_blank" rel="external">https://codeforgeek.com/2014/11/file-uploads-using-node-js/</a></p>
+<p>本文代码在我的Gist里也有包含：<a href="https://gist.github.com/Erichain/911c0d4a5f31e38b744b03cd65885ce6" target="_blank" rel="external">https://gist.github.com/Erichain/911c0d4a5f31e38b744b03cd65885ce6</a></p>
+<p>更多关于<a href="http://ngcordova.com" target="_blank" rel="external">ngCordova</a>和<a href="https://github.com/expressjs/multer" target="_blank" rel="external">multer</a>可以查看其官方文档。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://erichain.me/2016/05/01/2016-05-01-file-upload-with-ionic-and-express/" data-id="cj154uq4n001x5ophk0c24v65" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/express/">express</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ionic/">ionic</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/04/30/2016-04-30-diff-between-sass-and-libsass/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Ruby Sass和LibSass的区别
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/06/22/2016-06-22-private-members-in-coffeescript/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">在CoffeeScript中定义私有成员变量</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Angular-Front-End/">Angular Front-End</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Front-End/">Front-End</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Front-End-Full-Stack/">Front-End Full-Stack</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Front-End-Responsive/">Front-End Responsive</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Full-Stack/">Full-Stack</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Full-Stack-Mobile/">Full-Stack Mobile</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular/">angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bower/">bower</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/coffeescript/">coffeescript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css3/">css3</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/express/">express</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gem/">gem</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git-flow/">git-flow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html5/">html5</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ionic/">ionic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jquery/">jquery</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mongodb/">mongodb</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/">npm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ruby/">ruby</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sass/">sass</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/android/" style="font-size: 10px;">android</a> <a href="/tags/angular/" style="font-size: 15px;">angular</a> <a href="/tags/bower/" style="font-size: 10px;">bower</a> <a href="/tags/coffeescript/" style="font-size: 10px;">coffeescript</a> <a href="/tags/css/" style="font-size: 20px;">css</a> <a href="/tags/css3/" style="font-size: 10px;">css3</a> <a href="/tags/express/" style="font-size: 10px;">express</a> <a href="/tags/gem/" style="font-size: 10px;">gem</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/git-flow/" style="font-size: 10px;">git-flow</a> <a href="/tags/html5/" style="font-size: 10px;">html5</a> <a href="/tags/ionic/" style="font-size: 10px;">ionic</a> <a href="/tags/javascript/" style="font-size: 17.5px;">javascript</a> <a href="/tags/jquery/" style="font-size: 10px;">jquery</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/mac/" style="font-size: 12.5px;">mac</a> <a href="/tags/mongodb/" style="font-size: 10px;">mongodb</a> <a href="/tags/node/" style="font-size: 12.5px;">node</a> <a href="/tags/npm/" style="font-size: 12.5px;">npm</a> <a href="/tags/ruby/" style="font-size: 10px;">ruby</a> <a href="/tags/sass/" style="font-size: 10px;">sass</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">July 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/10/16/2016-10-16-css-negative-margin/">理解并运用 CSS 的负 margin 值</a>
+          </li>
+        
+          <li>
+            <a href="/2016/09/05/2016-09-05-how-to-implement-responsive-font-size/">如何实现 font-size 的响应式</a>
+          </li>
+        
+          <li>
+            <a href="/2016/08/28/2016-08-28-progressive-loading-images-with-blur-effect/">使用模糊效果逐步加载图片 (仿 Medium)</a>
+          </li>
+        
+          <li>
+            <a href="/2016/08/23/2016-08-23-making-indicator-with-pure-css/">Making An Indicator With Pure CSS</a>
+          </li>
+        
+          <li>
+            <a href="/2016/08/01/2016-08-01-css-link-specificity/">CSS Link 伪类特性</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 Erichain<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

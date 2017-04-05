@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>理解并运用 CSS 的负 margin 值 | Erichain&#39;s Causeries</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="本文样式代码采用 SCSS。浏览器兼容性为 IE6+。  你的网页中，不可能没有使用过 margin。大多数情况下，我们采用的都是正数的  margin 值，可能有时候会用到负的 margin 值。在我们的印象中，负的 margin 值就类似于浏览器的 hack 一样，不被人接受。但是，本文要说明的就是，负的  margin 值并不是 hack，这是正常范围内的写法。  Negative val">
+<meta name="keywords" content="css">
+<meta property="og:type" content="article">
+<meta property="og:title" content="理解并运用 CSS 的负 margin 值">
+<meta property="og:url" content="https://erichain.me/2016/10/16/2016-10-16-css-negative-margin/index.html">
+<meta property="og:site_name" content="Erichain's Causeries">
+<meta property="og:description" content="本文样式代码采用 SCSS。浏览器兼容性为 IE6+。  你的网页中，不可能没有使用过 margin。大多数情况下，我们采用的都是正数的  margin 值，可能有时候会用到负的 margin 值。在我们的印象中，负的 margin 值就类似于浏览器的 hack 一样，不被人接受。但是，本文要说明的就是，负的  margin 值并不是 hack，这是正常范围内的写法。  Negative val">
+<meta property="og:image" content="https://sfault-image.b0.upaiyun.com/336/862/3368625051-58037eaeee013_articlex">
+<meta property="og:updated_time" content="2017-04-05T15:24:06.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="理解并运用 CSS 的负 margin 值">
+<meta name="twitter:description" content="本文样式代码采用 SCSS。浏览器兼容性为 IE6+。  你的网页中，不可能没有使用过 margin。大多数情况下，我们采用的都是正数的  margin 值，可能有时候会用到负的 margin 值。在我们的印象中，负的 margin 值就类似于浏览器的 hack 一样，不被人接受。但是，本文要说明的就是，负的  margin 值并不是 hack，这是正常范围内的写法。  Negative val">
+<meta name="twitter:image" content="https://sfault-image.b0.upaiyun.com/336/862/3368625051-58037eaeee013_articlex">
+  
+    <link rel="alternate" href="/atom.xml" title="Erichain&#39;s Causeries" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Erichain&#39;s Causeries</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">A website to record Erichain&#39;s life.</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://erichain.me"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-2016-10-16-css-negative-margin" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/10/16/2016-10-16-css-negative-margin/" class="article-date">
+  <time datetime="2016-10-16T00:00:00.000Z" itemprop="datePublished">2016-10-16</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Front-End/">Front-End</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      理解并运用 CSS 的负 margin 值
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>本文样式代码采用 SCSS。<br>浏览器兼容性为 IE6+。</p>
+</blockquote>
+<p>你的网页中，不可能没有使用过 margin。大多数情况下，我们采用的都是正数的  margin 值，可能有时候会用到负的 margin 值。在我们的印象中，负的 margin 值就类似于浏览器的 hack 一样，不被人接受。但是，本文要说明的就是，<strong>负的  margin 值并不是 hack，这是正常范围内的写法。</strong></p>
+<blockquote>
+<p>Negative values for margin properties are allowed, but there may be implementation-specific limits. —— W3C</p>
+</blockquote>
+<p>根据 W3C，margin 是能够接受负值的，只是在具体实现上有一些区别。</p>
+<p>那么，设置 margin 为负值究竟会是什么样的效果呢？</p>
+<p>与设置正值不同，margin 设置负值需要根据设置的方向以及元素是否浮动以及其定位方式来判断最终的行为。</p>
+<p>所以，具体行为按照以下几种情况说明。</p>
+<h3 id="第一种情况：元素没有设置浮动且没有设置定位或者-position-为-static"><a href="#第一种情况：元素没有设置浮动且没有设置定位或者-position-为-static" class="headerlink" title="第一种情况：元素没有设置浮动且没有设置定位或者 position 为 static"></a>第一种情况：元素没有设置浮动且没有设置定位或者 <code>position</code> 为 <code>static</code></h3><p>如果元素没有设置浮动并且没有设置定位或者 <code>position</code> 属性为 <code>static</code> 的情况下，对元素的 margin 设置负值会有以下的效果：</p>
+<p><strong>设置的 margin 的方向为 top 或者 left</strong></p>
+<p>当设置负值的 margin 的方向为 top 或者 left 的时候，元素会按照设置的方向移动相应的距离。</p>
+<p>比如，设置 <code>margin-left: -100px;</code>。 那么，元素会往左移动 100px。对于设置 <code>margin-top</code> 也是一样的道理。</p>
+<p><strong>设置的 margin 的方向为 bottom 或者 right</strong></p>
+<p>当设置负值的 margin 的方向为 bottom 或者 right 的时候，元素本身并不会移动，元素后面的其他元素会往该元素的方向移动相应的距离，并且覆盖在该元素上面。</p>
+<p>比如，设置 <code>margin-right: -100px;</code>。那么，元素本身并不会移动，后面的元素会向左移动 100px 到该元素上。对于设置 <code>margin-bottom</code> 也是同样的道理。</p>
+<p>同时，在元素不指定宽度的情况下，如果设置 <code>margin-left</code> 或者 <code>margin-right</code> 为负值的话，会在元素对应的方向上增加其宽度。效果就和设置 <code>padding-left</code> 或者 <code>padding-right</code> 一样。</p>
+<h3 id="第二种情况：元素没有设置浮动且-position-为-relative"><a href="#第二种情况：元素没有设置浮动且-position-为-relative" class="headerlink" title="第二种情况：元素没有设置浮动且 position 为 relative"></a>第二种情况：元素没有设置浮动且 <code>position</code> 为 <code>relative</code></h3><p>如果元素没有设置浮动，但是设置了相对定位，设置 margin 为负值的时候，表现如下：</p>
+<p><strong>设置的 margin 的方向为 top 或者 left</strong></p>
+<p>当设置负值的 margin 的方向为 top 或者 left 的时候，元素也会按照设置的方向移动相应的距离。</p>
+<p><strong>设置的 margin 的方向为 bottom 或者 right</strong></p>
+<p>当设置 <code>margin-bottom/left</code> 的时候，元素本身也不会移动，元素后面的其他元素也会往该元素的方向移动相应的距离，但是，该元素会覆盖在后面的元素上面 (当然，此处说的情况肯定是后面的元素没有设置定位以及 <code>z-index</code> 的情况)。</p>
+<h3 id="第三种情况：元素没有设置浮动且-position-为-absolute"><a href="#第三种情况：元素没有设置浮动且-position-为-absolute" class="headerlink" title="第三种情况：元素没有设置浮动且 position 为 absolute"></a>第三种情况：元素没有设置浮动且 <code>position</code> 为 <code>absolute</code></h3><p>如果元素没有设置浮动，但是设置了绝对定位，设置 margin 为负值的时候，表现如下：</p>
+<p><strong>设置的 margin 的方向为 top 或者 left</strong></p>
+<p>当设置负值的 margin 的方向为 top 或者 left 的时候，元素也会按照设置的方向移动相应的距离。</p>
+<p><strong>设置的 margin 的方向为 bottom 或者 right</strong></p>
+<p>由于设置绝对定位的元素已经脱离了标准文档流，所以，设置 <code>margin-right/bottom</code> 对后面的元素并没有影响。</p>
+<h3 id="第四种情况：元素设置了浮动"><a href="#第四种情况：元素设置了浮动" class="headerlink" title="第四种情况：元素设置了浮动"></a>第四种情况：元素设置了浮动</h3><blockquote>
+<p>肯定没有既设置了浮动又设置绝对定位的情况，那样太荒唐了。<br>设置了浮动的元素，再设置 <code>postion: relative;</code> 的话，元素的行为和单独设置 <code>float</code> 是一样的。</p>
+</blockquote>
+<p>对于设置了浮动的元素，设置 margin 为负值的时候，表现如下：</p>
+<p>如果设置的 margin 的方向与浮动的方向相同，那么，元素会往对应的方向移动对应的距离。</p>
+<p>比如：</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.elem</span> &#123;</div><div class="line">    <span class="attribute">float</span>: right;</div><div class="line">    <span class="attribute">margin-right</span>: -<span class="number">100px</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>该元素则会向右移动 100px。</p>
+<p>如果设置 margin 的方向与浮动的方向相反，则元素本身不动，元素之前或者之后的元素会向钙元素的方向移动相应的距离。</p>
+<p>比如：</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.elem</span> &#123;</div><div class="line">    <span class="attribute">float</span>: right;</div><div class="line">    <span class="attribute">margin-left</span>: -<span class="number">100px</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>位于该元素左边的元素则会向右移动 100px，同时覆盖在该元素上。</p>
+<p>如果后面的元素也设置了浮动的话，我们以一个具体的例子来说明。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"container"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"left"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"right"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.container</span> &#123;</div><div class="line">    <span class="attribute">min-height</span>: <span class="number">300px</span>;</div><div class="line">    <span class="attribute">margin</span>: <span class="number">30px</span> auto;</div><div class="line">    <span class="attribute">overflow</span>: hidden;</div><div class="line">    <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#000000</span>;</div><div class="line">   </div><div class="line">    <span class="selector-class">.left</span> &#123;</div><div class="line">        <span class="attribute">float</span>: left;</div><div class="line">        <span class="attribute">width</span>: <span class="number">400px</span>;</div><div class="line">        <span class="attribute">height</span>: <span class="number">200px</span>;</div><div class="line">        <span class="attribute">margin-right</span>: -<span class="number">300px</span>;</div><div class="line">        <span class="attribute">background</span>: purple;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="selector-class">.right</span> &#123;</div><div class="line">        <span class="attribute">float</span>: left;</div><div class="line">        <span class="attribute">width</span>: <span class="number">300px</span>;</div><div class="line">        <span class="attribute">height</span>: <span class="number">200px</span>;</div><div class="line">        <span class="attribute">background</span>: <span class="number">#cccccc</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><code>.left</code> 和 <code>.right</code> 都设置了浮动，在 <code>.left</code> 上设置了 <code>margin-right: -300px;</code>，那么，<code>.right</code> 会向左移动 300px，从而覆盖在 <code>.left</code> 上。这种行为与没有既没有设置浮动也没有设置定位的表现类似。</p>
+<hr>
+<p>到此，我们把设置负 margin 的各种情况以及在各种情况下的表现都大概了解了一遍。那么，我们真正运用到实际中会是什么样子呢。</p>
+<h3 id="半遮挡的标题"><a href="#半遮挡的标题" class="headerlink" title="半遮挡的标题"></a>半遮挡的标题</h3><p>原谅我措辞不好，大概就是下图的效果：</p>
+<p><img src="https://sfault-image.b0.upaiyun.com/336/862/3368625051-58037eaeee013_articlex" alt="|center"></p>
+<p>按照一般的思想，肯定是直接给 title 设置绝对定位，然后再将其调整过去。</p>
+<p>但是，按照我们现在所说的，其实很简单就能实现这个效果。</p>
+<blockquote>
+<p>这里只写了主要部分的代码。</p>
+</blockquote>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"title"</span>&gt;</span>Hey This is title!<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"content"</span>&gt;</span>Hah! This is content.<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.title</span> &#123;</div><div class="line">    <span class="attribute">position</span>: relative;</div><div class="line">    <span class="attribute">width</span>: <span class="number">200px</span>;</div><div class="line">    <span class="attribute">height</span>: <span class="number">60px</span>;</div><div class="line">    <span class="attribute">margin-bottom</span>: -<span class="number">30px</span>;</div><div class="line">    <span class="attribute">margin-left</span>: -<span class="number">20px</span>;</div><div class="line">    <span class="attribute">background</span>: <span class="number">#000000</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-class">.content</span> &#123;</div><div class="line">    <span class="attribute">max-width</span>: <span class="number">800px</span>;</div><div class="line">    <span class="attribute">height</span>: <span class="number">400px</span>;</div><div class="line">    <span class="attribute">padding</span>: <span class="number">0</span> <span class="number">50px</span>;</div><div class="line">    <span class="attribute">background</span>: yellow;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>我们为 title 设置了两个 margin 的负值，分别是 <code>margin-bottom: -30px;</code>，以及 <code>margin-left: -20px;</code>。</p>
+<p>设置 <code>margin-bottom</code> 是为了让 content 向上移动，设置 <code>margin-left</code> 是为了让 title 向左移动一小段距离。</p>
+<p>还有个需要注意的地方就是，需要给 title 设置 <code>position: relative;</code>，根据我们的第二种情况所说的，这样，才能保证 title 覆盖在 content 之上。</p>
+<h3 id="简单的一列定宽的两列流式布局"><a href="#简单的一列定宽的两列流式布局" class="headerlink" title="简单的一列定宽的两列流式布局"></a>简单的一列定宽的两列流式布局</h3><p>根据我们的最后一种情况，通过设置 margin 为负值，我们可以很容易的实现一列定宽的两列流式布局。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"container"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"left"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"right"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.left</span> &#123;</div><div class="line">    <span class="attribute">float</span>: left;</div><div class="line">    <span class="attribute">width</span>: <span class="number">100%</span>;</div><div class="line">    <span class="attribute">height</span>: <span class="number">200px</span>;</div><div class="line">    <span class="attribute">margin-right</span>: -<span class="number">300px</span>;</div><div class="line">    <span class="attribute">background</span>: purple;</div><div class="line">&#125;</div><div class="line"><span class="selector-class">.right</span> &#123;</div><div class="line">    <span class="attribute">float</span>: left;</div><div class="line">    <span class="attribute">width</span>: <span class="number">300px</span>;</div><div class="line">    <span class="attribute">height</span>: <span class="number">200px</span>;</div><div class="line">    <span class="attribute">background</span>: <span class="number">#cccccc</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>唯一需要注意的地方就是设置了 100% 宽度的元素上的 margin 负值的绝对值一定要和定宽的元素的宽度相同。</p>
+<h3 id="两边固定，中间自适应的三列布局"><a href="#两边固定，中间自适应的三列布局" class="headerlink" title="两边固定，中间自适应的三列布局"></a>两边固定，中间自适应的三列布局</h3><p>这是一个很老的话题了，以前也有各种实现的方式，比如双飞翼布局，或者圣杯布局。</p>
+<p>我们此处就以双飞翼布局来作示例。</p>
+<p>先设置页面结构：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"container"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"center"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"left"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"right"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>此处我们没有把 center 放在中间，具体原因后面会解释。</p>
+<p>然后，我们设置这三列都浮动：</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.left</span>,</div><div class="line"><span class="selector-class">.right</span>,</div><div class="line"><span class="selector-class">.center</span> &#123;</div><div class="line">    <span class="attribute">float</span>: left;</div><div class="line">    <span class="attribute">height</span>: <span class="number">500px</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>同时为他们指定宽度：</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.left</span> &#123;</div><div class="line">    <span class="attribute">width</span>: <span class="number">300px</span>;</div><div class="line">    <span class="attribute">background</span>: <span class="number">#000000</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-class">.right</span> &#123;</div><div class="line">    <span class="attribute">width</span>: <span class="number">400px</span>;</div><div class="line">    <span class="attribute">background</span>: <span class="number">#00FFFF</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-class">.center</span> &#123;</div><div class="line">    <span class="attribute">width</span>: <span class="number">100%</span>;</div><div class="line">    <span class="attribute">background</span>: <span class="number">#93c759</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>现在我们要让 left 在左边，相当于就是让它覆盖在 center 的上面，所以，只需要这样一句：</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">margin-left</span>: -<span class="number">100%</span>;</div></pre></td></tr></table></figure>
+<p>同时，要让 right 在右边，同理，这样设置：</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">margin-left</span>: -<span class="number">400px</span>;</div></pre></td></tr></table></figure>
+<p>注意，此处的 margin 值的绝对值与 right 的宽度值相同。</p>
+<p>其实，这样设置，我们的三列布局就基本完成了。</p>
+<p>那么，我们为什么要把 center 放在 left 和 right 之前呢？</p>
+<p>这个其实涉及到元素的堆叠顺序的知识 (这里就不详细讲解了，后面有时间的话专门拿一篇文章来讲解吧)，此处简单说明一下。</p>
+<p>由于我们的三列都设置了浮动，所以，从某种意义上说，它们三个是在同一个平面的(相当于 <code>z-index</code> 相同)，那么，这里就不能根据 CSS 来判断堆叠顺序了。所以，此处的  HTML 结构就决定了它们的堆叠顺序：所谓后来居上。</p>
+<p>我们要让 left 在 center 之上，所以，肯定需要让 left 元素放在 center 之前。</p>
+<p>所以，三列布局完整的 SCSS 代码如下：</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.container</span> &#123;</div><div class="line">    <span class="attribute">overflow</span>: hidden;</div><div class="line">    </div><div class="line">    <span class="selector-class">.left</span>,</div><div class="line">	<span class="selector-class">.right</span>,</div><div class="line">	<span class="selector-class">.center</span> &#123;</div><div class="line">	    <span class="attribute">float</span>: left;</div><div class="line">	    <span class="attribute">height</span>: <span class="number">500px</span>;</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">	<span class="selector-class">.left</span> &#123;</div><div class="line">	    <span class="attribute">width</span>: <span class="number">300px</span>;</div><div class="line">	    <span class="attribute">margin-left</span>: -<span class="number">100%</span>;</div><div class="line">	    <span class="attribute">background</span>: <span class="number">#000000</span>;</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">	<span class="selector-class">.right</span> &#123;</div><div class="line">	    <span class="attribute">width</span>: <span class="number">400px</span>;</div><div class="line">	    <span class="attribute">margin-left</span>: -<span class="number">400px</span>;</div><div class="line">	    <span class="attribute">background</span>: <span class="number">#00FFFF</span>;</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">	<span class="selector-class">.center</span> &#123;</div><div class="line">	    <span class="attribute">width</span>: <span class="number">100%</span>;</div><div class="line">	    <span class="attribute">background</span>: <span class="number">#93c759</span>;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<hr>
+<h3 id="References"><a href="#References" class="headerlink" title="References"></a>References</h3><p><a href="https://www.w3.org/TR/CSS2/box.html#margin-properties" target="_blank" rel="external">margin-properties | W3C</a></p>
+<p><a href="https://www.smashingmagazine.com/2009/07/the-definitive-guide-to-using-negative-margins/" target="_blank" rel="external">The Definitive Guide to Using Negative Margins</a></p>
+<p><a href="http://www.cnblogs.com/tinyphp/p/4743674.html" target="_blank" rel="external">双飞翼布局和圣杯布局的对比</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://erichain.me/2016/10/16/2016-10-16-css-negative-margin/" data-id="cj154uq52002k5ophhzh1y4t1" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/09/05/2016-09-05-how-to-implement-responsive-font-size/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          如何实现 font-size 的响应式
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Angular-Front-End/">Angular Front-End</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Front-End/">Front-End</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Front-End-Full-Stack/">Front-End Full-Stack</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Front-End-Responsive/">Front-End Responsive</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Full-Stack/">Full-Stack</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Full-Stack-Mobile/">Full-Stack Mobile</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular/">angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bower/">bower</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/coffeescript/">coffeescript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css3/">css3</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/express/">express</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gem/">gem</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git-flow/">git-flow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html5/">html5</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ionic/">ionic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jquery/">jquery</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mongodb/">mongodb</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/">npm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ruby/">ruby</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sass/">sass</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/android/" style="font-size: 10px;">android</a> <a href="/tags/angular/" style="font-size: 15px;">angular</a> <a href="/tags/bower/" style="font-size: 10px;">bower</a> <a href="/tags/coffeescript/" style="font-size: 10px;">coffeescript</a> <a href="/tags/css/" style="font-size: 20px;">css</a> <a href="/tags/css3/" style="font-size: 10px;">css3</a> <a href="/tags/express/" style="font-size: 10px;">express</a> <a href="/tags/gem/" style="font-size: 10px;">gem</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/git-flow/" style="font-size: 10px;">git-flow</a> <a href="/tags/html5/" style="font-size: 10px;">html5</a> <a href="/tags/ionic/" style="font-size: 10px;">ionic</a> <a href="/tags/javascript/" style="font-size: 17.5px;">javascript</a> <a href="/tags/jquery/" style="font-size: 10px;">jquery</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/mac/" style="font-size: 12.5px;">mac</a> <a href="/tags/mongodb/" style="font-size: 10px;">mongodb</a> <a href="/tags/node/" style="font-size: 12.5px;">node</a> <a href="/tags/npm/" style="font-size: 12.5px;">npm</a> <a href="/tags/ruby/" style="font-size: 10px;">ruby</a> <a href="/tags/sass/" style="font-size: 10px;">sass</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">July 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/10/16/2016-10-16-css-negative-margin/">理解并运用 CSS 的负 margin 值</a>
+          </li>
+        
+          <li>
+            <a href="/2016/09/05/2016-09-05-how-to-implement-responsive-font-size/">如何实现 font-size 的响应式</a>
+          </li>
+        
+          <li>
+            <a href="/2016/08/28/2016-08-28-progressive-loading-images-with-blur-effect/">使用模糊效果逐步加载图片 (仿 Medium)</a>
+          </li>
+        
+          <li>
+            <a href="/2016/08/23/2016-08-23-making-indicator-with-pure-css/">Making An Indicator With Pure CSS</a>
+          </li>
+        
+          <li>
+            <a href="/2016/08/01/2016-08-01-css-link-specificity/">CSS Link 伪类特性</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 Erichain<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

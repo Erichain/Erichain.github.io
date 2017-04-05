@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>通俗的语言解释JavaScript的原型 | Erichain&#39;s Causeries</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="翻译自http://javascriptissexy.com/javascript-prototype-in-plain-detailed-language/ Prototype是每一位JavaScript程序员都应该了解的基本概念，本文就将用朴素详细的语言来解释JavaScript的原型。如果在阅读本文之后，你还有不了解的地方，请在下面的评论区询问我。我会逐个回答你们的问题。 要了解JavaSc">
+<meta name="keywords" content="javascript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="通俗的语言解释JavaScript的原型">
+<meta property="og:url" content="https://erichain.me/2016/02/29/2016-02-29-javascript-prototype-in-plain-detailed-language/index.html">
+<meta property="og:site_name" content="Erichain's Causeries">
+<meta property="og:description" content="翻译自http://javascriptissexy.com/javascript-prototype-in-plain-detailed-language/ Prototype是每一位JavaScript程序员都应该了解的基本概念，本文就将用朴素详细的语言来解释JavaScript的原型。如果在阅读本文之后，你还有不了解的地方，请在下面的评论区询问我。我会逐个回答你们的问题。 要了解JavaSc">
+<meta property="og:updated_time" content="2017-04-05T15:24:06.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="通俗的语言解释JavaScript的原型">
+<meta name="twitter:description" content="翻译自http://javascriptissexy.com/javascript-prototype-in-plain-detailed-language/ Prototype是每一位JavaScript程序员都应该了解的基本概念，本文就将用朴素详细的语言来解释JavaScript的原型。如果在阅读本文之后，你还有不了解的地方，请在下面的评论区询问我。我会逐个回答你们的问题。 要了解JavaSc">
+  
+    <link rel="alternate" href="/atom.xml" title="Erichain&#39;s Causeries" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Erichain&#39;s Causeries</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">A website to record Erichain&#39;s life.</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://erichain.me"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-2016-02-29-javascript-prototype-in-plain-detailed-language" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/02/29/2016-02-29-javascript-prototype-in-plain-detailed-language/" class="article-date">
+  <time datetime="2016-02-29T00:00:00.000Z" itemprop="datePublished">2016-02-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Front-End/">Front-End</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      通俗的语言解释JavaScript的原型
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>翻译自<a href="http://javascriptissexy.com/javascript-prototype-in-plain-detailed-language/" target="_blank" rel="external">http://javascriptissexy.com/javascript-prototype-in-plain-detailed-language/</a></p>
+<p><code>Prototype</code>是每一位JavaScript程序员都应该了解的基本概念，本文就将用朴素详细的语言来解释JavaScript的原型。如果在阅读本文之后，你还有不了解的地方，请在下面的评论区询问我。我会逐个回答你们的问题。</p>
+<p>要了解JavaScript的原型，首先你必须了解JavaScript的对象。如果你对对象还不熟悉，你应该先阅读这篇文章<a href="http://javascriptissexy.com/javascript-objects-in-detail/" target="_blank" rel="external">《详细了解JavaScript的对象》</a>。同时，也要知道，<code>property</code>是定义在函数上的一个变量。</p>
+<hr>
+<p>在JavaScript里，有两个与<code>prototype</code>相互关联的概念：</p>
+<p><strong>1、</strong>第一，JavaScript的每一个函数都有原型属性，这个属性默认为空。当你需要实现继承的时候，就把属性和方法添加到这个原型属性上。<code>prototype</code>属性是不可枚举的，换句话说，不能使用<code>for...in</code>循环来访问这些属性。但是，Firefox和大多数版本的Safari以及Chrome都有一个<code>__proto__</code>的伪属性。这个属性允许你访问一个对象的原型属性。你可能从来没有使用过这个属性，但是，你应该知道它的存在，并且，在一些浏览器中，用它来访问对象的属性是一种很简便的方法。</p>
+<p><code>prototype</code>属性主要用来实现继承。把属性和方法添加到一个函数的<code>prototype</code>上以使这个函数的实例也能访问这些属性和方法。</p>
+<p>看看下面这个使用<code>prototype</code>实现的简单继承的例子(后面会讲到更多的继承)：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">PrintStuff</span>(<span class="params"> myDocuments </span>) </span>&#123;</div><div class="line">​	<span class="keyword">this</span>.documents = myDocuments;</div><div class="line">&#125;</div><div class="line">​</div><div class="line"><span class="comment">/* 我们把print()方法添加到PrintStuff的原型属性上，所以其他实例或者对象能够继承这个方法 */</span></div><div class="line">PrintStuff.prototype.print = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">	<span class="built_in">console</span>.log(<span class="keyword">this</span>.documents);</div><div class="line">&#125;</div><div class="line">​</div><div class="line"><span class="comment">/* 使用PrintStuff()构造函数创建一个新的对象，这样，就允许这个新的对象继承PrintStuff的属性和方法了 */</span></div><div class="line">​<span class="keyword">var</span> newObj = <span class="keyword">new</span> PrintStuff(<span class="string">'I am a new Object and I can print.'</span>);</div><div class="line">​</div><div class="line"><span class="comment">/* newObj从PrintStuff函数中集成所有的属性和方法，包括print方法。所以，现在即使没有在newObj上创建一个print方法，newObj也可以直接使用print这个方法来打印输出了 */</span></div><div class="line">newObj.print(); <span class="comment">// I am a new Object and I can print.</span></div></pre></td></tr></table></figure>
+<p><strong>2、</strong>第二个与原型有关的属性就是<code>prototype</code>属性了。<code>prototype</code>属性作为对象的一个特征，能够告诉我们这个对象的“父级对象”。简单说来就是：一个对象的原型属性指向它的“父级对象”，这个对象的属性就是从这个“父级对象”继承而来。原型属性通常被作为原型对象，当你创建一个新对象的时候，它自动的就被设置好了。解释这个现象：每一个对象都是从其他的对象继承而来，而这个所谓的“其他对象”正是这个对象的原型属性或者说“父级对象”(你可以把原型属性认为是家族关系或者亲子关系)。在上面的代码例子中，<code>newObj</code>的原型(<code>newObj.prototype</code>)就是<code>PrintStuff.prototype</code>。</p>
+<blockquote>
+<p>注意：所有的对象都有属性，就像对象的属性有属性一样。对象的属性包括<code>prototype</code>，<code>class</code>以及可扩展的属性。我们将在第二个例子中讲到<code>prototype</code>属性。<br>同时也要注意，<code>__proto__</code>这个伪属性包含了对象的原型对象。</p>
+</blockquote>
+<hr>
+<blockquote>
+<p><strong>Constructor</strong></p>
+<p>在继续之前，我们来简要地介绍一下<code>constructor</code>属性，即构造函数。构造函数是用来初始化一个新对象的函数，使用<code>new</code>这个关键词就可以调用构造函数。</p>
+<p>例如：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&gt; <span class="function"><span class="keyword">function</span> <span class="title">Account</span>(<span class="params"></span>) </span>&#123;&#125;</div><div class="line">​<span class="comment">// 使用Account构造函数来创建userAccount对象</span></div><div class="line">​<span class="keyword">var</span> userAccount = <span class="keyword">new</span> Account();</div><div class="line">&gt;</div></pre></td></tr></table></figure>
+<p>另外，所有从另一个对象上继承下来的对象都有一个<code>constructor</code>属性。这个属性与变量类似，保存着或者指向这个对象的构造函数。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&gt; <span class="comment">// 这个例子中的构造函数是Object()​</span></div><div class="line">​<span class="keyword">var</span> myObj = <span class="keyword">new</span> <span class="built_in">Object</span>();</div><div class="line">​<span class="comment">// 可以使用constructor来查看构造函数</span></div><div class="line"><span class="built_in">console</span>.log(myObj.constructor); <span class="comment">// Object()​</span></div><div class="line">​</div><div class="line">​<span class="comment">// 这个例子中的构造函数是Account()</span></div><div class="line">​<span class="keyword">var</span> userAccount = <span class="keyword">new</span> Account (); </div><div class="line"><span class="built_in">console</span>.log(userAccount.constructor); <span class="comment">// Account()</span></div><div class="line">&gt;</div></pre></td></tr></table></figure>
+</blockquote>
+<hr>
+<p><strong>使用<code>new Object()</code>或者对象字面量的方式创建的原型。</strong></p>
+<p>所有的使用对象字面量以及<code>Object()</code>构造函数创建的对象都继承自<code>Object.prototype</code>。因此，<code>Object.prototype</code>就是这些对象的原型属性。<code>Object.prototype</code>自己不继承任何其他对象的属性和方法。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* userAccount继承自Object所以他的原型就是Object.prototype */</span></div><div class="line">​<span class="keyword">var</span> userAccount = <span class="keyword">new</span> <span class="built_in">Object</span>();</div><div class="line">​</div><div class="line"><span class="comment">/* 下面这个例子示范了使用对象字面量来创建userAccount对象。同样的，userAccount也继承自Object，所以它的原型也和上面方式所创建的是一样的。 */</span></div><div class="line">​<span class="keyword">var</span> userAccount = &#123;</div><div class="line">	<span class="attr">name</span>: <span class="string">'Mike'</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>使用构造函数创建的原型</strong></p>
+<p>使用<code>new</code>关键字以及除了<code>Object()</code>的构造函数来创建对象，这个对象的原型从构造函数而来。</p>
+<p>例如：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Account</span> (<span class="params"></span>) </span>&#123;&#125;</div><div class="line"></div><div class="line">​<span class="keyword">var</span> userAccount = <span class="keyword">new</span> Account() </div><div class="line"><span class="comment">/* 使用Account()构造函数来初始化userAccount，所以，它的原型就是Account.prototype */</span></div></pre></td></tr></table></figure>
+<p>类似的，任何数组比如<code>var myArray = new Array()</code>，从<code>array.prototype</code>获取原型，并且继承<code>Array.prototype</code>的属性。</p>
+<p>所以，当一个对象被创建的时候，它的原型设置有两种方式：</p>
+<p>1、如果一个对象是采用对象字面量的方式创建的，比如<code>var newObj = {}</code>，他的属性从<code>Object.prototype</code>继承而来，我们就说他的原型就是<code>Object.prototype</code>；</p>
+<p>2、如果一个对象是使用构造函数创建的，比如<code>new Object()</code>，<code>new Fruit()</code>，<code>new Array()</code>或者任何其他的，他的属性就继承自这个构造函数(<code>Object()</code>,<code>Friut()</code>,<code>Array()</code>)。例如，使用<code>Fruit()</code>这个构造函数，每一次我们创建一个它的新的实例的时候(<code>var aFruit = new Fruit()</code>)，新实例的原型就被分配为了这个构造函数的原型，也就是<code>Fruit.prototype</code>。任何使用<code>new array()</code>创建的对象的就会以<code>Array.prototype</code> 作为它的原型。使用<code>new Fruit()</code>创建的对象就会以<code>Fruit.prototype</code>作为它的原型。任何使用对象构造函数创建的对象(比如<code>var anObj = new Object()</code>)将继承自<code>Object.prototype</code>。</p>
+<p>还有很重要的一点，必须知道，在ECMAScript 5里，还可以使用<code>Object.create()</code>来创建对象。这个方法允许你设置对象的原型。我们将在后面的文章讲到ECMAScript 5。</p>
+<hr>
+<p><strong>原型为什么这么重要？什么时候该使用它呢？</strong></p>
+<p>在JavaScript里，原型有两种重要的使用方式，正如上面所提到的一样：</p>
+<p><strong>1、基于原型的继承</strong></p>
+<p>在JavaScript里，原型之所以那么重要，是因为JavaScript没有其他面向对象的语言的经典的类继承，因此，在JavaScript里，所有的继承都是通过原型属性才使其成为可能。JavaScript有基于原型继承的机制。继承的概念是对象(在其他语言里称作类)能够从其他的对象(或者类)中继承属性和方法。在JavaScript里，使用原型属性实现继承。例如，你可以创建一个<code>Fruit</code>函数(也就是一个对象，因为在JavaScript里，所有函数也是对象)然后为这个函数的原型添加一些属性和方法，那么，这个函数的所有实例都将会继承这个函数的属性和方法。</p>
+<p>JavaScript的继承范例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Plant</span>(<span class="params"></span>) </span>&#123;</div><div class="line">​	<span class="keyword">this</span>.country = <span class="string">'Mexico'</span>;</div><div class="line">​	<span class="keyword">this</span>.isOrganic = <span class="literal">true</span>;</div><div class="line">&#125;</div><div class="line">​</div><div class="line"><span class="comment">// 为Plant的原型添加showNameAndColor方法</span></div><div class="line">Plant.prototype.showNameAndColor =  <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">	<span class="built_in">console</span>.log(<span class="string">'I am a '</span> + <span class="keyword">this</span>.name + <span class="string">' and my color is '</span> + <span class="keyword">this</span>.color);</div><div class="line">&#125;</div><div class="line">​</div><div class="line"><span class="comment">// 为Plant的原型添加​amIOrganic方法</span></div><div class="line">Plant.prototype.amIOrganic = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">​	<span class="keyword">if</span> ( <span class="keyword">this</span>.isOrganic ) &#123;</div><div class="line">		<span class="built_in">console</span>.log(<span class="string">"I am organic, Baby!"</span>);</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line">​</div><div class="line">​<span class="function"><span class="keyword">function</span> <span class="title">Fruit</span>(<span class="params"> fruitName, fruitColor </span>) </span>&#123;</div><div class="line">​	<span class="keyword">this</span>.name = fruitName;</div><div class="line">​	<span class="keyword">this</span>.color = fruitColor;</div><div class="line">&#125;</div><div class="line">​</div><div class="line"><span class="comment">/* 将Fruit的原型设置为Plant的构造函数，这样，就可以继承Plant.prototype的所有方法和属性了 */</span></div><div class="line">Fruit.prototype = <span class="keyword">new</span> Plant();</div><div class="line">​</div><div class="line"><span class="comment">// 使用Fruit构造函数创建一个新的对象，aBanana</span></div><div class="line">​<span class="keyword">var</span> aBanana = <span class="keyword">new</span> Fruit(<span class="string">'Banana'</span>, <span class="string">'Yellow'</span>);</div><div class="line">​</div><div class="line"><span class="comment">/* 在这里，aBanana使用aBanana的原型(也就是Fruit.prototype)的name属性, */</span>​</div><div class="line"><span class="built_in">console</span>.log(aBanana.name); <span class="comment">// Banana​</span></div><div class="line">​</div><div class="line"><span class="comment">/* 使用从Fruit上(也就是Plant.prototype)继承下来的showNameAndColor方法。aBanana对象继承了Plant和Fruit的所有属性和方法 */</span></div><div class="line"><span class="built_in">console</span>.log(aBanana.showNameAndColor()); <span class="comment">// I am a Banana and my color is yellow.</span></div></pre></td></tr></table></figure>
+<p>注意<code>showNameAndColor</code>这个方法是被<code>aBanana</code>所继承的，尽管这个方法定义在原型链的顶端，也就是<code>Plant.prototype</code>。</p>
+<p>事实上，任何使用<code>Fruit()</code>构造函数创建的对象都会继承<code>Fruit.prototype</code>上的所有属性和方法，并且，这些属性和方法，全部来自于<code>Plant.prototype</code>。这就是JavaScript中实现继承最重要的原则，并且，在这个过程中，原型链是必须的。</p>
+<p>想要更深入的了解JavaScript的面向对象编程，可以去购买Nicholas Zakas的这本书：<a href="https://leanpub.com/oopinjavascript" target="_blank" rel="external">《Principles of Object-Oriented Programming in JavaScript》</a></p>
+<p><strong>2、访问对象属性</strong></p>
+<p>使用原型来访问对象的属性和方法也很重要。任何对象的原型都是一个“父级对象”，所有的属性最初都定义在这里。打个不合适的比方，你从你父亲那儿继承了姓，那么你的父亲就是你的“父级对象”。如果我们要找到你的姓是从哪儿来的，我们先要看看是不是你自己创建的，如果不是，那么，就要看是否是从你的父亲上继承的，如果也不是你的父亲所创建的，那么就要继续搜寻到你父亲的父亲。</p>
+<p>类似的，如果你想要访问一个对象的属性，属性的查找就会从对象上开始。如果JS运行时不能在本对象上找到这个属性，那么，他就会查找这个对象的原型(即这个对象继承他的属性的地方)。如果在对象的原型上也没找到，那么查找就会继续到对象的原型的原型(也就是对象的父亲的父亲——祖父)。这个过程会一直持续，直到再也没有更多的原型可以查找(即没有更多的祖父，曾祖父啥的或者没有更多的家系了)。这一过程实质上就是原型链：从一个对象的原型到这个对象的原型的原型并且一直向前的一条线。JavaScript使用原型链来查找对象的属性和方法。</p>
+<p>如果对象的原型链上不存在某个属性，那么这个属性将返回<code>undefined</code>。</p>
+<p>原型链机制本质上和我们上面所说的基于原型的继承是相同的概念。只是我们现在关注的地方在于JavaScript是怎么通过原型来访问对象的属性和方法的。</p>
+<p>下面这个例子示范了对象的原型链：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> myFriends = &#123;</div><div class="line">	<span class="attr">name</span>: <span class="string">'Pete'</span></div><div class="line">&#125;;</div><div class="line">​</div><div class="line"><span class="comment">/* 为了找到name这个属性，查找会直接从myFriends这个对象上开始，并且马上就找到了这个属性。因为我们在这个对象上就定义了这个属性。可以认为这个原型链只有一个节点。 */</span></div><div class="line"><span class="built_in">console</span>.log(myFriends.name);</div><div class="line"></div><div class="line"><span class="comment">/* 同样的，下面查找toString()这个方法的过程也会从对象本身开始。但是由于我们没有在对象上定义这个方法，所以，编译器会继续在他的原型上去查找这个方法。*/</span></div><div class="line"></div><div class="line"><span class="comment">/* 由于所有使用对象字面量创建的对象都继承自Object.prototype，所以toString方法会在Object.prototype上被找到。*/</span>​</div><div class="line">myFriends.toString ();</div></pre></td></tr></table></figure>
+<p><strong>所有的对象都继承自Object.prototype</strong></p>
+<p>在JavaScript中，所有的对象都继承了<code>Object.prototype</code>的属性和方法。这些继承下来的属性和方法上包括：<code>constructor</code>,<code>hasOwnProperty()</code>,<code>isPrototypeOf()</code>,<code>propertyIsEnumerable()</code>,<code>toLocalString()</code>,<code>toString()</code>,<code>ValueOf()</code>。ECMAScript 5还在<code>Object.prototype</code>上增加了4种访问器方法。</p>
+<p>再来看一个原型链的例子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">People</span>(<span class="params"></span>) </span>&#123;</div><div class="line">	​<span class="keyword">this</span>.superstar = <span class="string">'Michael Jackson'</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/* 在People的原型上定义athlete属性，所有使用People()构造函数创建的对象都可以访问这个属性 */</span></div><div class="line">People.prototype.athlete = <span class="string">'Tiger Woods'</span>;</div><div class="line">​</div><div class="line">​<span class="keyword">var</span> famousPerson = <span class="keyword">new</span> People();</div><div class="line">famousPerson.superstar = <span class="string">'Steve Jobs'</span>;</div><div class="line">​​</div><div class="line"><span class="comment">/* 对superstar的查找会首先查看famousPerson对象，我们在这上面定义了，所以这个属性就会被使用了。由于我们在famousPerson对象上重写了superstar属性，所以，查找过程不会再继续往上查找了 */</span></div><div class="line"><span class="built_in">console</span>.log(famousPerson.superstar); <span class="comment">// Steve Jobs​</span></div><div class="line">​</div><div class="line"><span class="comment">/* 在ECMAScript 5里，可以设置一个属性为只读，这样，就不能和往常一样对他进行读写了 */</span>​</div><div class="line"></div><div class="line"><span class="comment">/* 下面这个例子会展示famousPerson的原型上的athlete属性，因为在famousPerson这个对象上，我们没有定义这个属性 */</span></div><div class="line"><span class="built_in">console</span>.log(famousPerson.athlete); <span class="comment">// Tiger Woods​</span></div><div class="line"></div><div class="line"><span class="comment">/* 在这个例子中，查找过程直到了原型链的顶部(Object.prototype)并且找到了toString()方法，正如我们之前的Fruit继承所说的那样，所有对象最重继承自Object.prototype */</span></div><div class="line"><span class="built_in">console</span>.log(famousPerson.toString()); <span class="comment">// [object Object]</span></div></pre></td></tr></table></figure>
+<p>所有的内建构造函数(<code>Array()</code>,<code>Number()</code>,<code>String()</code>等)都是从<code>Object()</code>这个构造函数上创建的，所以，它们的原型就是<code>Object.prototype</code>。</p>
+<p>延伸阅读：</p>
+<p>需要了解关于JavaScript对象更多知识，可以阅读David Flanagan的《JavaScript权威指南(第六版)》的第六章。</p>
+<p>好好学习，好好睡觉，享受编码的乐趣！</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://erichain.me/2016/02/29/2016-02-29-javascript-prototype-in-plain-detailed-language/" data-id="cj154uq3a000i5ophogjnsuiu" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/02/27/2016-02-27-how-to-avoid-callback-hell/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          “回调地狱”如何避免
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/03/03/2016-03-03-methods-to-clear-float/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">清除浮动的各种方法和原理</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Angular-Front-End/">Angular Front-End</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Front-End/">Front-End</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Front-End-Full-Stack/">Front-End Full-Stack</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Front-End-Responsive/">Front-End Responsive</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Full-Stack/">Full-Stack</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Full-Stack-Mobile/">Full-Stack Mobile</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular/">angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bower/">bower</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/coffeescript/">coffeescript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css3/">css3</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/express/">express</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gem/">gem</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git-flow/">git-flow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html5/">html5</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ionic/">ionic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jquery/">jquery</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mongodb/">mongodb</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/">npm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ruby/">ruby</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sass/">sass</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/android/" style="font-size: 10px;">android</a> <a href="/tags/angular/" style="font-size: 15px;">angular</a> <a href="/tags/bower/" style="font-size: 10px;">bower</a> <a href="/tags/coffeescript/" style="font-size: 10px;">coffeescript</a> <a href="/tags/css/" style="font-size: 20px;">css</a> <a href="/tags/css3/" style="font-size: 10px;">css3</a> <a href="/tags/express/" style="font-size: 10px;">express</a> <a href="/tags/gem/" style="font-size: 10px;">gem</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/git-flow/" style="font-size: 10px;">git-flow</a> <a href="/tags/html5/" style="font-size: 10px;">html5</a> <a href="/tags/ionic/" style="font-size: 10px;">ionic</a> <a href="/tags/javascript/" style="font-size: 17.5px;">javascript</a> <a href="/tags/jquery/" style="font-size: 10px;">jquery</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/mac/" style="font-size: 12.5px;">mac</a> <a href="/tags/mongodb/" style="font-size: 10px;">mongodb</a> <a href="/tags/node/" style="font-size: 12.5px;">node</a> <a href="/tags/npm/" style="font-size: 12.5px;">npm</a> <a href="/tags/ruby/" style="font-size: 10px;">ruby</a> <a href="/tags/sass/" style="font-size: 10px;">sass</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">July 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/10/16/2016-10-16-css-negative-margin/">理解并运用 CSS 的负 margin 值</a>
+          </li>
+        
+          <li>
+            <a href="/2016/09/05/2016-09-05-how-to-implement-responsive-font-size/">如何实现 font-size 的响应式</a>
+          </li>
+        
+          <li>
+            <a href="/2016/08/28/2016-08-28-progressive-loading-images-with-blur-effect/">使用模糊效果逐步加载图片 (仿 Medium)</a>
+          </li>
+        
+          <li>
+            <a href="/2016/08/23/2016-08-23-making-indicator-with-pure-css/">Making An Indicator With Pure CSS</a>
+          </li>
+        
+          <li>
+            <a href="/2016/08/01/2016-08-01-css-link-specificity/">CSS Link 伪类特性</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 Erichain<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

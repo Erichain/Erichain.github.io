@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Erichain&#39;s Causeries</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Everything about Erichain, including blogs, portfolio, projects and life etc.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Erichain's Causeries">
+<meta property="og:url" content="https://erichain.me/page/5/index.html">
+<meta property="og:site_name" content="Erichain's Causeries">
+<meta property="og:description" content="Everything about Erichain, including blogs, portfolio, projects and life etc.">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Erichain's Causeries">
+<meta name="twitter:description" content="Everything about Erichain, including blogs, portfolio, projects and life etc.">
+  
+    <link rel="alternate" href="/atom.xml" title="Erichain&#39;s Causeries" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Erichain&#39;s Causeries</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">A website to record Erichain&#39;s life.</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://erichain.me"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-2016-03-03-methods-to-clear-float" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/03/03/2016-03-03-methods-to-clear-float/" class="article-date">
+  <time datetime="2016-03-03T00:00:00.000Z" itemprop="datePublished">2016-03-03</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Front-End/">Front-End</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/03/03/2016-03-03-methods-to-clear-float/">清除浮动的各种方法和原理</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>浮动的元素虽然脱离了文档流，但是还是会在文档中占据相应的位置。所以，有的时候，就需要用到清除浮动。</p>
+<hr>
+<p>假设现在有这样的情况：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"container"</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"el-1"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"el-2"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"footer"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.container</span> &#123;</div><div class="line">	<span class="attribute">width</span>: <span class="number">800px</span>;</div><div class="line">	<span class="attribute">padding</span>: <span class="number">20px</span>;</div><div class="line">	<span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#aaaaaa</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-class">.el-1</span>,</div><div class="line"><span class="selector-class">.el-2</span> &#123;</div><div class="line">	<span class="attribute">width</span>: <span class="number">300px</span>;</div><div class="line">	<span class="attribute">height</span>: <span class="number">200px</span>;</div><div class="line">	<span class="attribute">float</span>: left;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-class">.el-1</span> &#123;</div><div class="line">	<span class="attribute">border</span>: <span class="number">2px</span> solid red;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-class">.el-2</span> &#123;</div><div class="line">	<span class="attribute">border</span>: <span class="number">2px</span> solid yellow;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-class">.footer</span> &#123;</div><div class="line">	<span class="attribute">width</span>: <span class="number">500px</span>;</div><div class="line">	<span class="attribute">height</span>: <span class="number">50px</span>;</div><div class="line">	<span class="attribute">background-color</span>: orange;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><code>.el-1</code>和<code>.el-2</code>都设置了<code>float: left</code>，所以，<code>.container</code>的高度不能撑开，底下的<code>.footer</code>部分也没有按照理想的情况到页面底部。所以，这时候就要用到清除浮动。</p>
+<h3 id="1、添加空元素设置clear-both清除浮动"><a href="#1、添加空元素设置clear-both清除浮动" class="headerlink" title="1、添加空元素设置clear:both清除浮动"></a>1、添加空元素设置<code>clear:both</code>清除浮动</h3><p>这是最古老的一种方法。在<code>.el-2</code>后面，加上一个空元素，然后添加<code>.clear</code>类。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"container"</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"el-1"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"el-2"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">	<span class="comment">&lt;!-- 添加空元素 --&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"clear"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"footer"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* 设置clear类的样式 */</span></div><div class="line"><span class="selector-class">.clear</span> &#123;</div><div class="line">	<span class="attribute">clear</span>: both;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>设置了clear属性的元素，如果这个元素是在设置了float元素的后面，那么，在页面里，这个元素将会被移到浮动元素的下面。</p>
+<p>如果需要对<code>.footer</code>清除浮动，那么，只需要在<code>.footer</code>上添加<code>.clear</code>类就可以了。</p>
+</blockquote>
+<p><strong>这种方法的缺点就是需要给页面添加空元素，对于语义化来说，就显得不那么友好了。</strong></p>
+<hr>
+<blockquote>
+<p><strong>注意，以下的清除浮动的方法，针对的情况是对浮动元素的父级元素进行清除浮动，从而避免父级容器高度不能自适应的问题。</strong></p>
+</blockquote>
+<h3 id="2、使用overflow-hidden-auto清除浮动"><a href="#2、使用overflow-hidden-auto清除浮动" class="headerlink" title="2、使用overflow: hidden || auto清除浮动"></a>2、使用<code>overflow: hidden || auto</code>清除浮动</h3><p>为<code>.container</code>设置<code>overflow</code>属性可以达到清除浮动的效果。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.container</span> &#123;</div><div class="line">	<span class="attribute">width</span>: <span class="number">800px</span>;</div><div class="line">	<span class="attribute">padding</span>: <span class="number">20px</span>;</div><div class="line">	<span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#aaaaaa</span>;</div><div class="line">	<span class="attribute">overflow</span>: hidden; <span class="comment">/* 或者设置为auto */</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>使用这种方法来清除浮动就不用添加空元素。</p>
+<blockquote>
+<p>原理：设置了<code>overflow</code>不为<code>visible</code>的元素，会生成一个BFC(块级格式化上下文)。根据BFC的特性，BFC在计算高度的时候，浮动元素也会参与高度的计算。</p>
+</blockquote>
+<hr>
+<h3 id="3、使用-clearfix类清除浮动"><a href="#3、使用-clearfix类清除浮动" class="headerlink" title="3、使用.clearfix类清除浮动"></a>3、使用<code>.clearfix</code>类清除浮动</h3><p>添加<code>.clearfix</code>类</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* 只设置 after 也是可以的，为了保证绝对不出错，最好两者都设置 */</span></div><div class="line"><span class="selector-class">.clearfix</span><span class="selector-pseudo">:before</span>,</div><div class="line"><span class="selector-class">.clearfix</span><span class="selector-pseudo">:after</span> &#123;</div><div class="line">  <span class="attribute">content</span>: <span class="string">""</span>;</div><div class="line">  <span class="attribute">display</span>: table;   <span class="comment">/* 也可以设置为 block */</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-class">.clearfix</span><span class="selector-pseudo">:after</span> &#123;</div><div class="line">  <span class="attribute">clear</span>: both;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-class">.clearfix</span> &#123;</div><div class="line">  <span class="attribute">zoom</span>: <span class="number">1</span>; <span class="comment">/* ie 6/7 */</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>如果不想兼容IE8及以下的浏览器，可以这样写</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.clearfix</span><span class="selector-pseudo">:after</span> &#123;</div><div class="line">  <span class="attribute">content</span>: <span class="string">""</span>;</div><div class="line">  <span class="attribute">display</span>: table;</div><div class="line">  <span class="attribute">clear</span>: both;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>然后，为<code>.container</code>添加这个类。</p>
+<p><strong>这是一种比较推荐的做法。</strong></p>
+<hr>
+<h3 id="4、使用min-height-contain-floats清除浮动"><a href="#4、使用min-height-contain-floats清除浮动" class="headerlink" title="4、使用min-height: contain-floats清除浮动"></a>4、使用<code>min-height: contain-floats</code>清除浮动</h3><p>使用这种方法清除浮动，只需要给父级元素添加一行代码就可以了：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.container</span> &#123;</div><div class="line">	<span class="attribute">min-height</span>: contain-floats;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这种方法的使用范围也许不是很广泛，浏览器的兼容性可能并不好。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://erichain.me/2016/03/03/2016-03-03-methods-to-clear-float/" data-id="cj154uq3d000m5ophn5m75vau" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2016-02-29-javascript-prototype-in-plain-detailed-language" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/02/29/2016-02-29-javascript-prototype-in-plain-detailed-language/" class="article-date">
+  <time datetime="2016-02-29T00:00:00.000Z" itemprop="datePublished">2016-02-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Front-End/">Front-End</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/02/29/2016-02-29-javascript-prototype-in-plain-detailed-language/">通俗的语言解释JavaScript的原型</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>翻译自<a href="http://javascriptissexy.com/javascript-prototype-in-plain-detailed-language/" target="_blank" rel="external">http://javascriptissexy.com/javascript-prototype-in-plain-detailed-language/</a></p>
+<p><code>Prototype</code>是每一位JavaScript程序员都应该了解的基本概念，本文就将用朴素详细的语言来解释JavaScript的原型。如果在阅读本文之后，你还有不了解的地方，请在下面的评论区询问我。我会逐个回答你们的问题。</p>
+<p>要了解JavaScript的原型，首先你必须了解JavaScript的对象。如果你对对象还不熟悉，你应该先阅读这篇文章<a href="http://javascriptissexy.com/javascript-objects-in-detail/" target="_blank" rel="external">《详细了解JavaScript的对象》</a>。同时，也要知道，<code>property</code>是定义在函数上的一个变量。</p>
+<hr>
+<p>在JavaScript里，有两个与<code>prototype</code>相互关联的概念：</p>
+<p><strong>1、</strong>第一，JavaScript的每一个函数都有原型属性，这个属性默认为空。当你需要实现继承的时候，就把属性和方法添加到这个原型属性上。<code>prototype</code>属性是不可枚举的，换句话说，不能使用<code>for...in</code>循环来访问这些属性。但是，Firefox和大多数版本的Safari以及Chrome都有一个<code>__proto__</code>的伪属性。这个属性允许你访问一个对象的原型属性。你可能从来没有使用过这个属性，但是，你应该知道它的存在，并且，在一些浏览器中，用它来访问对象的属性是一种很简便的方法。</p>
+<p><code>prototype</code>属性主要用来实现继承。把属性和方法添加到一个函数的<code>prototype</code>上以使这个函数的实例也能访问这些属性和方法。</p>
+<p>看看下面这个使用<code>prototype</code>实现的简单继承的例子(后面会讲到更多的继承)：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">PrintStuff</span>(<span class="params"> myDocuments </span>) </span>&#123;</div><div class="line">​	<span class="keyword">this</span>.documents = myDocuments;</div><div class="line">&#125;</div><div class="line">​</div><div class="line"><span class="comment">/* 我们把print()方法添加到PrintStuff的原型属性上，所以其他实例或者对象能够继承这个方法 */</span></div><div class="line">PrintStuff.prototype.print = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">	<span class="built_in">console</span>.log(<span class="keyword">this</span>.documents);</div><div class="line">&#125;</div><div class="line">​</div><div class="line"><span class="comment">/* 使用PrintStuff()构造函数创建一个新的对象，这样，就允许这个新的对象继承PrintStuff的属性和方法了 */</span></div><div class="line">​<span class="keyword">var</span> newObj = <span class="keyword">new</span> PrintStuff(<span class="string">'I am a new Object and I can print.'</span>);</div><div class="line">​</div><div class="line"><span class="comment">/* newObj从PrintStuff函数中集成所有的属性和方法，包括print方法。所以，现在即使没有在newObj上创建一个print方法，newObj也可以直接使用print这个方法来打印输出了 */</span></div><div class="line">newObj.print(); <span class="comment">// I am a new Object and I can print.</span></div></pre></td></tr></table></figure>
+<p><strong>2、</strong>第二个与原型有关的属性就是<code>prototype</code>属性了。<code>prototype</code>属性作为对象的一个特征，能够告诉我们这个对象的“父级对象”。简单说来就是：一个对象的原型属性指向它的“父级对象”，这个对象的属性就是从这个“父级对象”继承而来。原型属性通常被作为原型对象，当你创建一个新对象的时候，它自动的就被设置好了。解释这个现象：每一个对象都是从其他的对象继承而来，而这个所谓的“其他对象”正是这个对象的原型属性或者说“父级对象”(你可以把原型属性认为是家族关系或者亲子关系)。在上面的代码例子中，<code>newObj</code>的原型(<code>newObj.prototype</code>)就是<code>PrintStuff.prototype</code>。</p>
+<blockquote>
+<p>注意：所有的对象都有属性，就像对象的属性有属性一样。对象的属性包括<code>prototype</code>，<code>class</code>以及可扩展的属性。我们将在第二个例子中讲到<code>prototype</code>属性。<br>同时也要注意，<code>__proto__</code>这个伪属性包含了对象的原型对象。</p>
+</blockquote>
+<hr>
+<blockquote>
+<p><strong>Constructor</strong></p>
+<p>在继续之前，我们来简要地介绍一下<code>constructor</code>属性，即构造函数。构造函数是用来初始化一个新对象的函数，使用<code>new</code>这个关键词就可以调用构造函数。</p>
+<p>例如：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&gt; <span class="function"><span class="keyword">function</span> <span class="title">Account</span>(<span class="params"></span>) </span>&#123;&#125;</div><div class="line">​<span class="comment">// 使用Account构造函数来创建userAccount对象</span></div><div class="line">​<span class="keyword">var</span> userAccount = <span class="keyword">new</span> Account();</div><div class="line">&gt;</div></pre></td></tr></table></figure>
+<p>另外，所有从另一个对象上继承下来的对象都有一个<code>constructor</code>属性。这个属性与变量类似，保存着或者指向这个对象的构造函数。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&gt; <span class="comment">// 这个例子中的构造函数是Object()​</span></div><div class="line">​<span class="keyword">var</span> myObj = <span class="keyword">new</span> <span class="built_in">Object</span>();</div><div class="line">​<span class="comment">// 可以使用constructor来查看构造函数</span></div><div class="line"><span class="built_in">console</span>.log(myObj.constructor); <span class="comment">// Object()​</span></div><div class="line">​</div><div class="line">​<span class="comment">// 这个例子中的构造函数是Account()</span></div><div class="line">​<span class="keyword">var</span> userAccount = <span class="keyword">new</span> Account (); </div><div class="line"><span class="built_in">console</span>.log(userAccount.constructor); <span class="comment">// Account()</span></div><div class="line">&gt;</div></pre></td></tr></table></figure>
+</blockquote>
+<hr>
+<p><strong>使用<code>new Object()</code>或者对象字面量的方式创建的原型。</strong></p>
+<p>所有的使用对象字面量以及<code>Object()</code>构造函数创建的对象都继承自<code>Object.prototype</code>。因此，<code>Object.prototype</code>就是这些对象的原型属性。<code>Object.prototype</code>自己不继承任何其他对象的属性和方法。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* userAccount继承自Object所以他的原型就是Object.prototype */</span></div><div class="line">​<span class="keyword">var</span> userAccount = <span class="keyword">new</span> <span class="built_in">Object</span>();</div><div class="line">​</div><div class="line"><span class="comment">/* 下面这个例子示范了使用对象字面量来创建userAccount对象。同样的，userAccount也继承自Object，所以它的原型也和上面方式所创建的是一样的。 */</span></div><div class="line">​<span class="keyword">var</span> userAccount = &#123;</div><div class="line">	<span class="attr">name</span>: <span class="string">'Mike'</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>使用构造函数创建的原型</strong></p>
+<p>使用<code>new</code>关键字以及除了<code>Object()</code>的构造函数来创建对象，这个对象的原型从构造函数而来。</p>
+<p>例如：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Account</span> (<span class="params"></span>) </span>&#123;&#125;</div><div class="line"></div><div class="line">​<span class="keyword">var</span> userAccount = <span class="keyword">new</span> Account() </div><div class="line"><span class="comment">/* 使用Account()构造函数来初始化userAccount，所以，它的原型就是Account.prototype */</span></div></pre></td></tr></table></figure>
+<p>类似的，任何数组比如<code>var myArray = new Array()</code>，从<code>array.prototype</code>获取原型，并且继承<code>Array.prototype</code>的属性。</p>
+<p>所以，当一个对象被创建的时候，它的原型设置有两种方式：</p>
+<p>1、如果一个对象是采用对象字面量的方式创建的，比如<code>var newObj = {}</code>，他的属性从<code>Object.prototype</code>继承而来，我们就说他的原型就是<code>Object.prototype</code>；</p>
+<p>2、如果一个对象是使用构造函数创建的，比如<code>new Object()</code>，<code>new Fruit()</code>，<code>new Array()</code>或者任何其他的，他的属性就继承自这个构造函数(<code>Object()</code>,<code>Friut()</code>,<code>Array()</code>)。例如，使用<code>Fruit()</code>这个构造函数，每一次我们创建一个它的新的实例的时候(<code>var aFruit = new Fruit()</code>)，新实例的原型就被分配为了这个构造函数的原型，也就是<code>Fruit.prototype</code>。任何使用<code>new array()</code>创建的对象的就会以<code>Array.prototype</code> 作为它的原型。使用<code>new Fruit()</code>创建的对象就会以<code>Fruit.prototype</code>作为它的原型。任何使用对象构造函数创建的对象(比如<code>var anObj = new Object()</code>)将继承自<code>Object.prototype</code>。</p>
+<p>还有很重要的一点，必须知道，在ECMAScript 5里，还可以使用<code>Object.create()</code>来创建对象。这个方法允许你设置对象的原型。我们将在后面的文章讲到ECMAScript 5。</p>
+<hr>
+<p><strong>原型为什么这么重要？什么时候该使用它呢？</strong></p>
+<p>在JavaScript里，原型有两种重要的使用方式，正如上面所提到的一样：</p>
+<p><strong>1、基于原型的继承</strong></p>
+<p>在JavaScript里，原型之所以那么重要，是因为JavaScript没有其他面向对象的语言的经典的类继承，因此，在JavaScript里，所有的继承都是通过原型属性才使其成为可能。JavaScript有基于原型继承的机制。继承的概念是对象(在其他语言里称作类)能够从其他的对象(或者类)中继承属性和方法。在JavaScript里，使用原型属性实现继承。例如，你可以创建一个<code>Fruit</code>函数(也就是一个对象，因为在JavaScript里，所有函数也是对象)然后为这个函数的原型添加一些属性和方法，那么，这个函数的所有实例都将会继承这个函数的属性和方法。</p>
+<p>JavaScript的继承范例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Plant</span>(<span class="params"></span>) </span>&#123;</div><div class="line">​	<span class="keyword">this</span>.country = <span class="string">'Mexico'</span>;</div><div class="line">​	<span class="keyword">this</span>.isOrganic = <span class="literal">true</span>;</div><div class="line">&#125;</div><div class="line">​</div><div class="line"><span class="comment">// 为Plant的原型添加showNameAndColor方法</span></div><div class="line">Plant.prototype.showNameAndColor =  <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">	<span class="built_in">console</span>.log(<span class="string">'I am a '</span> + <span class="keyword">this</span>.name + <span class="string">' and my color is '</span> + <span class="keyword">this</span>.color);</div><div class="line">&#125;</div><div class="line">​</div><div class="line"><span class="comment">// 为Plant的原型添加​amIOrganic方法</span></div><div class="line">Plant.prototype.amIOrganic = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">​	<span class="keyword">if</span> ( <span class="keyword">this</span>.isOrganic ) &#123;</div><div class="line">		<span class="built_in">console</span>.log(<span class="string">"I am organic, Baby!"</span>);</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line">​</div><div class="line">​<span class="function"><span class="keyword">function</span> <span class="title">Fruit</span>(<span class="params"> fruitName, fruitColor </span>) </span>&#123;</div><div class="line">​	<span class="keyword">this</span>.name = fruitName;</div><div class="line">​	<span class="keyword">this</span>.color = fruitColor;</div><div class="line">&#125;</div><div class="line">​</div><div class="line"><span class="comment">/* 将Fruit的原型设置为Plant的构造函数，这样，就可以继承Plant.prototype的所有方法和属性了 */</span></div><div class="line">Fruit.prototype = <span class="keyword">new</span> Plant();</div><div class="line">​</div><div class="line"><span class="comment">// 使用Fruit构造函数创建一个新的对象，aBanana</span></div><div class="line">​<span class="keyword">var</span> aBanana = <span class="keyword">new</span> Fruit(<span class="string">'Banana'</span>, <span class="string">'Yellow'</span>);</div><div class="line">​</div><div class="line"><span class="comment">/* 在这里，aBanana使用aBanana的原型(也就是Fruit.prototype)的name属性, */</span>​</div><div class="line"><span class="built_in">console</span>.log(aBanana.name); <span class="comment">// Banana​</span></div><div class="line">​</div><div class="line"><span class="comment">/* 使用从Fruit上(也就是Plant.prototype)继承下来的showNameAndColor方法。aBanana对象继承了Plant和Fruit的所有属性和方法 */</span></div><div class="line"><span class="built_in">console</span>.log(aBanana.showNameAndColor()); <span class="comment">// I am a Banana and my color is yellow.</span></div></pre></td></tr></table></figure>
+<p>注意<code>showNameAndColor</code>这个方法是被<code>aBanana</code>所继承的，尽管这个方法定义在原型链的顶端，也就是<code>Plant.prototype</code>。</p>
+<p>事实上，任何使用<code>Fruit()</code>构造函数创建的对象都会继承<code>Fruit.prototype</code>上的所有属性和方法，并且，这些属性和方法，全部来自于<code>Plant.prototype</code>。这就是JavaScript中实现继承最重要的原则，并且，在这个过程中，原型链是必须的。</p>
+<p>想要更深入的了解JavaScript的面向对象编程，可以去购买Nicholas Zakas的这本书：<a href="https://leanpub.com/oopinjavascript" target="_blank" rel="external">《Principles of Object-Oriented Programming in JavaScript》</a></p>
+<p><strong>2、访问对象属性</strong></p>
+<p>使用原型来访问对象的属性和方法也很重要。任何对象的原型都是一个“父级对象”，所有的属性最初都定义在这里。打个不合适的比方，你从你父亲那儿继承了姓，那么你的父亲就是你的“父级对象”。如果我们要找到你的姓是从哪儿来的，我们先要看看是不是你自己创建的，如果不是，那么，就要看是否是从你的父亲上继承的，如果也不是你的父亲所创建的，那么就要继续搜寻到你父亲的父亲。</p>
+<p>类似的，如果你想要访问一个对象的属性，属性的查找就会从对象上开始。如果JS运行时不能在本对象上找到这个属性，那么，他就会查找这个对象的原型(即这个对象继承他的属性的地方)。如果在对象的原型上也没找到，那么查找就会继续到对象的原型的原型(也就是对象的父亲的父亲——祖父)。这个过程会一直持续，直到再也没有更多的原型可以查找(即没有更多的祖父，曾祖父啥的或者没有更多的家系了)。这一过程实质上就是原型链：从一个对象的原型到这个对象的原型的原型并且一直向前的一条线。JavaScript使用原型链来查找对象的属性和方法。</p>
+<p>如果对象的原型链上不存在某个属性，那么这个属性将返回<code>undefined</code>。</p>
+<p>原型链机制本质上和我们上面所说的基于原型的继承是相同的概念。只是我们现在关注的地方在于JavaScript是怎么通过原型来访问对象的属性和方法的。</p>
+<p>下面这个例子示范了对象的原型链：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> myFriends = &#123;</div><div class="line">	<span class="attr">name</span>: <span class="string">'Pete'</span></div><div class="line">&#125;;</div><div class="line">​</div><div class="line"><span class="comment">/* 为了找到name这个属性，查找会直接从myFriends这个对象上开始，并且马上就找到了这个属性。因为我们在这个对象上就定义了这个属性。可以认为这个原型链只有一个节点。 */</span></div><div class="line"><span class="built_in">console</span>.log(myFriends.name);</div><div class="line"></div><div class="line"><span class="comment">/* 同样的，下面查找toString()这个方法的过程也会从对象本身开始。但是由于我们没有在对象上定义这个方法，所以，编译器会继续在他的原型上去查找这个方法。*/</span></div><div class="line"></div><div class="line"><span class="comment">/* 由于所有使用对象字面量创建的对象都继承自Object.prototype，所以toString方法会在Object.prototype上被找到。*/</span>​</div><div class="line">myFriends.toString ();</div></pre></td></tr></table></figure>
+<p><strong>所有的对象都继承自Object.prototype</strong></p>
+<p>在JavaScript中，所有的对象都继承了<code>Object.prototype</code>的属性和方法。这些继承下来的属性和方法上包括：<code>constructor</code>,<code>hasOwnProperty()</code>,<code>isPrototypeOf()</code>,<code>propertyIsEnumerable()</code>,<code>toLocalString()</code>,<code>toString()</code>,<code>ValueOf()</code>。ECMAScript 5还在<code>Object.prototype</code>上增加了4种访问器方法。</p>
+<p>再来看一个原型链的例子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">People</span>(<span class="params"></span>) </span>&#123;</div><div class="line">	​<span class="keyword">this</span>.superstar = <span class="string">'Michael Jackson'</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/* 在People的原型上定义athlete属性，所有使用People()构造函数创建的对象都可以访问这个属性 */</span></div><div class="line">People.prototype.athlete = <span class="string">'Tiger Woods'</span>;</div><div class="line">​</div><div class="line">​<span class="keyword">var</span> famousPerson = <span class="keyword">new</span> People();</div><div class="line">famousPerson.superstar = <span class="string">'Steve Jobs'</span>;</div><div class="line">​​</div><div class="line"><span class="comment">/* 对superstar的查找会首先查看famousPerson对象，我们在这上面定义了，所以这个属性就会被使用了。由于我们在famousPerson对象上重写了superstar属性，所以，查找过程不会再继续往上查找了 */</span></div><div class="line"><span class="built_in">console</span>.log(famousPerson.superstar); <span class="comment">// Steve Jobs​</span></div><div class="line">​</div><div class="line"><span class="comment">/* 在ECMAScript 5里，可以设置一个属性为只读，这样，就不能和往常一样对他进行读写了 */</span>​</div><div class="line"></div><div class="line"><span class="comment">/* 下面这个例子会展示famousPerson的原型上的athlete属性，因为在famousPerson这个对象上，我们没有定义这个属性 */</span></div><div class="line"><span class="built_in">console</span>.log(famousPerson.athlete); <span class="comment">// Tiger Woods​</span></div><div class="line"></div><div class="line"><span class="comment">/* 在这个例子中，查找过程直到了原型链的顶部(Object.prototype)并且找到了toString()方法，正如我们之前的Fruit继承所说的那样，所有对象最重继承自Object.prototype */</span></div><div class="line"><span class="built_in">console</span>.log(famousPerson.toString()); <span class="comment">// [object Object]</span></div></pre></td></tr></table></figure>
+<p>所有的内建构造函数(<code>Array()</code>,<code>Number()</code>,<code>String()</code>等)都是从<code>Object()</code>这个构造函数上创建的，所以，它们的原型就是<code>Object.prototype</code>。</p>
+<p>延伸阅读：</p>
+<p>需要了解关于JavaScript对象更多知识，可以阅读David Flanagan的《JavaScript权威指南(第六版)》的第六章。</p>
+<p>好好学习，好好睡觉，享受编码的乐趣！</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://erichain.me/2016/02/29/2016-02-29-javascript-prototype-in-plain-detailed-language/" data-id="cj154uq3a000i5ophogjnsuiu" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2016-02-27-how-to-avoid-callback-hell" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/02/27/2016-02-27-how-to-avoid-callback-hell/" class="article-date">
+  <time datetime="2016-02-27T00:00:00.000Z" itemprop="datePublished">2016-02-27</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Front-End-Full-Stack/">Front-End Full-Stack</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/02/27/2016-02-27-how-to-avoid-callback-hell/">“回调地狱”如何避免</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>翻译自<a href="http://callbackhell.com" target="_blank" rel="external">http://callbackhell.com</a></p>
+<h3 id="“回调地狱”是什么"><a href="#“回调地狱”是什么" class="headerlink" title="“回调地狱”是什么"></a>“回调地狱”是什么</h3><p>异步JavaScript，或者使用回调函数的JavaScript，很难能够写出结构比较好的代码。大量的代码都会像下面这样：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">fs.readdir(source, <span class="function"><span class="keyword">function</span> (<span class="params"> err, files </span>) </span>&#123;</div><div class="line">    <span class="keyword">if</span> ( err ) &#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="string">'Error finding files: '</span> + err);</div><div class="line">    &#125; </div><div class="line">    <span class="keyword">else</span> &#123;</div><div class="line">        files.forEach(<span class="function"><span class="keyword">function</span> (<span class="params"> filename, fileIndex </span>) </span>&#123;</div><div class="line">            <span class="built_in">console</span>.log(filename);</div><div class="line">            gm(source + filename).size(<span class="function"><span class="keyword">function</span> (<span class="params"> err, values </span>) </span>&#123;</div><div class="line">                <span class="keyword">if</span> ( err ) &#123;</div><div class="line">                    <span class="built_in">console</span>.log(<span class="string">'Error identifying file size: '</span> + err);</div><div class="line">                &#125; </div><div class="line">                <span class="keyword">else</span> &#123;</div><div class="line">                    <span class="built_in">console</span>.log(filename + <span class="string">' : '</span> + values);</div><div class="line">                    aspect = (values.width / values.height);</div><div class="line">                    widths.forEach(<span class="function"><span class="keyword">function</span> (<span class="params"> width, widthIndex </span>) </span>&#123;</div><div class="line">                        height = <span class="built_in">Math</span>.round(width / aspect);</div><div class="line">                        <span class="built_in">console</span>.log(<span class="string">'resizing '</span> + filename + <span class="string">'to '</span> + height + <span class="string">'x'</span> + height);</div><div class="line">                        <span class="keyword">this</span>.resize(width, height).write(dest + <span class="string">'w'</span> + width + <span class="string">'_'</span> + filename, <span class="function"><span class="keyword">function</span> (<span class="params"> err </span>) </span>&#123;</div><div class="line">                            <span class="keyword">if</span> ( err ) <span class="built_in">console</span>.log(<span class="string">'Error writing file: '</span> + err);</div><div class="line">                        &#125;);</div><div class="line">                    &#125;.bind(<span class="keyword">this</span>));</div><div class="line">                &#125;</div><div class="line">            &#125;);</div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>看看这些使用<code>})</code>结尾的代码的结构。这样的代码就被“亲切的”成为回调地狱。</p>
+<p>由于人们在写JavaScript的时候，在视觉上，代码是从上到下执行的，所以，就造成了回调地狱。大多数人都会犯这个错。在其它的语言(比如C，Ruby或者Python)中，无论发生什么，第一行代码都会在第二行代码开始运行前就结束。在文件上也是这样。但是，正如你所学的一样，JavaScript是与众不同的。</p>
+<h3 id="回调函数是什么"><a href="#回调函数是什么" class="headerlink" title="回调函数是什么"></a>回调函数是什么</h3><p>回调只是人们在使用JavaScript的函数的时候的一个约定的名称。在JavaScript中并没有专门的一个东西叫做回调。与其他的立即返回值的函数不同，回调函数在返回一个值之前，需要花一些时间。<strong>异步</strong>这个词语的意思就是在未来发生，或者说不是马上发生。通常，只有在做一些I/O操作的时候会使用回调函数，比如下载，读取文件，与数据库交互等。</p>
+<p>当你使用一个普通的函数的时候，你可以使用它的返回值：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> result = multiplyTwoNumbers(<span class="number">5</span>, <span class="number">10</span>);</div><div class="line"><span class="built_in">console</span>.log(result);</div><div class="line"><span class="comment">// 将输出50</span></div></pre></td></tr></table></figure>
+<p>然而，异步函数或者使用回调函数不会立即返回值。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> photo = downloadPhoto(<span class="string">'http://coolcats.com/cat.gif'</span>)</div><div class="line"><span class="comment">// photo is 'undefined'!</span></div></pre></td></tr></table></figure>
+<p>在上面这个例子中，<code>cat.gif</code>可能需要很长的一段时间来下载，而且，在下载完成之前你又不想让你的函数暂停运行。</p>
+<p>所以，你把下载完成后需要执行的代码放在一个函数里。这个函数就是回调函数。把这个函数传入<code>downloadPhoto</code>函数，在下载完成之后，就会调用你的回调函数了，传入你的<code>photo</code>变量(当有错误发生的时候，就传入<code>error</code>)。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">downloadPhoto(<span class="string">'http://coolcats.com/cat.gif'</span>, handlePhoto);</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">handlePhoto</span> (<span class="params">error, photo</span>) </span>&#123;</div><div class="line">    <span class="keyword">if</span> (error) &#123;</div><div class="line">        <span class="built_in">console</span>.error(<span class="string">'Download error!'</span>, error);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span> &#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="string">'Download finished'</span>, photo);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(<span class="string">'Download started'</span>);</div></pre></td></tr></table></figure>
+<p>人们在理解回调函数的时候，最大的障碍就是理解程序执行的顺序。在上面的例子中，有三件主要的事情发生。第一，声明<code>handlePhoto</code>，然后调用<code>downloadPhoto</code>并传入<code>handlePhoto</code>作为他的回调函数，然后最后输出<code>Download started</code>。</p>
+<p>但是，请注意，<code>handlePhoto</code>还没有被调用，他只是被创建了然后被当作回调函数传入了进去。在<code>downloadPhoto</code>完成他的任务之前，他是不会运行的。而<code>downloadPhoto</code>这个任务，可能需要很长的一段时间，取决于网速的快慢。</p>
+<p>这个例子主要说明两点概念：</p>
+<p>1、<code>handlePhoto</code>函数只是存储在未来执行的一些东西的方式；</p>
+<p>2、事件发生的顺序不是从上到下的，他会跳过未执行完成的事件；</p>
+<h3 id="怎么避免回调地狱"><a href="#怎么避免回调地狱" class="headerlink" title="怎么避免回调地狱"></a>怎么避免回调地狱</h3><p>导致回调地狱的主要原因就是很差的代码实践。幸好，写比较好的代码不是那么难。</p>
+<p>你只需要按照下面三条规则就行了：</p>
+<h4 id="1、代码结构的嵌套不要太深"><a href="#1、代码结构的嵌套不要太深" class="headerlink" title="1、代码结构的嵌套不要太深"></a>1、代码结构的嵌套不要太深</h4><p>下面是使用<a href="https://github.com/iriscouch/browser-request" target="_blank" rel="external">browser-request</a>来向服务器发起Ajax请求的一段比较凌乱的代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> form = <span class="built_in">document</span>.querySelector(<span class="string">'form'</span>);</div><div class="line">form.onsubmit = <span class="function"><span class="keyword">function</span> (<span class="params"> submitEvent </span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> name = <span class="built_in">document</span>.querySelector(<span class="string">'input'</span>).value;</div><div class="line">    request(&#123;</div><div class="line">        <span class="attr">uri</span>: <span class="string">"http://example.com/upload"</span>,</div><div class="line">        <span class="attr">body</span>: name,</div><div class="line">        <span class="attr">method</span>: <span class="string">"POST"</span></div><div class="line">    &#125;, <span class="function"><span class="keyword">function</span> (<span class="params"> err, response, body </span>) </span>&#123;</div><div class="line">        <span class="keyword">var</span> statusMessage = <span class="built_in">document</span>.querySelector(<span class="string">'.status'</span>);</div><div class="line">        <span class="keyword">if</span> ( err ) &#123;</div><div class="line">            <span class="keyword">return</span> statusMessage.value = err;</div><div class="line">        &#125;</div><div class="line">        statusMessage.value = body</div><div class="line">    &#125;);</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>这段代码有两个匿名函数。我们先给它们命名：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> form = <span class="built_in">document</span>.querySelector(<span class="string">'form'</span>);</div><div class="line">form.onsubmit = <span class="function"><span class="keyword">function</span> <span class="title">formSubmit</span> (<span class="params"> submitEvent </span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> name = <span class="built_in">document</span>.querySelector(<span class="string">'input'</span>).value;</div><div class="line">    request(&#123;</div><div class="line">        <span class="attr">uri</span>: <span class="string">"http://example.com/upload"</span>,</div><div class="line">        <span class="attr">body</span>: name,</div><div class="line">        <span class="attr">method</span>: <span class="string">"POST"</span></div><div class="line">    &#125;, <span class="function"><span class="keyword">function</span> <span class="title">postResponse</span> (<span class="params"> err, response, body </span>) </span>&#123;</div><div class="line">        <span class="keyword">var</span> statusMessage = <span class="built_in">document</span>.querySelector(<span class="string">'.status'</span>);</div><div class="line">        <span class="keyword">if</span> ( err ) &#123;</div><div class="line">            </div><div class="line">        &#125;</div><div class="line">        statusMessage.value = body</div><div class="line">    &#125;);</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>正如你所看到的，命名函数很简单并且你马上就能看到好处：</p>
+<p>1、描述性的函数名可以让代码的可读性更好；</p>
+<p>2、当有异常发生的时候，你可以从函数栈中获取是哪个函数出错了而不是得到一个匿名函数；</p>
+<p>3、可以允许你通过函数名来改变他们的引用；</p>
+<p>现在，我们可以把这些函数移动到程序的顶部了：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">document</span>.querySelector(<span class="string">'form'</span>).onsubmit = formSubmit;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">formSubmit</span> (<span class="params"> submitEvent </span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> name = <span class="built_in">document</span>.querySelector(<span class="string">'input'</span>).value;</div><div class="line">    request(&#123;</div><div class="line">        <span class="attr">uri</span>: <span class="string">"http://example.com/upload"</span>,</div><div class="line">        <span class="attr">body</span>: name,</div><div class="line">        <span class="attr">method</span>: <span class="string">"POST"</span></div><div class="line">    &#125;, postResponse);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">postResponse</span> (<span class="params"> err, response, body </span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> statusMessage = <span class="built_in">document</span>.querySelector(<span class="string">'.status'</span>);</div><div class="line">    <span class="keyword">if</span> ( err ) &#123;</div><div class="line">        <span class="keyword">return</span> statusMessage.value = err;</div><div class="line">    &#125;</div><div class="line">    statusMessage.value = body;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>注意，这里的函数声明是在文件的底部，当然，由于变量提升(Hoisting)，我们依然可以使用。</p>
+<h4 id="2、模块化"><a href="#2、模块化" class="headerlink" title="2、模块化"></a>2、模块化</h4><p>这是最重要的部分：每个人都有能力创建模块。引用Node.js项目的<a href="https://twitter.com/izs" target="_blank" rel="external">Isaac Schlueter</a>(Node.js)的一句话就是：“每做一件事就写一个小模块，最终汇集到其它模块里做一件大事。如果你不去故意这么做的话，你就不会遇到回调地狱。”</p>
+<p>让我们把上面例子中的代码抽离出来，然后把他分离成一些文件模块。我会展示一个在浏览器端和服务器端都能运作的模块的样子。</p>
+<p>下面这个叫做<code>formuploader.js</code>的文件包含了我们之前的两个函数：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports.submit = formSubmit;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">formSubmit</span>(<span class="params"> submitEvent </span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> name = <span class="built_in">document</span>.querySelector(<span class="string">'input'</span>).value;</div><div class="line">    request(&#123;</div><div class="line">        <span class="attr">uri</span>: <span class="string">"http://example.com/upload"</span>,</div><div class="line">        <span class="attr">body</span>: name,</div><div class="line">        <span class="attr">method</span>: <span class="string">"POST"</span></div><div class="line">    &#125;, postResponse);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">postResponse</span>(<span class="params"> err, response, body</span>)  </span>&#123;</div><div class="line">    <span class="keyword">var</span> statusMessage = <span class="built_in">document</span>.querySelector(<span class="string">'.status'</span>);</div><div class="line">    <span class="keyword">if</span> (err) <span class="keyword">return</span> statusMessage.value = err;</div><div class="line">    statusMessage.value = body;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><code>module.exports</code>是Node.js的模块系统的一部分。我十分喜欢这种模块的方式，在任何地方都能运行，不需要很复杂的配置文件。</p>
+<p>现在我们创建了这个文件，并且引入了页面中。我们只需要使用<code>require</code>来引入就可以使用了。现在我们的代码长这个样子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> formUploader = <span class="built_in">require</span>(<span class="string">'formuploader'</span>);</div><div class="line"><span class="built_in">document</span>.querySelector(<span class="string">'form'</span>).onsubmit = formUploader.submit;</div></pre></td></tr></table></figure>
+<p>现在我们的应用只有两行代码，还有下面这些好处：</p>
+<p>1、对于新手程序员来说很容易理解。他们不需要把<code>formuploader</code>的函数全部从上到下的阅读完；</p>
+<p>2、<code>formuploader</code>可以在其他的地方使用，无需再写一遍。还能够很容易的分享到Github和npm；</p>
+<h4 id="单独处理每个错误"><a href="#单独处理每个错误" class="headerlink" title="单独处理每个错误"></a>单独处理每个错误</h4><p>错误的类型有很多种：</p>
+<ul>
+<li>语法错误，通常是由程序员第一次运行程序时引起的</li>
+<li>运行时错误，程序运行起来但是有bug，程序就被终止了</li>
+<li>环境错误，比如没有权限，硬盘出错，网络出问题等</li>
+</ul>
+<p>这部分的内容主要着重于最后一种类型的错误。</p>
+<p>前两个法则是关于你的代码的可读性的，这一条法则是关于你的代码的稳定性的。你会很自然的处理一些将要执行的任务，停止运行然后在后台处理一些任务，最后成功或者失败。有经验的程序员会告诉你，你可能永远都不会知道错误的发生，所以你必须在错误发生之前就计划好。</p>
+<p>现在最流行的使用回调函数处理错误的方式就是采用Node.js的方式，即函数的第一个参数总是存储错误对象。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</div><div class="line"></div><div class="line">fs.readFile(<span class="string">'/Does/not/exist'</span>, handleFile);</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">handleFile</span>(<span class="params"> error, file </span>) </span>&#123;</div><div class="line">    <span class="keyword">if</span> ( error ) &#123;</div><div class="line">        <span class="keyword">return</span></div><div class="line">    &#125; </div><div class="line">    <span class="built_in">console</span>.error(<span class="string">'Uhoh, there was an error'</span>, error);</div><div class="line">    <span class="comment">// otherwise, continue on and use `file` in your code</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>让第一个参数为<code>error</code>只是一个约定，为了让你记得要处理错误。如果把这个作为第二个参数的话，你很可能就会写成这样<code>function handleFile( file ) {}</code>，然后，很容易的就忽略了处理错误。</p>
+<p>也可以配置代码审查工具来帮你记得要处理错误。最简单的就是使用叫做<a href="http://standardjs.com" target="_blank" rel="external">standard</a>的代码审查工具。你需要做的只是在你的项目运行<code>standard</code>命令就可以了。然后，他就会为你展示你没有处理错误的回调函数。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>1、不要使用嵌套的函数。为这些函数命名，并且放到程序的顶部；</p>
+<p>2、在对你有利的情况下，使用变量提升的特性把函数放到折叠块的下面；</p>
+<p>3、在你的每个回调函数里都单独处理每个错误。可以使用代码审查器来帮你完成这个工作；</p>
+<p>4、创建可复用的函数并且把他们放到模块里来提升你的代码的可读性。把你的代码这样拆分也利于你处理错误，写测试，强迫自己为自己的代码创建一个稳定的还带有文档的公共API，也利于重构。</p>
+<p>避免回调地狱最重要的一方面就是要把函数移出来，以便于新人能够很快的理解程序流，而不用花过多的时间去猜想写这个程序的人到底想要做什么。</p>
+<p>一开始你可以先将函数移到程序底部，然后，可以慢慢的将它们放到另一个文件，使用<code>require</code>来引入，最终把它们做成一个完整的模块。</p>
+<p>关于创建模块，有下面几条推荐的法则：</p>
+<ul>
+<li>将重复使用的代码放到函数里</li>
+<li>当你的函数的代码量很多的时候，把它们放到另一个文件里，使用<code>module.exports</code>来创建模块，使用<code>require</code>来引入模块</li>
+<li>如果你有一些代码可以在多个工程中使用，那么，把这些代码抽离出来，为他们写一个<code>README</code>，测试用例，以及<code>package.json</code>，然后把这个代码提交到Github或者npm。这个方法的好处太多了</li>
+<li>一个模块不会太大，并且会专注于解决一个问题</li>
+<li>一个单独的模块文件最多不应该超过150行代码</li>
+<li>一个模块不应该有多于一层的文件夹的嵌套，如果有的话，那么就表示这个模块处理的事情太多了</li>
+<li>询问你所认识的有经验的程序员一个好的模块应该是什么样子，知道你心中有数了。如果一个模块需要好多分钟才能够理解，那么这不会是一个好的模块。</li>
+</ul>
+<h3 id="关于promises-generators-ES6等"><a href="#关于promises-generators-ES6等" class="headerlink" title="关于promises/generators/ES6等"></a>关于promises/generators/ES6等</h3><p>在寻找更多高级的解决方法之前，要记住，回调函数只是JavaScript的一个很基本的部分(因为他们就是函数)，而且，在你准备学习更高级的语言功能之前，你应该学会如何阅读和书写这些代码。因为，这些都是建立在你理解回调函数的基础之上的。如果你还不能写出可维护的代码，那么，加油吧！</p>
+<p>如果你实在想要你的异步代码能够从上读到下，你可以试试下面这些神奇的东西。<strong>注意，这些东西可能会导致性能或者跨平台的问题，所以，在使用之前你要好好研究下。</strong></p>
+<p><strong>Promises</strong><br>尽管这是一种从上到下执行的方法，但是，他仍然是用来书写异步代码的方式。并且，由于受支持的<code>try/catch</code>的处理错误的方式，它能够处理更多类型的错误。</p>
+<p><strong>Generators</strong><br>generators可以让你暂停执行单独的某个函数而不用打断整个程序的运行，当然，代价就是代码更加复杂。你的代码能够很明显的从上到下执行。</p>
+<p><strong>异步函数(Async Functions)</strong><br>异步函数是ES7里提出的一个功能，在某种程度上，会用更高级的语法来使用promises和generators。如果感兴趣的话可以去看看。</p>
+<p>在我的异步代码中，我90%会用到回调函数，当代码越来越复杂的时候，我会引入诸如<a href="https://github.com/feross/run-parallel" target="_blank" rel="external">run-parallel</a>或者<a href="https://github.com/feross/run-series" target="_blank" rel="external">run-series</a>的东西。我不认为回调函数和promises以及其他任何的东西有什么不同，保持代码简洁是最好的，不要嵌套，分解成小模块。</p>
+<p>无论你是用的什么方法，都要处理每个错误，保持代码简洁。</p>
+<p>记住，只有你自己能够避免回调地狱。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://erichain.me/2016/02/27/2016-02-27-how-to-avoid-callback-hell/" data-id="cj154uq3e000o5ophhpokp3oj" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node/">node</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2016-02-26-the-fab-four-technique-to-create-responsive-emails-without-media-queries" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/02/26/2016-02-26-the-fab-four-technique-to-create-responsive-emails-without-media-queries/" class="article-date">
+  <time datetime="2016-02-26T00:00:00.000Z" itemprop="datePublished">2016-02-26</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Front-End-Responsive/">Front-End Responsive</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/02/26/2016-02-26-the-fab-four-technique-to-create-responsive-emails-without-media-queries/">不使用媒体查询实现响应式电子邮件的4个技术</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>翻译自<a href="https://medium.freecodecamp.com/the-fab-four-technique-to-create-responsive-emails-without-media-queries-baf11fdfa848#.y38p2okxs" target="_blank" rel="external">https://medium.freecodecamp.com/the-fab-four-technique-to-create-responsive-emails-without-media-queries-baf11fdfa848#.y38p2okxs</a></p>
+<p>我发现了一种新的方式来创建响应式的电子邮件，而且不使用媒体查询。这个方案包括了CSS的<code>calc()</code>函数和<code>width</code>，<code>min-width</code>，<code>max-width</code>三个属性。</p>
+<p>或者说，我喜欢这样称呼他们：绝妙的四剑客(在CSS里)</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*8MfWNObJP1mFnYJzKkdflQ.png" alt=""></p>
+<h3 id="主要问题"><a href="#主要问题" class="headerlink" title="主要问题"></a>主要问题</h3><p>制作响应式的邮件不简单，尤其是当邮件客户端在不支持媒体查询的手机上的时候(比如Gmail，Yahoo，或者Outlook.com)。使用混合的方法，Gmail的策略，或者说不用媒体查询的响应式邮件，对于适应这样的情况都是不错的方法。</p>
+<p>到目前为止，上面所说的最后一种方法是我最偏爱的。最大的灵感就是使用<code>display: inline-block;</code>让每一列的div都有一个固定的宽度。一旦一个屏幕只能包含两块内容的时候，他们就会自动的到下面去。但是，我这样做的时候总是会有问题。</p>
+<p>一旦这些内容块堆叠起来的时候，他们并不会占满邮件的空间。</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*ybAI7RS4xjmQY3Y_B4jUnw.png" alt=""></p>
+<p>我花费了很长的时间来寻找这个问题的解决方案。Flexbox很不错，但是不幸的是，Flexbox对邮件的支持简直糟透了。</p>
+<hr>
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p><strong>记住width，min-width和max-width</strong></p>
+<p>出了<code>calc()</code>函数之外，我发现这个解决方案还需要CSS的三个属性。为了深刻的理解他们是如何运作的，需要知道这三个属性在一起使用的时候会有什么样的行为(一个法国前端工程师做到非常清晰的总结)。</p>
+<ul>
+<li>如果<code>width</code>属性值大于<code>max-width</code>属性值，那么，最终取值为<code>max-width</code></li>
+<li>如果<code>min-width</code>属性值大于<code>width</code>属性值或者<code>max-width</code>属性值，那么，取值为<code>min-width</code></li>
+</ul>
+<p>能够猜出下面的样式中盒子的宽度吗？</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.box</span> &#123;</div><div class="line">    <span class="attribute">width</span>: <span class="number">320px</span>;</div><div class="line">    <span class="attribute">min-width</span>: <span class="number">480px</span>;</div><div class="line">    <span class="attribute">max-width</span>: <span class="number">160px</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>(答案：盒子宽度为480px)</p>
+</blockquote>
+<hr>
+<p><strong><code>calc()</code>函数和神奇的公式</strong></p>
+<p>先不要急着深入，看一个例子：使用四剑客创建了两列，并且在堆叠的时候会增长到480px。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.block</span> &#123;</div><div class="line">    <span class="attribute">display</span>: inline-block;</div><div class="line">    <span class="attribute">min-width</span>: <span class="number">50%</span>;</div><div class="line">    <span class="attribute">max-width</span>: <span class="number">100%</span>;</div><div class="line">    <span class="attribute">width</span>: <span class="built_in">calc</span>((480px — 100%) * <span class="number">480</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>让我们把这段代码拆开来看每一个宽度属性。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">min-width</span>: 50%;</div></pre></td></tr></table></figure>
+<p><code>min-width</code>属性定义了我们的桌面版本的列宽。我们可以改变这个值来添加更多的列(比如，4列的话就是25%)，或者说，将每一列的宽度设置为固定的像素值。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">max-width</span>: 100%;</div></pre></td></tr></table></figure>
+<p><code>max-width</code>定义了我们的手机版本的列宽。使用100%就能够让每一列适应父级容器。我们可以改变这个值以便与在手机上也是多列(比如，2列的话就是25%)。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">width</span>: <span class="selector-tag">calc</span>((480<span class="selector-tag">px</span> — 100%) * 480);</div></pre></td></tr></table></figure>
+<p>感谢<code>calc()</code>这个函数，让宽度属性成为了奇迹。<strong>480</strong>这个值吻合了我们渴望的平衡点的值。<strong>100%</strong>符合我们的列宽的父级容器的宽度。这个计算公式的目的就在于创建一个比<code>max-width</code>大或者比<code>min-width</code>小的值，然后应用其中的一个值。</p>
+<p>看两个例子。</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*zCzf5ZChfB1WB5FGULzpig.png" alt=""></p>
+<p>在父级容器的宽度为500px的时候，计算出来的宽度值为-9600px。小于<code>min-width</code>的值，所以，最小宽度为50%。这样，我们的布局就是两列了。</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*PJANsECXH1VCJ5UxxaJ-5w.png" alt=""></p>
+<p>在父级宽度为400px的时候，计算出来的宽度值为38400px，大于了<code>min-width</code>，但是<code>max-width</code>比他小，所以宽度为100%。这样，我们的布局就是一列了。</p>
+<hr>
+<h3 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h3><p>有一个使用这个技术做的demo，可以在<a href="http://emails.hteumeuleu.fr/wp-content/uploads/2016/02/the-fab-four.html" target="_blank" rel="external">这儿查看</a>。</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*YcVo7AGzJekmg5eupqLK0A.png" alt=""></p>
+<p>下面是这个demo分别在Gmail的桌面端和iOS端的截图。同样的代码，不同的渲染效果。</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*GUknMjQDihG2WkqHIEBBUA.png" alt=""></p>
+<p>在这个demo中，我设置了不同的网格的例子(2列，3列，4列)。第一个使用图片的网格，在桌面端将是4列，在手机端将是2列。其他的网格在移动端将是填满屏幕的宽度。</p>
+<p>另外，注意标题是如何切换的。在桌面端是左对齐，在手机端是居中对齐。这是通过给标题设置190px的固定宽度以及设置<code>margin:0 auto;</code>来居中的。在桌面端，标题的父级容器应用的是最小宽度190px，所以会在左边。在手机端，父级容器为满屏宽度，所以会居中。</p>
+<p>由于每一个元素都是建立在网格的父级容器的宽度上，所以这个技术最棒的一个方面就是，一封邮件甚至可以适应网页邮件应用。例如，在Oulook.com上，无论你选择邮件面板在底部或者在右边，邮件都会很正确的响应面板的宽度。使用媒体查询是不可能做到这样的。</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*lbGOlHr5J-I2XSlbLrfQCg.png" alt=""></p>
+<hr>
+<h3 id="浏览器支持"><a href="#浏览器支持" class="headerlink" title="浏览器支持"></a>浏览器支持</h3><p><code>calc()</code>对浏览器的支持在IE9及以上。事实证明，<code>calc()</code>对邮件客户端的支持也很好。在Apple Mail(iOS和OS X)，Thunderbird，Outlook(iOS和Android应用)，Gmail(网页邮件，iOS和Android应用)，AOL(网页应用)，以及旧版的Outlook.com(只在欧洲使用)这些上面都能很好的运作。</p>
+<p><strong>旧版的Outlook.com</strong></p>
+<p>尽管Outlook.com有一个小怪癖。他会通过<code>calc()</code>过滤掉任何包含包含小圆括号的语句的属性。这也就意味着，<code>calc(480px - 100%)</code>这一语句是支持的，但是<code>calc((480px - 100%) * 480)</code>这一语句就不支持了。由于我的初始的公式包含小括号，我们需要对他进行重构来避免小括号。所以，支持旧版的Outlook.com的公式就是这个样子：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">width</span>: <span class="selector-tag">calc</span>(480<span class="selector-tag">px</span> * 480 — 100% * 480);</div></pre></td></tr></table></figure>
+<p><strong>不支持的客户端</strong></p>
+<p>当然，<code>calc()</code>在一些老的邮件客户端上不受支持，比如Lotus Notes，或者最新的Windows的Outlook。在Outlook的网页应用和Yahoo(网页应用，iOS和Android应用)上都不受支持。这两者会去掉任何包含<code>calc()</code>的属性。</p>
+<p><strong>退却的方案</strong></p>
+<p>在这些例子中，我建议为那些不支持<code>calc()</code>的客户端通过设置固定的宽度来复制所有的需要的属性。为了从那些客户端中隐藏掉四剑客，我建议使用<code>calc()</code>，即使在技术层面没有那么有用。我们的第一个例子会像下面这样：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.block</span> &#123;</div><div class="line">    <span class="attribute">display</span>: inline-block;</div><div class="line">    <span class="attribute">min-width</span>: <span class="number">240px</span>;</div><div class="line">    <span class="attribute">width</span>: <span class="number">50%</span>;</div><div class="line">    <span class="attribute">max-width</span>: <span class="number">100%</span>;</div><div class="line">    <span class="attribute">min-width</span>: <span class="built_in">calc</span>(50%);</div><div class="line">    <span class="attribute">width</span>: <span class="built_in">calc</span>(480px * 480 — 100% * 480);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>Outlook网页应用</strong></p>
+<p>然而，Outlook的网页应用(Office 365和新的Outlook.com)又有一个他自己的怪癖。当<code>calc()</code>函数中包含了乘法符号<code>*</code>的时候，他会移除整句样式。意味着，我们需要手动的算出结果并且只保留减法。比如下面这样：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">width</span>: <span class="selector-tag">calc</span>(230400<span class="selector-tag">px</span> — 48000%);</div></pre></td></tr></table></figure>
+<p><strong>Webkit前缀</strong></p>
+<p>老版本的Android(Android5.0以前)或者iOS(iOS 7以前)需要<code>-webkit-</code>才能起作用。我们的最终版本就会是下面这个样子：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.block</span> &#123;</div><div class="line">    <span class="attribute">display</span>: inline-block;</div><div class="line">    <span class="attribute">min-width</span>: <span class="number">240px</span>;</div><div class="line">    <span class="attribute">width</span>: <span class="number">50%</span>;</div><div class="line">    <span class="attribute">max-width</span>: <span class="number">100%</span>;</div><div class="line">    <span class="attribute">min-width</span>: <span class="built_in">-webkit-calc</span>(50%);</div><div class="line">    <span class="attribute">min-width</span>: <span class="built_in">calc</span>(50%);</div><div class="line">    <span class="attribute">width</span>: <span class="built_in">-webkit-calc</span>(230400px — 48000%);</div><div class="line">    <span class="attribute">width</span>: <span class="built_in">calc</span>(230400px — 48000%);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<hr>
+<h3 id="缺点和总结"><a href="#缺点和总结" class="headerlink" title="缺点和总结"></a>缺点和总结</h3><p>与其它在电子邮件世界开发的东西一样，四剑客这样的技术也不是完美的，下面是我能够想到的一些缺陷：</p>
+<ul>
+<li>在Yahoo上不会起作用。虽然他的桌面端支持媒体查询。所以，我们能够通过制作一个移动端优先的版本来改进一下，然后再在桌面端上提升他的兼容性。</li>
+<li>你只能设置一个平衡点。对于邮件来说，这也许不是那么大的一个问题。就像设计桌面端几乎不会超过600px以及顶多需要一个平衡点来适应手机。</li>
+<li>从桌面端到手机端的时候，你只能减少列的数量。很正常，你不可能在手机上显示4列，在桌面上显示一列。</li>
+<li>最终计算的版本(为了支持旧版的Outlook.com以及优雅的退化在新的版本)的可读性很差。使用预处理器和mixin来省城这些需要的属性可能会更有帮助。</li>
+</ul>
+<p>我仍然觉得这种技术在以后会有更多的使用，尤其是对Gmail的优化。当热，肯定也会有网站的使用之处(比如小部件，广告等)。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://erichain.me/2016/02/26/2016-02-26-the-fab-four-technique-to-create-responsive-emails-without-media-queries/" data-id="cj154uq38000g5ophtwrjraau" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/html5/">html5</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2016-02-23-understand-digest-and-apply-in-angular" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/02/23/2016-02-23-understand-digest-and-apply-in-angular/" class="article-date">
+  <time datetime="2016-02-23T00:00:00.000Z" itemprop="datePublished">2016-02-23</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Angular-Front-End/">Angular Front-End</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/02/23/2016-02-23-understand-digest-and-apply-in-angular/">理解Angular中的$digest()和$apply()</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>翻译自<a href="http://www.sitepoint.com/understanding-angulars-apply-digest/" target="_blank" rel="external">http://www.sitepoint.com/understanding-angulars-apply-digest/</a></p>
+<p><code>$digest()</code>和<code>$apply()</code>是AngularJS中的两个核心并且有时候容易引人误解的部分。我们需要深入理解这两者是如何运作的，从而才能理解AngularJS本身是如何运作的。本文的目的就是为了和你解释，在你的日复一日使用AngularJS编写代码的过程中，<code>$digest()</code>和<code>$apply()</code>是如何确确实实的对你有用的。</p>
+<h3 id="digest-和-apply-的探索"><a href="#digest-和-apply-的探索" class="headerlink" title="$digest()和$apply()的探索"></a><code>$digest()</code>和<code>$apply()</code>的探索</h3><p>AngularJS为我们提供了一个广为人知的令人惊叹的功能，那就是数据的双向绑定。这个功能极大的方便了我们的编码。数据绑定意味着，当视图(view)中的数据发生变化的时候，作用域下的数据模型(model)也会相应的更新。同样的，无论何时，当数据模型(model)发生变化的时候，视图(view)也会相应的更新。那么，AngularJS是怎么做到的呢？当你写这样的一个表达式的时候(  )，AngularJS在背后为这个数据模型(model)设置了一个监听器(watcher)，正是由于这个监听器(watcher)，无论何时当数据模型(model)发生变化的时候，视图(view)也会更新。这个监听器(watcher)与你在AngularJS中设置的其它监听器类似(watcher)：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$scope.$watch(<span class="string">'aModel'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"> newValue, oldValue </span>) </span>&#123;</div><div class="line">	<span class="comment">// update the DOM with newValue</span></div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>大家都知道，传入<code>$watch()</code>的第二个参数是一个监听函数，并且，无论何时当<code>aModel</code>的值发生改变的时候，他都会被调用。对于我们来说，这样理解很简单，当<code>aModel</code>发生改变的时候，这个监听函数被调用，然后，更新HTML中的表达式的值。但是，有一个很大的问题在于，AngularJS是怎么知道什么时候去调用这个监听函数呢？换句话说，AngularJS是怎么知道<code>aModel</code>发生变化的从而去调用相对应的监听函数呢？难道是周期性的运行一个函数来检测数据模型是否发生了变化吗？好吧，这时候，就需要讲到<code>$digest</code>循环了。</p>
+<p>监听器(watcher)是在<code>$digest</code>循环中被启用的。当一个监听器(watcher)被启用的时候，AngularJS就会去评估数据模型(model)，并且，当数据模型(model)的值发生改变的时候，就会去调用相应的监听函数。所以，下一个问题就是，<code>$digest</code>循环是怎么开始的。</p>
+<p>当运行<code>$scope.$digest()</code>的时候，<code>$digest</code>循环就开始了。假设你通过<code>ng-click</code>指令来调用处理函数来改变一个数据模型(model)，在这种情况下，AngularJS就会自动调用<code>$digest()</code>触发<code>$digest</code>循环。当<code>$digest</code>循环开始的时候，他就会启动每一个监听器(watcher)。这些监听器(watcher)会去检查当前的数据模型(model)中的值是否与最后一次计算的值相同，如果不相同，那么，对应的监听函数就会被执行。结果就是，如果你的视图(view)中有表达式，那么，这些表达式就都会被更新。除了<code>ng-click</code>，还有一些其它的内置指令(或者服务)可以让你改变数据模型(比如<code>ng-model</code>，<code>$timeout</code>等)，并且自动触发<code>$digest</code>循环。</p>
+<p>到目前为止，很棒有没有？但是，仍然有一些小的不足。在上面的例子中，AngularJS并不是直接调用<code>$digest()</code>，而是通过<code>$scope.$apply()</code>然后，相应的调用<code>$rootScope.$digest()</code>。这样做的结果就是，一个<code>$digest</code>循环在<code>$rootScope</code>开始，随后，逐步的遍历所有的子作用域来调用监听器(watcher)。</p>
+<p>现在，假设你给一个按钮添加了<code>ng-click</code>指令，并且为他传递了一个函数。当你点击这个按钮的时候，AngularJS会把这个函数放进<code>$scope.$apply()</code>中进行调用。所以，你的函数能够正常的执行，改变数据模型(如果有的话)，并且，<code>$digest</code>循环会开始来保证你的更改会反映到视图(view)中。</p>
+<blockquote>
+<p>注意：<code>$scope.$apply()</code>会自动调用<code>$rootScope.$digest()</code>。<code>$apply()</code>函数可以以两种方式运行。第一种是将函数作为参数，并且评估他，然后触发<code>$digest</code>循环。第二种并不传入任何参数，仅仅是执行一个<code>$digest</code>循环。我们将会知道为什么前一种方法是更好更直接的方法。</p>
+</blockquote>
+<h3 id="什么时候需要人为的调用-apply-呢"><a href="#什么时候需要人为的调用-apply-呢" class="headerlink" title="什么时候需要人为的调用$apply()呢"></a>什么时候需要人为的调用<code>$apply()</code>呢</h3><p>如果AngularJS总是将我们的代码放在<code>$apply()</code>中并且执行<code>$digest</code>循环，那么，什么时候需要我们人为的调用<code>$apply</code>呢？事实上，AngularJS已经很明确的告诉我们了。AngularJS只会关心在AngularJS的执行上下文中的发生的数据模型(model)的变化(比如，改变数据的代码在<code>$apply()</code>里面)。AngularJS内建的指令也会自动触发<code>$digest</code>循环所以任何数据模型(model)的改变都会反映到视图中。但是，如果我们更改一个不在AngularJS执行上下文中的数据模型(model)，就需要人为的调用<code>$apply()</code>来提醒AngularJS数据发生变化了。就像是要告诉AngularJS，我们改变了一些数据，他应该启用监听器以便于让我们所做的改变能够反映出来。</p>
+<p>例如，当使用JavaScript的<code>setTimeout()</code>函数来更新一个数据模型的时候，AngularJS就没办法知道你改变了数据模型。这种情况下，调用<code>$apply()</code>来触发<code>$digest</code>循环就是你的责任了。类似的，如果你写了一个指令，这个指令是设置了一个DOM事件监听器，更改数据模型的代码在事件处理函数里，那么，也需要调用<code>$apply()</code>来保证更改能够反映出来。</p>
+<p>让我们来看个例子。假设有一个页面，我们想在页面加载完之后两秒显示一个信息。我们可能这样写：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">ng-app</span>=<span class="string">"myApp"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">ng-controller</span>=<span class="string">"MessageController"</span>&gt;</span></div><div class="line">        Delayed Message: &#123;&#123;message&#125;&#125;</div><div class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span>  </div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* 没有$apply()会发生什么 */</span></div><div class="line">angular.module(<span class="string">'myApp'</span>, []).controller(<span class="string">'MessageController'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"> $scope </span>) </span>&#123;</div><div class="line"></div><div class="line">    $scope.getMessage = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">        setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">            $scope.message = <span class="string">'Fetched after 3 seconds'</span>;</div><div class="line">            <span class="built_in">console</span>.log(<span class="string">'message:'</span>+$scope.message);</div><div class="line">        &#125;, <span class="number">2000</span>);</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    $scope.getMessage();</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>通过运行这个例子，我们会发现，在两秒之后，函数开始执行，并且更新数据模型。但是，视图却没有更新。原因我们也应该猜到了，我们忘了调用<code>$apply()</code>。因此，我们需要像下面这样来写我们的<code>getMessage()</code>函数。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* 使用了$apply()会发生什么 */</span></div><div class="line">angular.module(<span class="string">'myApp'</span>, []).controller(<span class="string">'MessageController'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"> $scope </span>) </span>&#123;</div><div class="line">    $scope.getMessage = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">        setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">            $scope.$apply(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">                <span class="comment">//wrapped this within $apply</span></div><div class="line">                $scope.message = <span class="string">'Fetched after 3 seconds'</span>;</div><div class="line">                <span class="built_in">console</span>.log(<span class="string">'message:'</span> + $scope.message);</div><div class="line">            &#125;);</div><div class="line">        &#125;, <span class="number">2000</span>);</div><div class="line">    &#125;;</div><div class="line">    </div><div class="line">    $scope.getMessage();</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>运行更新后的例子，两秒之后，我们就能够看到视图更新了。我们所做的唯一的改变就是将代码放进了<code>$scope.$apply()</code>中。这样，就能自动的去调用<code>$rootScope.$digest()</code>，然后，监听器就会启动，视图就会更新了。</p>
+<blockquote>
+<p>注意：顺便说一句，当需要延时的时候，尽可能的使用<code>$timout</code>，这样，就不用人为的去调用<code>$appply()</code>了。</p>
+</blockquote>
+<p>并且，注意看上面的代码，我们也可以在调用<code>$apply()</code>的时候不传参数。就像下面这样：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$scope.getMessage = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">	setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">		$scope.message = <span class="string">'Fetched after two seconds'</span>;</div><div class="line">	    <span class="built_in">console</span>.log(<span class="string">'message:'</span> + $scope.message);</div><div class="line">	    $scope.$apply(); <span class="comment">// 这儿就触发了$digest循环</span></div><div class="line">	&#125;, <span class="number">2000</span>);</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>上面的代码调用<code>$apply()</code>的时候没有传入参数，但是也起作用了。记住，在调用<code>$apply()</code>的时候，应该总是要传入函数参数。因为，当你为<code>$apply()</code>传入函数的时候，这个函数在调用的时候是包含在<code>try..catch</code>中的，并且，任何发生的异常都能够被<code>$exceptionHandler</code>服务所接收。</p>
+<h3 id="digest循环要执行多少次呢"><a href="#digest循环要执行多少次呢" class="headerlink" title="$digest循环要执行多少次呢"></a><code>$digest</code>循环要执行多少次呢</h3><p>当一个<code>$digest</code>循环运行的时候，监听器就会被执行以查看数据模型是否发生改变。如果改变了，对应的监听函数就会被执行。这就导致了一个很重要的问题，假如一个监听函数自己改变了数据模型，AngularJS怎么知道呢？</p>
+<p>答案就是，<code>$digest</code>循环并不只是运行一次。在当前循环的结束之后，他会再次启动来检查是否有数据发生改变。这被叫做脏检查，用来对那些可能被监听函数所更改的数据模型进行监测。所以，<code>$digest</code>循环会一直保持循环直到再也没有数据模型发生改变，或者，到达最大的循环次数(10次)。保持幂等以及最小化监听函数里的数据模型的更改总是比较好的。</p>
+<blockquote>
+<p>注意：<code>$digest</code>至少会循环两次即使监听函数没有更改任何数据模型。正如上文讨论的那样，他会多运行一次以确保没有数据发生改变。</p>
+</blockquote>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>我希望这篇文章能够清楚的描述<code>$digest</code>和<code>$apply</code>是什么。记住最重要的就是AngularJS是否能够监测到你的更改。如果不能，那么，你就得必须人为调用<code>$apply()</code>。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://erichain.me/2016/02/23/2016-02-23-understand-digest-and-apply-in-angular/" data-id="cj154uq34000c5oph8xhxryvr" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/angular/">angular</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    <a class="extend prev" rel="prev" href="/page/4/">&laquo; __('prev')</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/6/">__('next') &raquo;</a>
+  </nav>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Angular-Front-End/">Angular Front-End</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Front-End/">Front-End</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Front-End-Full-Stack/">Front-End Full-Stack</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Front-End-Responsive/">Front-End Responsive</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Full-Stack/">Full-Stack</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Full-Stack-Mobile/">Full-Stack Mobile</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular/">angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bower/">bower</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/coffeescript/">coffeescript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css3/">css3</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/express/">express</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gem/">gem</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git-flow/">git-flow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html5/">html5</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ionic/">ionic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jquery/">jquery</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mongodb/">mongodb</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/">npm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ruby/">ruby</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sass/">sass</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/android/" style="font-size: 10px;">android</a> <a href="/tags/angular/" style="font-size: 15px;">angular</a> <a href="/tags/bower/" style="font-size: 10px;">bower</a> <a href="/tags/coffeescript/" style="font-size: 10px;">coffeescript</a> <a href="/tags/css/" style="font-size: 20px;">css</a> <a href="/tags/css3/" style="font-size: 10px;">css3</a> <a href="/tags/express/" style="font-size: 10px;">express</a> <a href="/tags/gem/" style="font-size: 10px;">gem</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/git-flow/" style="font-size: 10px;">git-flow</a> <a href="/tags/html5/" style="font-size: 10px;">html5</a> <a href="/tags/ionic/" style="font-size: 10px;">ionic</a> <a href="/tags/javascript/" style="font-size: 17.5px;">javascript</a> <a href="/tags/jquery/" style="font-size: 10px;">jquery</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/mac/" style="font-size: 12.5px;">mac</a> <a href="/tags/mongodb/" style="font-size: 10px;">mongodb</a> <a href="/tags/node/" style="font-size: 12.5px;">node</a> <a href="/tags/npm/" style="font-size: 12.5px;">npm</a> <a href="/tags/ruby/" style="font-size: 10px;">ruby</a> <a href="/tags/sass/" style="font-size: 10px;">sass</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">July 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/10/16/2016-10-16-css-negative-margin/">理解并运用 CSS 的负 margin 值</a>
+          </li>
+        
+          <li>
+            <a href="/2016/09/05/2016-09-05-how-to-implement-responsive-font-size/">如何实现 font-size 的响应式</a>
+          </li>
+        
+          <li>
+            <a href="/2016/08/28/2016-08-28-progressive-loading-images-with-blur-effect/">使用模糊效果逐步加载图片 (仿 Medium)</a>
+          </li>
+        
+          <li>
+            <a href="/2016/08/23/2016-08-23-making-indicator-with-pure-css/">Making An Indicator With Pure CSS</a>
+          </li>
+        
+          <li>
+            <a href="/2016/08/01/2016-08-01-css-link-specificity/">CSS Link 伪类特性</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 Erichain<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

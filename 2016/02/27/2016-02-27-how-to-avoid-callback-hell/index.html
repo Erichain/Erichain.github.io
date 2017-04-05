@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>“回调地狱”如何避免 | Erichain&#39;s Causeries</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="翻译自http://callbackhell.com “回调地狱”是什么异步JavaScript，或者使用回调函数的JavaScript，很难能够写出结构比较好的代码。大量的代码都会像下面这样： 1234567891011121314151617181920212223242526fs.readdir(source, function ( err, files ) &amp;#123;    if ( e">
+<meta name="keywords" content="javascript,node">
+<meta property="og:type" content="article">
+<meta property="og:title" content="“回调地狱”如何避免">
+<meta property="og:url" content="https://erichain.me/2016/02/27/2016-02-27-how-to-avoid-callback-hell/index.html">
+<meta property="og:site_name" content="Erichain's Causeries">
+<meta property="og:description" content="翻译自http://callbackhell.com “回调地狱”是什么异步JavaScript，或者使用回调函数的JavaScript，很难能够写出结构比较好的代码。大量的代码都会像下面这样： 1234567891011121314151617181920212223242526fs.readdir(source, function ( err, files ) &amp;#123;    if ( e">
+<meta property="og:updated_time" content="2017-04-05T15:24:06.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="“回调地狱”如何避免">
+<meta name="twitter:description" content="翻译自http://callbackhell.com “回调地狱”是什么异步JavaScript，或者使用回调函数的JavaScript，很难能够写出结构比较好的代码。大量的代码都会像下面这样： 1234567891011121314151617181920212223242526fs.readdir(source, function ( err, files ) &amp;#123;    if ( e">
+  
+    <link rel="alternate" href="/atom.xml" title="Erichain&#39;s Causeries" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Erichain&#39;s Causeries</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">A website to record Erichain&#39;s life.</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://erichain.me"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-2016-02-27-how-to-avoid-callback-hell" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/02/27/2016-02-27-how-to-avoid-callback-hell/" class="article-date">
+  <time datetime="2016-02-27T00:00:00.000Z" itemprop="datePublished">2016-02-27</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Front-End-Full-Stack/">Front-End Full-Stack</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      “回调地狱”如何避免
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>翻译自<a href="http://callbackhell.com" target="_blank" rel="external">http://callbackhell.com</a></p>
+<h3 id="“回调地狱”是什么"><a href="#“回调地狱”是什么" class="headerlink" title="“回调地狱”是什么"></a>“回调地狱”是什么</h3><p>异步JavaScript，或者使用回调函数的JavaScript，很难能够写出结构比较好的代码。大量的代码都会像下面这样：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">fs.readdir(source, <span class="function"><span class="keyword">function</span> (<span class="params"> err, files </span>) </span>&#123;</div><div class="line">    <span class="keyword">if</span> ( err ) &#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="string">'Error finding files: '</span> + err);</div><div class="line">    &#125; </div><div class="line">    <span class="keyword">else</span> &#123;</div><div class="line">        files.forEach(<span class="function"><span class="keyword">function</span> (<span class="params"> filename, fileIndex </span>) </span>&#123;</div><div class="line">            <span class="built_in">console</span>.log(filename);</div><div class="line">            gm(source + filename).size(<span class="function"><span class="keyword">function</span> (<span class="params"> err, values </span>) </span>&#123;</div><div class="line">                <span class="keyword">if</span> ( err ) &#123;</div><div class="line">                    <span class="built_in">console</span>.log(<span class="string">'Error identifying file size: '</span> + err);</div><div class="line">                &#125; </div><div class="line">                <span class="keyword">else</span> &#123;</div><div class="line">                    <span class="built_in">console</span>.log(filename + <span class="string">' : '</span> + values);</div><div class="line">                    aspect = (values.width / values.height);</div><div class="line">                    widths.forEach(<span class="function"><span class="keyword">function</span> (<span class="params"> width, widthIndex </span>) </span>&#123;</div><div class="line">                        height = <span class="built_in">Math</span>.round(width / aspect);</div><div class="line">                        <span class="built_in">console</span>.log(<span class="string">'resizing '</span> + filename + <span class="string">'to '</span> + height + <span class="string">'x'</span> + height);</div><div class="line">                        <span class="keyword">this</span>.resize(width, height).write(dest + <span class="string">'w'</span> + width + <span class="string">'_'</span> + filename, <span class="function"><span class="keyword">function</span> (<span class="params"> err </span>) </span>&#123;</div><div class="line">                            <span class="keyword">if</span> ( err ) <span class="built_in">console</span>.log(<span class="string">'Error writing file: '</span> + err);</div><div class="line">                        &#125;);</div><div class="line">                    &#125;.bind(<span class="keyword">this</span>));</div><div class="line">                &#125;</div><div class="line">            &#125;);</div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>看看这些使用<code>})</code>结尾的代码的结构。这样的代码就被“亲切的”成为回调地狱。</p>
+<p>由于人们在写JavaScript的时候，在视觉上，代码是从上到下执行的，所以，就造成了回调地狱。大多数人都会犯这个错。在其它的语言(比如C，Ruby或者Python)中，无论发生什么，第一行代码都会在第二行代码开始运行前就结束。在文件上也是这样。但是，正如你所学的一样，JavaScript是与众不同的。</p>
+<h3 id="回调函数是什么"><a href="#回调函数是什么" class="headerlink" title="回调函数是什么"></a>回调函数是什么</h3><p>回调只是人们在使用JavaScript的函数的时候的一个约定的名称。在JavaScript中并没有专门的一个东西叫做回调。与其他的立即返回值的函数不同，回调函数在返回一个值之前，需要花一些时间。<strong>异步</strong>这个词语的意思就是在未来发生，或者说不是马上发生。通常，只有在做一些I/O操作的时候会使用回调函数，比如下载，读取文件，与数据库交互等。</p>
+<p>当你使用一个普通的函数的时候，你可以使用它的返回值：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> result = multiplyTwoNumbers(<span class="number">5</span>, <span class="number">10</span>);</div><div class="line"><span class="built_in">console</span>.log(result);</div><div class="line"><span class="comment">// 将输出50</span></div></pre></td></tr></table></figure>
+<p>然而，异步函数或者使用回调函数不会立即返回值。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> photo = downloadPhoto(<span class="string">'http://coolcats.com/cat.gif'</span>)</div><div class="line"><span class="comment">// photo is 'undefined'!</span></div></pre></td></tr></table></figure>
+<p>在上面这个例子中，<code>cat.gif</code>可能需要很长的一段时间来下载，而且，在下载完成之前你又不想让你的函数暂停运行。</p>
+<p>所以，你把下载完成后需要执行的代码放在一个函数里。这个函数就是回调函数。把这个函数传入<code>downloadPhoto</code>函数，在下载完成之后，就会调用你的回调函数了，传入你的<code>photo</code>变量(当有错误发生的时候，就传入<code>error</code>)。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">downloadPhoto(<span class="string">'http://coolcats.com/cat.gif'</span>, handlePhoto);</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">handlePhoto</span> (<span class="params">error, photo</span>) </span>&#123;</div><div class="line">    <span class="keyword">if</span> (error) &#123;</div><div class="line">        <span class="built_in">console</span>.error(<span class="string">'Download error!'</span>, error);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span> &#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="string">'Download finished'</span>, photo);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(<span class="string">'Download started'</span>);</div></pre></td></tr></table></figure>
+<p>人们在理解回调函数的时候，最大的障碍就是理解程序执行的顺序。在上面的例子中，有三件主要的事情发生。第一，声明<code>handlePhoto</code>，然后调用<code>downloadPhoto</code>并传入<code>handlePhoto</code>作为他的回调函数，然后最后输出<code>Download started</code>。</p>
+<p>但是，请注意，<code>handlePhoto</code>还没有被调用，他只是被创建了然后被当作回调函数传入了进去。在<code>downloadPhoto</code>完成他的任务之前，他是不会运行的。而<code>downloadPhoto</code>这个任务，可能需要很长的一段时间，取决于网速的快慢。</p>
+<p>这个例子主要说明两点概念：</p>
+<p>1、<code>handlePhoto</code>函数只是存储在未来执行的一些东西的方式；</p>
+<p>2、事件发生的顺序不是从上到下的，他会跳过未执行完成的事件；</p>
+<h3 id="怎么避免回调地狱"><a href="#怎么避免回调地狱" class="headerlink" title="怎么避免回调地狱"></a>怎么避免回调地狱</h3><p>导致回调地狱的主要原因就是很差的代码实践。幸好，写比较好的代码不是那么难。</p>
+<p>你只需要按照下面三条规则就行了：</p>
+<h4 id="1、代码结构的嵌套不要太深"><a href="#1、代码结构的嵌套不要太深" class="headerlink" title="1、代码结构的嵌套不要太深"></a>1、代码结构的嵌套不要太深</h4><p>下面是使用<a href="https://github.com/iriscouch/browser-request" target="_blank" rel="external">browser-request</a>来向服务器发起Ajax请求的一段比较凌乱的代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> form = <span class="built_in">document</span>.querySelector(<span class="string">'form'</span>);</div><div class="line">form.onsubmit = <span class="function"><span class="keyword">function</span> (<span class="params"> submitEvent </span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> name = <span class="built_in">document</span>.querySelector(<span class="string">'input'</span>).value;</div><div class="line">    request(&#123;</div><div class="line">        <span class="attr">uri</span>: <span class="string">"http://example.com/upload"</span>,</div><div class="line">        <span class="attr">body</span>: name,</div><div class="line">        <span class="attr">method</span>: <span class="string">"POST"</span></div><div class="line">    &#125;, <span class="function"><span class="keyword">function</span> (<span class="params"> err, response, body </span>) </span>&#123;</div><div class="line">        <span class="keyword">var</span> statusMessage = <span class="built_in">document</span>.querySelector(<span class="string">'.status'</span>);</div><div class="line">        <span class="keyword">if</span> ( err ) &#123;</div><div class="line">            <span class="keyword">return</span> statusMessage.value = err;</div><div class="line">        &#125;</div><div class="line">        statusMessage.value = body</div><div class="line">    &#125;);</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>这段代码有两个匿名函数。我们先给它们命名：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> form = <span class="built_in">document</span>.querySelector(<span class="string">'form'</span>);</div><div class="line">form.onsubmit = <span class="function"><span class="keyword">function</span> <span class="title">formSubmit</span> (<span class="params"> submitEvent </span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> name = <span class="built_in">document</span>.querySelector(<span class="string">'input'</span>).value;</div><div class="line">    request(&#123;</div><div class="line">        <span class="attr">uri</span>: <span class="string">"http://example.com/upload"</span>,</div><div class="line">        <span class="attr">body</span>: name,</div><div class="line">        <span class="attr">method</span>: <span class="string">"POST"</span></div><div class="line">    &#125;, <span class="function"><span class="keyword">function</span> <span class="title">postResponse</span> (<span class="params"> err, response, body </span>) </span>&#123;</div><div class="line">        <span class="keyword">var</span> statusMessage = <span class="built_in">document</span>.querySelector(<span class="string">'.status'</span>);</div><div class="line">        <span class="keyword">if</span> ( err ) &#123;</div><div class="line">            </div><div class="line">        &#125;</div><div class="line">        statusMessage.value = body</div><div class="line">    &#125;);</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>正如你所看到的，命名函数很简单并且你马上就能看到好处：</p>
+<p>1、描述性的函数名可以让代码的可读性更好；</p>
+<p>2、当有异常发生的时候，你可以从函数栈中获取是哪个函数出错了而不是得到一个匿名函数；</p>
+<p>3、可以允许你通过函数名来改变他们的引用；</p>
+<p>现在，我们可以把这些函数移动到程序的顶部了：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">document</span>.querySelector(<span class="string">'form'</span>).onsubmit = formSubmit;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">formSubmit</span> (<span class="params"> submitEvent </span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> name = <span class="built_in">document</span>.querySelector(<span class="string">'input'</span>).value;</div><div class="line">    request(&#123;</div><div class="line">        <span class="attr">uri</span>: <span class="string">"http://example.com/upload"</span>,</div><div class="line">        <span class="attr">body</span>: name,</div><div class="line">        <span class="attr">method</span>: <span class="string">"POST"</span></div><div class="line">    &#125;, postResponse);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">postResponse</span> (<span class="params"> err, response, body </span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> statusMessage = <span class="built_in">document</span>.querySelector(<span class="string">'.status'</span>);</div><div class="line">    <span class="keyword">if</span> ( err ) &#123;</div><div class="line">        <span class="keyword">return</span> statusMessage.value = err;</div><div class="line">    &#125;</div><div class="line">    statusMessage.value = body;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>注意，这里的函数声明是在文件的底部，当然，由于变量提升(Hoisting)，我们依然可以使用。</p>
+<h4 id="2、模块化"><a href="#2、模块化" class="headerlink" title="2、模块化"></a>2、模块化</h4><p>这是最重要的部分：每个人都有能力创建模块。引用Node.js项目的<a href="https://twitter.com/izs" target="_blank" rel="external">Isaac Schlueter</a>(Node.js)的一句话就是：“每做一件事就写一个小模块，最终汇集到其它模块里做一件大事。如果你不去故意这么做的话，你就不会遇到回调地狱。”</p>
+<p>让我们把上面例子中的代码抽离出来，然后把他分离成一些文件模块。我会展示一个在浏览器端和服务器端都能运作的模块的样子。</p>
+<p>下面这个叫做<code>formuploader.js</code>的文件包含了我们之前的两个函数：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports.submit = formSubmit;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">formSubmit</span>(<span class="params"> submitEvent </span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> name = <span class="built_in">document</span>.querySelector(<span class="string">'input'</span>).value;</div><div class="line">    request(&#123;</div><div class="line">        <span class="attr">uri</span>: <span class="string">"http://example.com/upload"</span>,</div><div class="line">        <span class="attr">body</span>: name,</div><div class="line">        <span class="attr">method</span>: <span class="string">"POST"</span></div><div class="line">    &#125;, postResponse);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">postResponse</span>(<span class="params"> err, response, body</span>)  </span>&#123;</div><div class="line">    <span class="keyword">var</span> statusMessage = <span class="built_in">document</span>.querySelector(<span class="string">'.status'</span>);</div><div class="line">    <span class="keyword">if</span> (err) <span class="keyword">return</span> statusMessage.value = err;</div><div class="line">    statusMessage.value = body;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><code>module.exports</code>是Node.js的模块系统的一部分。我十分喜欢这种模块的方式，在任何地方都能运行，不需要很复杂的配置文件。</p>
+<p>现在我们创建了这个文件，并且引入了页面中。我们只需要使用<code>require</code>来引入就可以使用了。现在我们的代码长这个样子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> formUploader = <span class="built_in">require</span>(<span class="string">'formuploader'</span>);</div><div class="line"><span class="built_in">document</span>.querySelector(<span class="string">'form'</span>).onsubmit = formUploader.submit;</div></pre></td></tr></table></figure>
+<p>现在我们的应用只有两行代码，还有下面这些好处：</p>
+<p>1、对于新手程序员来说很容易理解。他们不需要把<code>formuploader</code>的函数全部从上到下的阅读完；</p>
+<p>2、<code>formuploader</code>可以在其他的地方使用，无需再写一遍。还能够很容易的分享到Github和npm；</p>
+<h4 id="单独处理每个错误"><a href="#单独处理每个错误" class="headerlink" title="单独处理每个错误"></a>单独处理每个错误</h4><p>错误的类型有很多种：</p>
+<ul>
+<li>语法错误，通常是由程序员第一次运行程序时引起的</li>
+<li>运行时错误，程序运行起来但是有bug，程序就被终止了</li>
+<li>环境错误，比如没有权限，硬盘出错，网络出问题等</li>
+</ul>
+<p>这部分的内容主要着重于最后一种类型的错误。</p>
+<p>前两个法则是关于你的代码的可读性的，这一条法则是关于你的代码的稳定性的。你会很自然的处理一些将要执行的任务，停止运行然后在后台处理一些任务，最后成功或者失败。有经验的程序员会告诉你，你可能永远都不会知道错误的发生，所以你必须在错误发生之前就计划好。</p>
+<p>现在最流行的使用回调函数处理错误的方式就是采用Node.js的方式，即函数的第一个参数总是存储错误对象。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</div><div class="line"></div><div class="line">fs.readFile(<span class="string">'/Does/not/exist'</span>, handleFile);</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">handleFile</span>(<span class="params"> error, file </span>) </span>&#123;</div><div class="line">    <span class="keyword">if</span> ( error ) &#123;</div><div class="line">        <span class="keyword">return</span></div><div class="line">    &#125; </div><div class="line">    <span class="built_in">console</span>.error(<span class="string">'Uhoh, there was an error'</span>, error);</div><div class="line">    <span class="comment">// otherwise, continue on and use `file` in your code</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>让第一个参数为<code>error</code>只是一个约定，为了让你记得要处理错误。如果把这个作为第二个参数的话，你很可能就会写成这样<code>function handleFile( file ) {}</code>，然后，很容易的就忽略了处理错误。</p>
+<p>也可以配置代码审查工具来帮你记得要处理错误。最简单的就是使用叫做<a href="http://standardjs.com" target="_blank" rel="external">standard</a>的代码审查工具。你需要做的只是在你的项目运行<code>standard</code>命令就可以了。然后，他就会为你展示你没有处理错误的回调函数。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>1、不要使用嵌套的函数。为这些函数命名，并且放到程序的顶部；</p>
+<p>2、在对你有利的情况下，使用变量提升的特性把函数放到折叠块的下面；</p>
+<p>3、在你的每个回调函数里都单独处理每个错误。可以使用代码审查器来帮你完成这个工作；</p>
+<p>4、创建可复用的函数并且把他们放到模块里来提升你的代码的可读性。把你的代码这样拆分也利于你处理错误，写测试，强迫自己为自己的代码创建一个稳定的还带有文档的公共API，也利于重构。</p>
+<p>避免回调地狱最重要的一方面就是要把函数移出来，以便于新人能够很快的理解程序流，而不用花过多的时间去猜想写这个程序的人到底想要做什么。</p>
+<p>一开始你可以先将函数移到程序底部，然后，可以慢慢的将它们放到另一个文件，使用<code>require</code>来引入，最终把它们做成一个完整的模块。</p>
+<p>关于创建模块，有下面几条推荐的法则：</p>
+<ul>
+<li>将重复使用的代码放到函数里</li>
+<li>当你的函数的代码量很多的时候，把它们放到另一个文件里，使用<code>module.exports</code>来创建模块，使用<code>require</code>来引入模块</li>
+<li>如果你有一些代码可以在多个工程中使用，那么，把这些代码抽离出来，为他们写一个<code>README</code>，测试用例，以及<code>package.json</code>，然后把这个代码提交到Github或者npm。这个方法的好处太多了</li>
+<li>一个模块不会太大，并且会专注于解决一个问题</li>
+<li>一个单独的模块文件最多不应该超过150行代码</li>
+<li>一个模块不应该有多于一层的文件夹的嵌套，如果有的话，那么就表示这个模块处理的事情太多了</li>
+<li>询问你所认识的有经验的程序员一个好的模块应该是什么样子，知道你心中有数了。如果一个模块需要好多分钟才能够理解，那么这不会是一个好的模块。</li>
+</ul>
+<h3 id="关于promises-generators-ES6等"><a href="#关于promises-generators-ES6等" class="headerlink" title="关于promises/generators/ES6等"></a>关于promises/generators/ES6等</h3><p>在寻找更多高级的解决方法之前，要记住，回调函数只是JavaScript的一个很基本的部分(因为他们就是函数)，而且，在你准备学习更高级的语言功能之前，你应该学会如何阅读和书写这些代码。因为，这些都是建立在你理解回调函数的基础之上的。如果你还不能写出可维护的代码，那么，加油吧！</p>
+<p>如果你实在想要你的异步代码能够从上读到下，你可以试试下面这些神奇的东西。<strong>注意，这些东西可能会导致性能或者跨平台的问题，所以，在使用之前你要好好研究下。</strong></p>
+<p><strong>Promises</strong><br>尽管这是一种从上到下执行的方法，但是，他仍然是用来书写异步代码的方式。并且，由于受支持的<code>try/catch</code>的处理错误的方式，它能够处理更多类型的错误。</p>
+<p><strong>Generators</strong><br>generators可以让你暂停执行单独的某个函数而不用打断整个程序的运行，当然，代价就是代码更加复杂。你的代码能够很明显的从上到下执行。</p>
+<p><strong>异步函数(Async Functions)</strong><br>异步函数是ES7里提出的一个功能，在某种程度上，会用更高级的语法来使用promises和generators。如果感兴趣的话可以去看看。</p>
+<p>在我的异步代码中，我90%会用到回调函数，当代码越来越复杂的时候，我会引入诸如<a href="https://github.com/feross/run-parallel" target="_blank" rel="external">run-parallel</a>或者<a href="https://github.com/feross/run-series" target="_blank" rel="external">run-series</a>的东西。我不认为回调函数和promises以及其他任何的东西有什么不同，保持代码简洁是最好的，不要嵌套，分解成小模块。</p>
+<p>无论你是用的什么方法，都要处理每个错误，保持代码简洁。</p>
+<p>记住，只有你自己能够避免回调地狱。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://erichain.me/2016/02/27/2016-02-27-how-to-avoid-callback-hell/" data-id="cj154uq3e000o5ophhpokp3oj" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node/">node</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/02/26/2016-02-26-the-fab-four-technique-to-create-responsive-emails-without-media-queries/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          不使用媒体查询实现响应式电子邮件的4个技术
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/02/29/2016-02-29-javascript-prototype-in-plain-detailed-language/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">通俗的语言解释JavaScript的原型</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Angular-Front-End/">Angular Front-End</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Front-End/">Front-End</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Front-End-Full-Stack/">Front-End Full-Stack</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Front-End-Responsive/">Front-End Responsive</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Full-Stack/">Full-Stack</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Full-Stack-Mobile/">Full-Stack Mobile</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular/">angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bower/">bower</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/coffeescript/">coffeescript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css3/">css3</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/express/">express</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gem/">gem</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git-flow/">git-flow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html5/">html5</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ionic/">ionic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jquery/">jquery</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mongodb/">mongodb</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/">npm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ruby/">ruby</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sass/">sass</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/android/" style="font-size: 10px;">android</a> <a href="/tags/angular/" style="font-size: 15px;">angular</a> <a href="/tags/bower/" style="font-size: 10px;">bower</a> <a href="/tags/coffeescript/" style="font-size: 10px;">coffeescript</a> <a href="/tags/css/" style="font-size: 20px;">css</a> <a href="/tags/css3/" style="font-size: 10px;">css3</a> <a href="/tags/express/" style="font-size: 10px;">express</a> <a href="/tags/gem/" style="font-size: 10px;">gem</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/git-flow/" style="font-size: 10px;">git-flow</a> <a href="/tags/html5/" style="font-size: 10px;">html5</a> <a href="/tags/ionic/" style="font-size: 10px;">ionic</a> <a href="/tags/javascript/" style="font-size: 17.5px;">javascript</a> <a href="/tags/jquery/" style="font-size: 10px;">jquery</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/mac/" style="font-size: 12.5px;">mac</a> <a href="/tags/mongodb/" style="font-size: 10px;">mongodb</a> <a href="/tags/node/" style="font-size: 12.5px;">node</a> <a href="/tags/npm/" style="font-size: 12.5px;">npm</a> <a href="/tags/ruby/" style="font-size: 10px;">ruby</a> <a href="/tags/sass/" style="font-size: 10px;">sass</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">July 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/10/16/2016-10-16-css-negative-margin/">理解并运用 CSS 的负 margin 值</a>
+          </li>
+        
+          <li>
+            <a href="/2016/09/05/2016-09-05-how-to-implement-responsive-font-size/">如何实现 font-size 的响应式</a>
+          </li>
+        
+          <li>
+            <a href="/2016/08/28/2016-08-28-progressive-loading-images-with-blur-effect/">使用模糊效果逐步加载图片 (仿 Medium)</a>
+          </li>
+        
+          <li>
+            <a href="/2016/08/23/2016-08-23-making-indicator-with-pure-css/">Making An Indicator With Pure CSS</a>
+          </li>
+        
+          <li>
+            <a href="/2016/08/01/2016-08-01-css-link-specificity/">CSS Link 伪类特性</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 Erichain<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

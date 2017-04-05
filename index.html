@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Erichain&#39;s Causeries</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Everything about Erichain, including blogs, portfolio, projects and life etc.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Erichain's Causeries">
+<meta property="og:url" content="https://erichain.me/index.html">
+<meta property="og:site_name" content="Erichain's Causeries">
+<meta property="og:description" content="Everything about Erichain, including blogs, portfolio, projects and life etc.">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Erichain's Causeries">
+<meta name="twitter:description" content="Everything about Erichain, including blogs, portfolio, projects and life etc.">
+  
+    <link rel="alternate" href="/atom.xml" title="Erichain&#39;s Causeries" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Erichain&#39;s Causeries</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">A website to record Erichain&#39;s life.</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://erichain.me"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-2016-10-16-css-negative-margin" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/10/16/2016-10-16-css-negative-margin/" class="article-date">
+  <time datetime="2016-10-16T00:00:00.000Z" itemprop="datePublished">2016-10-16</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Front-End/">Front-End</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/10/16/2016-10-16-css-negative-margin/">理解并运用 CSS 的负 margin 值</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>本文样式代码采用 SCSS。<br>浏览器兼容性为 IE6+。</p>
+</blockquote>
+<p>你的网页中，不可能没有使用过 margin。大多数情况下，我们采用的都是正数的  margin 值，可能有时候会用到负的 margin 值。在我们的印象中，负的 margin 值就类似于浏览器的 hack 一样，不被人接受。但是，本文要说明的就是，<strong>负的  margin 值并不是 hack，这是正常范围内的写法。</strong></p>
+<blockquote>
+<p>Negative values for margin properties are allowed, but there may be implementation-specific limits. —— W3C</p>
+</blockquote>
+<p>根据 W3C，margin 是能够接受负值的，只是在具体实现上有一些区别。</p>
+<p>那么，设置 margin 为负值究竟会是什么样的效果呢？</p>
+<p>与设置正值不同，margin 设置负值需要根据设置的方向以及元素是否浮动以及其定位方式来判断最终的行为。</p>
+<p>所以，具体行为按照以下几种情况说明。</p>
+<h3 id="第一种情况：元素没有设置浮动且没有设置定位或者-position-为-static"><a href="#第一种情况：元素没有设置浮动且没有设置定位或者-position-为-static" class="headerlink" title="第一种情况：元素没有设置浮动且没有设置定位或者 position 为 static"></a>第一种情况：元素没有设置浮动且没有设置定位或者 <code>position</code> 为 <code>static</code></h3><p>如果元素没有设置浮动并且没有设置定位或者 <code>position</code> 属性为 <code>static</code> 的情况下，对元素的 margin 设置负值会有以下的效果：</p>
+<p><strong>设置的 margin 的方向为 top 或者 left</strong></p>
+<p>当设置负值的 margin 的方向为 top 或者 left 的时候，元素会按照设置的方向移动相应的距离。</p>
+<p>比如，设置 <code>margin-left: -100px;</code>。 那么，元素会往左移动 100px。对于设置 <code>margin-top</code> 也是一样的道理。</p>
+<p><strong>设置的 margin 的方向为 bottom 或者 right</strong></p>
+<p>当设置负值的 margin 的方向为 bottom 或者 right 的时候，元素本身并不会移动，元素后面的其他元素会往该元素的方向移动相应的距离，并且覆盖在该元素上面。</p>
+<p>比如，设置 <code>margin-right: -100px;</code>。那么，元素本身并不会移动，后面的元素会向左移动 100px 到该元素上。对于设置 <code>margin-bottom</code> 也是同样的道理。</p>
+<p>同时，在元素不指定宽度的情况下，如果设置 <code>margin-left</code> 或者 <code>margin-right</code> 为负值的话，会在元素对应的方向上增加其宽度。效果就和设置 <code>padding-left</code> 或者 <code>padding-right</code> 一样。</p>
+<h3 id="第二种情况：元素没有设置浮动且-position-为-relative"><a href="#第二种情况：元素没有设置浮动且-position-为-relative" class="headerlink" title="第二种情况：元素没有设置浮动且 position 为 relative"></a>第二种情况：元素没有设置浮动且 <code>position</code> 为 <code>relative</code></h3><p>如果元素没有设置浮动，但是设置了相对定位，设置 margin 为负值的时候，表现如下：</p>
+<p><strong>设置的 margin 的方向为 top 或者 left</strong></p>
+<p>当设置负值的 margin 的方向为 top 或者 left 的时候，元素也会按照设置的方向移动相应的距离。</p>
+<p><strong>设置的 margin 的方向为 bottom 或者 right</strong></p>
+<p>当设置 <code>margin-bottom/left</code> 的时候，元素本身也不会移动，元素后面的其他元素也会往该元素的方向移动相应的距离，但是，该元素会覆盖在后面的元素上面 (当然，此处说的情况肯定是后面的元素没有设置定位以及 <code>z-index</code> 的情况)。</p>
+<h3 id="第三种情况：元素没有设置浮动且-position-为-absolute"><a href="#第三种情况：元素没有设置浮动且-position-为-absolute" class="headerlink" title="第三种情况：元素没有设置浮动且 position 为 absolute"></a>第三种情况：元素没有设置浮动且 <code>position</code> 为 <code>absolute</code></h3><p>如果元素没有设置浮动，但是设置了绝对定位，设置 margin 为负值的时候，表现如下：</p>
+<p><strong>设置的 margin 的方向为 top 或者 left</strong></p>
+<p>当设置负值的 margin 的方向为 top 或者 left 的时候，元素也会按照设置的方向移动相应的距离。</p>
+<p><strong>设置的 margin 的方向为 bottom 或者 right</strong></p>
+<p>由于设置绝对定位的元素已经脱离了标准文档流，所以，设置 <code>margin-right/bottom</code> 对后面的元素并没有影响。</p>
+<h3 id="第四种情况：元素设置了浮动"><a href="#第四种情况：元素设置了浮动" class="headerlink" title="第四种情况：元素设置了浮动"></a>第四种情况：元素设置了浮动</h3><blockquote>
+<p>肯定没有既设置了浮动又设置绝对定位的情况，那样太荒唐了。<br>设置了浮动的元素，再设置 <code>postion: relative;</code> 的话，元素的行为和单独设置 <code>float</code> 是一样的。</p>
+</blockquote>
+<p>对于设置了浮动的元素，设置 margin 为负值的时候，表现如下：</p>
+<p>如果设置的 margin 的方向与浮动的方向相同，那么，元素会往对应的方向移动对应的距离。</p>
+<p>比如：</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.elem</span> &#123;</div><div class="line">    <span class="attribute">float</span>: right;</div><div class="line">    <span class="attribute">margin-right</span>: -<span class="number">100px</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>该元素则会向右移动 100px。</p>
+<p>如果设置 margin 的方向与浮动的方向相反，则元素本身不动，元素之前或者之后的元素会向钙元素的方向移动相应的距离。</p>
+<p>比如：</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.elem</span> &#123;</div><div class="line">    <span class="attribute">float</span>: right;</div><div class="line">    <span class="attribute">margin-left</span>: -<span class="number">100px</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>位于该元素左边的元素则会向右移动 100px，同时覆盖在该元素上。</p>
+<p>如果后面的元素也设置了浮动的话，我们以一个具体的例子来说明。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"container"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"left"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"right"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.container</span> &#123;</div><div class="line">    <span class="attribute">min-height</span>: <span class="number">300px</span>;</div><div class="line">    <span class="attribute">margin</span>: <span class="number">30px</span> auto;</div><div class="line">    <span class="attribute">overflow</span>: hidden;</div><div class="line">    <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#000000</span>;</div><div class="line">   </div><div class="line">    <span class="selector-class">.left</span> &#123;</div><div class="line">        <span class="attribute">float</span>: left;</div><div class="line">        <span class="attribute">width</span>: <span class="number">400px</span>;</div><div class="line">        <span class="attribute">height</span>: <span class="number">200px</span>;</div><div class="line">        <span class="attribute">margin-right</span>: -<span class="number">300px</span>;</div><div class="line">        <span class="attribute">background</span>: purple;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="selector-class">.right</span> &#123;</div><div class="line">        <span class="attribute">float</span>: left;</div><div class="line">        <span class="attribute">width</span>: <span class="number">300px</span>;</div><div class="line">        <span class="attribute">height</span>: <span class="number">200px</span>;</div><div class="line">        <span class="attribute">background</span>: <span class="number">#cccccc</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><code>.left</code> 和 <code>.right</code> 都设置了浮动，在 <code>.left</code> 上设置了 <code>margin-right: -300px;</code>，那么，<code>.right</code> 会向左移动 300px，从而覆盖在 <code>.left</code> 上。这种行为与没有既没有设置浮动也没有设置定位的表现类似。</p>
+<hr>
+<p>到此，我们把设置负 margin 的各种情况以及在各种情况下的表现都大概了解了一遍。那么，我们真正运用到实际中会是什么样子呢。</p>
+<h3 id="半遮挡的标题"><a href="#半遮挡的标题" class="headerlink" title="半遮挡的标题"></a>半遮挡的标题</h3><p>原谅我措辞不好，大概就是下图的效果：</p>
+<p><img src="https://sfault-image.b0.upaiyun.com/336/862/3368625051-58037eaeee013_articlex" alt="|center"></p>
+<p>按照一般的思想，肯定是直接给 title 设置绝对定位，然后再将其调整过去。</p>
+<p>但是，按照我们现在所说的，其实很简单就能实现这个效果。</p>
+<blockquote>
+<p>这里只写了主要部分的代码。</p>
+</blockquote>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"title"</span>&gt;</span>Hey This is title!<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"content"</span>&gt;</span>Hah! This is content.<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.title</span> &#123;</div><div class="line">    <span class="attribute">position</span>: relative;</div><div class="line">    <span class="attribute">width</span>: <span class="number">200px</span>;</div><div class="line">    <span class="attribute">height</span>: <span class="number">60px</span>;</div><div class="line">    <span class="attribute">margin-bottom</span>: -<span class="number">30px</span>;</div><div class="line">    <span class="attribute">margin-left</span>: -<span class="number">20px</span>;</div><div class="line">    <span class="attribute">background</span>: <span class="number">#000000</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-class">.content</span> &#123;</div><div class="line">    <span class="attribute">max-width</span>: <span class="number">800px</span>;</div><div class="line">    <span class="attribute">height</span>: <span class="number">400px</span>;</div><div class="line">    <span class="attribute">padding</span>: <span class="number">0</span> <span class="number">50px</span>;</div><div class="line">    <span class="attribute">background</span>: yellow;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>我们为 title 设置了两个 margin 的负值，分别是 <code>margin-bottom: -30px;</code>，以及 <code>margin-left: -20px;</code>。</p>
+<p>设置 <code>margin-bottom</code> 是为了让 content 向上移动，设置 <code>margin-left</code> 是为了让 title 向左移动一小段距离。</p>
+<p>还有个需要注意的地方就是，需要给 title 设置 <code>position: relative;</code>，根据我们的第二种情况所说的，这样，才能保证 title 覆盖在 content 之上。</p>
+<h3 id="简单的一列定宽的两列流式布局"><a href="#简单的一列定宽的两列流式布局" class="headerlink" title="简单的一列定宽的两列流式布局"></a>简单的一列定宽的两列流式布局</h3><p>根据我们的最后一种情况，通过设置 margin 为负值，我们可以很容易的实现一列定宽的两列流式布局。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"container"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"left"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"right"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.left</span> &#123;</div><div class="line">    <span class="attribute">float</span>: left;</div><div class="line">    <span class="attribute">width</span>: <span class="number">100%</span>;</div><div class="line">    <span class="attribute">height</span>: <span class="number">200px</span>;</div><div class="line">    <span class="attribute">margin-right</span>: -<span class="number">300px</span>;</div><div class="line">    <span class="attribute">background</span>: purple;</div><div class="line">&#125;</div><div class="line"><span class="selector-class">.right</span> &#123;</div><div class="line">    <span class="attribute">float</span>: left;</div><div class="line">    <span class="attribute">width</span>: <span class="number">300px</span>;</div><div class="line">    <span class="attribute">height</span>: <span class="number">200px</span>;</div><div class="line">    <span class="attribute">background</span>: <span class="number">#cccccc</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>唯一需要注意的地方就是设置了 100% 宽度的元素上的 margin 负值的绝对值一定要和定宽的元素的宽度相同。</p>
+<h3 id="两边固定，中间自适应的三列布局"><a href="#两边固定，中间自适应的三列布局" class="headerlink" title="两边固定，中间自适应的三列布局"></a>两边固定，中间自适应的三列布局</h3><p>这是一个很老的话题了，以前也有各种实现的方式，比如双飞翼布局，或者圣杯布局。</p>
+<p>我们此处就以双飞翼布局来作示例。</p>
+<p>先设置页面结构：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"container"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"center"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"left"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"right"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>此处我们没有把 center 放在中间，具体原因后面会解释。</p>
+<p>然后，我们设置这三列都浮动：</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.left</span>,</div><div class="line"><span class="selector-class">.right</span>,</div><div class="line"><span class="selector-class">.center</span> &#123;</div><div class="line">    <span class="attribute">float</span>: left;</div><div class="line">    <span class="attribute">height</span>: <span class="number">500px</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>同时为他们指定宽度：</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.left</span> &#123;</div><div class="line">    <span class="attribute">width</span>: <span class="number">300px</span>;</div><div class="line">    <span class="attribute">background</span>: <span class="number">#000000</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-class">.right</span> &#123;</div><div class="line">    <span class="attribute">width</span>: <span class="number">400px</span>;</div><div class="line">    <span class="attribute">background</span>: <span class="number">#00FFFF</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-class">.center</span> &#123;</div><div class="line">    <span class="attribute">width</span>: <span class="number">100%</span>;</div><div class="line">    <span class="attribute">background</span>: <span class="number">#93c759</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>现在我们要让 left 在左边，相当于就是让它覆盖在 center 的上面，所以，只需要这样一句：</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">margin-left</span>: -<span class="number">100%</span>;</div></pre></td></tr></table></figure>
+<p>同时，要让 right 在右边，同理，这样设置：</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">margin-left</span>: -<span class="number">400px</span>;</div></pre></td></tr></table></figure>
+<p>注意，此处的 margin 值的绝对值与 right 的宽度值相同。</p>
+<p>其实，这样设置，我们的三列布局就基本完成了。</p>
+<p>那么，我们为什么要把 center 放在 left 和 right 之前呢？</p>
+<p>这个其实涉及到元素的堆叠顺序的知识 (这里就不详细讲解了，后面有时间的话专门拿一篇文章来讲解吧)，此处简单说明一下。</p>
+<p>由于我们的三列都设置了浮动，所以，从某种意义上说，它们三个是在同一个平面的(相当于 <code>z-index</code> 相同)，那么，这里就不能根据 CSS 来判断堆叠顺序了。所以，此处的  HTML 结构就决定了它们的堆叠顺序：所谓后来居上。</p>
+<p>我们要让 left 在 center 之上，所以，肯定需要让 left 元素放在 center 之前。</p>
+<p>所以，三列布局完整的 SCSS 代码如下：</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.container</span> &#123;</div><div class="line">    <span class="attribute">overflow</span>: hidden;</div><div class="line">    </div><div class="line">    <span class="selector-class">.left</span>,</div><div class="line">	<span class="selector-class">.right</span>,</div><div class="line">	<span class="selector-class">.center</span> &#123;</div><div class="line">	    <span class="attribute">float</span>: left;</div><div class="line">	    <span class="attribute">height</span>: <span class="number">500px</span>;</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">	<span class="selector-class">.left</span> &#123;</div><div class="line">	    <span class="attribute">width</span>: <span class="number">300px</span>;</div><div class="line">	    <span class="attribute">margin-left</span>: -<span class="number">100%</span>;</div><div class="line">	    <span class="attribute">background</span>: <span class="number">#000000</span>;</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">	<span class="selector-class">.right</span> &#123;</div><div class="line">	    <span class="attribute">width</span>: <span class="number">400px</span>;</div><div class="line">	    <span class="attribute">margin-left</span>: -<span class="number">400px</span>;</div><div class="line">	    <span class="attribute">background</span>: <span class="number">#00FFFF</span>;</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">	<span class="selector-class">.center</span> &#123;</div><div class="line">	    <span class="attribute">width</span>: <span class="number">100%</span>;</div><div class="line">	    <span class="attribute">background</span>: <span class="number">#93c759</span>;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<hr>
+<h3 id="References"><a href="#References" class="headerlink" title="References"></a>References</h3><p><a href="https://www.w3.org/TR/CSS2/box.html#margin-properties" target="_blank" rel="external">margin-properties | W3C</a></p>
+<p><a href="https://www.smashingmagazine.com/2009/07/the-definitive-guide-to-using-negative-margins/" target="_blank" rel="external">The Definitive Guide to Using Negative Margins</a></p>
+<p><a href="http://www.cnblogs.com/tinyphp/p/4743674.html" target="_blank" rel="external">双飞翼布局和圣杯布局的对比</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://erichain.me/2016/10/16/2016-10-16-css-negative-margin/" data-id="cj154uq52002k5ophhzh1y4t1" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2016-09-05-how-to-implement-responsive-font-size" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/09/05/2016-09-05-how-to-implement-responsive-font-size/" class="article-date">
+  <time datetime="2016-09-05T00:00:00.000Z" itemprop="datePublished">2016-09-05</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Front-End/">Front-End</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/09/05/2016-09-05-how-to-implement-responsive-font-size/">如何实现 font-size 的响应式</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>本文样式代码采用 SCSS。</p>
+</blockquote>
+<p>那么多的文章讲了响应式的网站如何布局，使用 CSS 如何实现，如何 Blah Blah 的。但是，我们都忘了很重要的一点——对字体大小的响应式控制。</p>
+<p>现在的很多网站，从布局上来说，尽管是响应式的(当然，或许可以说成所谓响应式的)。但是，从字体上来说，却不一定是响应式的。虽然，每个网站可能会通过某些方式(比如频繁使用 <code>@media</code> )来让自己的网站在不同的屏幕大小下显示不同大小的字体，但是，这样不能叫做响应式，这只是一种适应式的做法。</p>
+<p>那么，怎么样才能对我们的 <code>font-size</code> 实现真正的响应式呢？</p>
+<p>我们需要做的主要有以下两点：</p>
+<p>1、制定一个最大的和最小的屏幕宽度值，我们的 <code>font-size</code> 应该是在这个屏幕范围内平滑均匀的变化；</p>
+<blockquote>
+<p>不可能让字体大小一直不停的变化。试想一下，自己一直缩小或者方法浏览器，字体一直变小或者变大的场景。</p>
+</blockquote>
+<p>2、制定最大和最小的 <code>font-size</code>，屏幕大小小于最小的屏幕宽度值的时候，应用最小的 <code>font-size</code>，反之，应用最大的 <code>font-size</code>；</p>
+<p>OK，计划制定好了，那么，应该如何实施呢？我们需要用到哪些技术呢？</p>
+<p>其实要用到的技术不多，只是，我们需要把脑子转一下。</p>
+<ul>
+<li><code>@media</code>：CSS Level 3 提供的媒体查询，只要做过响应式，或者任何适应屏幕功能的肯定用过这个属性。所以，在此不过多解释此属性，详细可查看 <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@media" target="_blank" rel="external">@media | MDN</a></li>
+<li><code>vw</code>：Viewport 单位，1vw 相当于屏幕宽度的百分之一。此处也不过多解释，详细可查看 <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/length" target="_blank" rel="external">length | CSS</a></li>
+<li><code>calc</code>：这是 CSS 提供的一个非常强大的属性，可以用来动态计算 CSS 的值。我们的功能主要就是通过这个函数来实现。详细可查看 <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/calc" target="_blank" rel="external">calc | MDN</a></li>
+</ul>
+<p>OK，需要的技术也齐全了。那么，现在就来一步一步实现。</p>
+<h4 id="定义变量"><a href="#定义变量" class="headerlink" title="定义变量"></a>定义变量</h4><p>按照上文中所说的计划那样，我们需要定义四个值，他们分别是最小屏幕宽度，最大屏幕宽度，最小字体，最大字体。</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$min-font-size</span>: <span class="number">14px</span>;</div><div class="line"><span class="variable">$max-font-size</span>: <span class="number">18px</span>;</div><div class="line"><span class="variable">$min-screen</span>: <span class="number">600px</span>;</div><div class="line"><span class="variable">$max-screen</span>: <span class="number">1200px</span>;</div></pre></td></tr></table></figure>
+<p>不过，使用 <code>px</code> 来定义字体大小显得不是很优雅，我们可以使用 <code>rem</code> 来定义我们的字体。那么，这时候，就需要先对网站的根元素设置字体大小了。</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">:root &#123;</div><div class="line">	<span class="attribute">font-size</span>: <span class="number">10px</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>然后，再来更新我们的变量。</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$min-font-size</span>: <span class="number">1.4rem</span>;</div><div class="line"><span class="variable">$max-font-size</span>: <span class="number">1.8rem</span>;</div><div class="line"><span class="variable">$min-screen</span>: <span class="number">600px</span>;</div><div class="line"><span class="variable">$max-screen</span>: <span class="number">1200px</span>;</div></pre></td></tr></table></figure>
+<p>我们把我们的变量定义和根元素的 <code>font-size</code> 放在文件的顶部。在这里，我们就不写那些相关的 reset 等样式了。</p>
+<h4 id="加入测试内容"><a href="#加入测试内容" class="headerlink" title="加入测试内容"></a>加入测试内容</h4><p>起了个好头，然后进行下一步，很简单，写我们的 HTML，此处不做过多赘述。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">header</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">h2</span>&gt;</span>This is Header.<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">header</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">section</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">article</span>&gt;</span></div><div class="line">        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div><div class="line">    <span class="tag">&lt;/<span class="name">article</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">section</span>&gt;</span></div></pre></td></tr></table></figure>
+<h4 id="使用-media-对限制字体大小边界值"><a href="#使用-media-对限制字体大小边界值" class="headerlink" title="使用 @media 对限制字体大小边界值"></a>使用 <code>@media</code> 对限制字体大小边界值</h4><p>上文中说过，在我们的屏幕宽度小于 600px 的时候，字体大小为 1.4rem，屏幕宽度大于 1200px 的时候，字体大小为 1.8rem。这个功能实现起来很简单，只需要应用相应的一小段媒体查询就行了。</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">@<span class="keyword">media</span> (min-width: <span class="variable">$max-screen</span>) &#123;</div><div class="line">    <span class="selector-tag">article</span> &#123;</div><div class="line">        <span class="attribute">font-size</span>: <span class="variable">$max-font-size</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">@<span class="keyword">media</span> (max-width: <span class="variable">$min-screen</span>) &#123;</div><div class="line">    <span class="selector-tag">article</span> &#123;</div><div class="line">        <span class="attribute">font-size</span>: <span class="variable">$min-font-size</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>OK，就这么一段代码，我们就可以将字体大小的边界值进行限制。在屏幕宽度小于或者大于对应的屏幕宽度值的时候，我们的字体大小都会保持在一个恒定的值。</p>
+<p>那么，边界限制做好了，接下来就是要实现真正的响应式了。怎么说呢？我们要让我们的 <code>font-size</code> 在 <code>600px ~ 1200px</code> 的屏幕宽度范围内平滑的变化。当然，这还不够，并不是说，只是给 <code>font-size</code> 设置一个百分比或者任何其他的相对单位，然后让这个字体能够在放大缩小屏幕的同时也能够放大缩小。我们要做的，是要通过精确的大小控制来实现响应式。</p>
+<h4 id="使用-calc-函数实现字体大小的响应式"><a href="#使用-calc-函数实现字体大小的响应式" class="headerlink" title="使用 calc 函数实现字体大小的响应式"></a>使用 <code>calc</code> 函数实现字体大小的响应式</h4><p>仔细看看上文中对字体大小边界值的限制的代码，已经有两个 <code>@media</code> 了，在这个部分，我们肯定还要加一个 <code>@media</code>，是不是显得有点多余？所以，我们可以稍微精简一下。</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">article</span> &#123;</div><div class="line">    <span class="attribute">font-size</span>: <span class="variable">$min-font-size</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line">@<span class="keyword">media</span> (min-width: <span class="variable">$min-screen</span>) and (max-width: <span class="variable">$max-screen</span>) &#123;</div><div class="line">	<span class="comment">// ...</span></div><div class="line">&#125;</div><div class="line"></div><div class="line">@<span class="keyword">media</span> (min-width: <span class="variable">$max-screen</span>) &#123;</div><div class="line">    <span class="selector-tag">article</span> &#123;</div><div class="line">        <span class="attribute">font-size</span>: <span class="variable">$max-font-size</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>只要两个 <code>@media</code> 其实就够了。对于不在媒体查询范围内的，只需要设置一个默认值就行了。但是，要注意的是，这个默认值一定要写在两个媒体查询规则的前面。否则，会由于 CSS 的层叠的特性，后声明的样式会覆盖掉先声明的样式，从而导致媒体查询规则不起作用。</p>
+<p>那么，要实现在这个屏幕宽度范围内精确平滑的变化，肯定需要用到一点数学计算。</p>
+<p>1、<code>font-size</code> 变化的范围是 <code>1.8rem - 1.4rem = 0.4rem</code>；</p>
+<p>2、屏幕宽度的变化范围是 <code>1200px - 600px = 600px</code>；</p>
+<p>3、最小的 <code>font-size</code> 是 <code>1.4rem</code>。那么，屏幕宽度只要大于 600px，这个值肯定会增加，同时，只要屏幕宽度达到 1200px，这个值也达到 1.8rem，然后便不再变化；</p>
+<p>可以看下图：</p>
+<p><img src="https://sfault-image.b0.upaiyun.com/606/687/60668762-57cd792b6a014" alt=""></p>
+<p>比如，我们现在有三种屏幕宽度，分别是 600px，1000px，1200px。那么，仔细观察左边的参考线，我们将最小的那个屏幕宽度去掉，相当于就剩下了两个值，一个是 a，一个是 b。</p>
+<p>由于 1200px 是我们设置的屏幕宽度的最大值，那么，也就是说，b 的变化范围最大也就是 a 的长度。通俗一点说就是，可以把 a 和 b 看成进度条，a 为 100% 的长度，b 为不断增加或者减少的长度。所以，这里就存在了一个比例值，当 b 为 0 的时候，这个比例也为 0，当 b 为 100% 的时候，这个比例就是 1。</p>
+<p>那么，按照这样的思路，转换到对应 <code>font-size</code> 的变化：变化范围是 <code>0.4rem</code>，这是分母，那么，分子该如何计算呢？我们怎么知道字体增加了多少呢？</p>
+<blockquote>
+<p>此处肯定是没有减少的。我们是在 <code>600px ~ 1200px</code> 之间变化的，最小的字体为 <code>1.4rem</code>，无论怎么算，字体大小都不会再减小了。</p>
+</blockquote>
+<p>所以，此处还有一个小小的转换。想一想，我们变化的不只是字体大小，还有屏幕宽度也在变化。所以，就像图片解释的那样，可以使用屏幕宽度的计算来得到一个相应的比例，然后，乘以 <code>font-size</code> 的变化范围 <code>0.4rem</code>，就可以得到我们增加的字体大小了。然后，在最小 <code>font-size</code> 的基础之上加上这个变化的范围，就可以得到在对应屏幕宽度下的精准的 <code>font-size</code>了。</p>
+<p>所以，使用 <code>calc</code> 可以这样写：</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">@<span class="keyword">media</span> (min-width: <span class="variable">$min-screen</span>) and (max-width: <span class="variable">$max-screen</span>) &#123;</div><div class="line">    <span class="selector-tag">article</span> &#123;</div><div class="line">        <span class="attribute">font-size</span>: calc(<span class="variable">$min-font-size</span> + (<span class="number">1.8</span> - <span class="number">1.4</span>) * ((<span class="number">100vw</span> - <span class="variable">$min-screen</span>) / (<span class="number">1200</span> - <span class="number">600</span>)));</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>注意，<code>calc</code> 函数在计算除法的时候，<code>/</code> 右边只能是数字，不能带单位。<code>*</code> 要求至少一个参数是数字。</p>
+</blockquote>
+<p>对这个式子我也解释一下，可以看到，其中有个表达式是 <code>100vw - 600px</code>，这是什么意思呢？</p>
+<p>转换成文字：浏览器可视区域的宽度减去最小宽度。</p>
+<p>其实理解起来很简单，举个例子：假设现在屏幕宽度为 1000px，那么，<code>100vw - 600px</code> 得到的结果为 <code>400px</code>，然后，除以 600，最后得到的是 <code>2 / 3</code>。然后，这个值去乘以 <code>0.4rem</code>，那么，这样就能计算出增加的字体大小值了，然后加上 <code>1.4rem</code>，就能得到最终的一个 <code>font-size</code>了。</p>
+<p>所以，就这样，我们就对 <code>font-size</code> 实现了响应式。不用再通过各种屏幕大小的媒体查询来变化了。</p>
+<p>值得庆幸的是，此规则对于 <code>line-height</code> 同样适用。</p>
+<p>以下是完整的 SCSS 代码：</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$min-font-size</span>: <span class="number">1.4rem</span>;</div><div class="line"><span class="variable">$max-font-size</span>: <span class="number">1.8rem</span>;</div><div class="line"><span class="variable">$min-screen</span>: <span class="number">600px</span>;</div><div class="line"><span class="variable">$max-screen</span>: <span class="number">1200px</span>;</div><div class="line"></div><div class="line">:root &#123;</div><div class="line">    <span class="attribute">font-size</span>: <span class="number">10px</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-tag">article</span> &#123;</div><div class="line">    <span class="attribute">font-size</span>: <span class="variable">$min-font-size</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line">@<span class="keyword">media</span> (min-width: <span class="variable">$min-screen</span>) and (max-width: <span class="variable">$max-screen</span>) &#123;</div><div class="line">    <span class="selector-tag">article</span> &#123;</div><div class="line">        <span class="attribute">font-size</span>: calc(<span class="variable">$min-font-size</span> + (<span class="number">2</span> - <span class="number">1.4</span>) * ((<span class="number">100vw</span> - <span class="variable">$min-screen</span>) / (<span class="number">1200</span> - <span class="number">800</span>)));</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">@<span class="keyword">media</span> (min-width: <span class="variable">$max-screen</span>) &#123;</div><div class="line">    <span class="selector-tag">article</span> &#123;</div><div class="line">        <span class="attribute">font-size</span>: <span class="variable">$max-font-size</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<hr>
+<h3 id="References"><a href="#References" class="headerlink" title="References"></a>References</h3><p><a href="https://madebymike.com.au/writing/precise-control-responsive-typography/" target="_blank" rel="external">Precise control over responsive typography</a></p>
+<p><a href="http://blog.typekit.com/2016/08/17/flexible-typography-with-css-locks/?utm_source=Responsive+Design+Weekly&amp;utm_campaign=dbc98f86d4-Responsive_Design_Weekly_222&amp;utm_medium=email&amp;utm_term=0_df65b6d7c8-dbc98f86d4-59087657&amp;goal=0_df65b6d7c8-dbc98f86d4-59087657&amp;mc_cid=dbc98f86d4&amp;mc_eid=142e875650" target="_blank" rel="external">Flexible typography with CSS locks</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://erichain.me/2016/09/05/2016-09-05-how-to-implement-responsive-font-size/" data-id="cj154uq4x002d5ophwfbd5fw7" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2016-08-28-progressive-loading-images-with-blur-effect" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/08/28/2016-08-28-progressive-loading-images-with-blur-effect/" class="article-date">
+  <time datetime="2016-08-28T00:00:00.000Z" itemprop="datePublished">2016-08-28</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Front-End/">Front-End</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/08/28/2016-08-28-progressive-loading-images-with-blur-effect/">使用模糊效果逐步加载图片 (仿 Medium)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>用过 Medium 的用户不会不记得它的图片加载方式——<strong>纯色-高斯模糊-加载完成并显示</strong>。</p>
+<p>这是一种很优雅的图片预加载的方式(因为 Medium 的图片质量都很高，如果全部一下加载的话，需要的时间难以想象，所以，这是一种很棒的做法)。从第一次打开 Medium 这个网站开始，我就被这种技术给吸引住了——好吧，直到今天才去研究它。</p>
+<p>在 Medium 网站，打开任何一篇文章，然后，我们来 inspect 一下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">figure</span> <span class="attr">name</span>=<span class="string">"512a"</span> </span></div><div class="line">        <span class="attr">id</span>=<span class="string">"512a"</span> </div><div class="line">        <span class="attr">class</span>=<span class="string">"graf--figure graf--layoutCroppedHeightPreview graf-after--h3"</span></div><div class="line">&gt;</div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"aspectRatioPlaceholder is-locked"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"aspectRatioPlaceholder-fill"</span> </span></div><div class="line">             <span class="attr">style</span>=<span class="string">"padding-bottom: 30%;"</span></div><div class="line">        &gt;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"progressiveMedia js-progressiveMedia graf-image is-canvasLoaded"</span> </span></div><div class="line">             <span class="attr">data-image-id</span>=<span class="string">"1*dZnfeZiXxf2BgN3VSQuOlA.jpeg"</span> </div><div class="line">             <span class="attr">data-width</span>=<span class="string">"3600"</span> </div><div class="line">             <span class="attr">data-height</span>=<span class="string">"3600"</span> </div><div class="line">             <span class="attr">data-scroll</span>=<span class="string">"native"</span></div><div class="line">        &gt;</div><div class="line">            <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"https://cdn-images-1.medium.com/freeze/fit/t/60/18/1*dZnfeZiXxf2BgN3VSQuOlA.jpeg?q=20"</span> </span></div><div class="line">                 <span class="attr">crossorigin</span>=<span class="string">"anonymous"</span> </div><div class="line">                 <span class="attr">class</span>=<span class="string">"progressiveMedia-thumbnail js-progressiveMedia-thumbnail"</span></div><div class="line">            &gt;</div><div class="line">            <span class="tag">&lt;<span class="name">canvas</span> <span class="attr">class</span>=<span class="string">"progressiveMedia-canvas js-progressiveMedia-canvas"</span> </span></div><div class="line">                    <span class="attr">width</span>=<span class="string">"75"</span> </div><div class="line">                    <span class="attr">height</span>=<span class="string">"22"</span></div><div class="line">            &gt;<span class="tag">&lt;/<span class="name">canvas</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">img</span> <span class="attr">class</span>=<span class="string">"progressiveMedia-image js-progressiveMedia-image"</span> </span></div><div class="line">                 <span class="attr">data-src</span>=<span class="string">"https://cdn-images-1.medium.com/fit/t/1600/480/1*dZnfeZiXxf2BgN3VSQuOlA.jpeg"</span> </div><div class="line">                 <span class="attr">src</span>=<span class="string">"https://cdn-images-1.medium.com/fit/t/1600/480/1*dZnfeZiXxf2BgN3VSQuOlA.jpeg"</span></div><div class="line">            &gt;</div><div class="line">            <span class="tag">&lt;<span class="name">noscript</span> <span class="attr">class</span>=<span class="string">"js-progressiveMedia-inner"</span>&gt;</span></div><div class="line">                &amp;lt;img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/fit/t/1600/480/1*dZnfeZiXxf2BgN3VSQuOlA.jpeg"&amp;gt;</div><div class="line">            <span class="tag">&lt;/<span class="name">noscript</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">figure</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>可以看到，Medium 为每一张图片都设置了这么长的一段 HTML。这样做的目的就是为了让这个图片的逐步加载过程能够平滑如一，同时还能在一定程度上提升用户体验。就算图片没有加载出来，显示给用户的是一个高斯模糊的图片，其实也不失美感。</p>
+<p>那么，这个图片的逐步加载过程具体是什么样的呢？</p>
+<p>1、渲染一个 <code>div</code> 容器，这个容器就是用来显示最终展示给用户的图片的。通过对容器设置一个百分比的 <code>padding-bottom</code> 来让其比例和大小与最终图片的比例和大小相同，这样，就能避免图片加载出来的时候导致的页面的重排；</p>
+<p>2、使用 <code>img</code> 标签来加载一张原图质量的 10% ~ 20% 左右的图片，这张图片的质量很低，而且很小，所以可以马上加载出来；</p>
+<p>3、一旦小图加载完成，就开始使用 canvas 来进行绘制，添加模糊效果，同时，开始请求最终要加载的大图；</p>
+<p>4、当最终的大图也加载完成之后，显示大图，隐藏掉 canvas。</p>
+<p>以上就是 Medium 的做法。</p>
+<hr>
+<p>我们可以自己来实现这个效果，实现过程如下：</p>
+<p>1、渲染一个容器，保持与原图的比例和尺寸相同，填充一个较浅的背景色；</p>
+<p>2、先加载小图，同时使用模糊效果；</p>
+<p>3、小图加载完成，开始请求大图；</p>
+<p>4、大图加载完成，显示大图，隐藏小图。</p>
+<p>所以，综合来看，其实并不复杂。</p>
+<p>首先，我们可以把大图和小图的 URL 和尺寸都存起来，通过标签的 <code>data</code> 属性去动态获取。所以，我们的 HTML 可以像下面这样写：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">figure</span> <span class="attr">name</span>=<span class="string">"blur"</span></span></div><div class="line">        <span class="attr">class</span>=<span class="string">"blur-img-container"</span></div><div class="line">        <span class="attr">data-real-width</span>=<span class="string">"1174"</span></div><div class="line">        <span class="attr">data-real-height</span>=<span class="string">"670"</span></div><div class="line">        <span class="attr">data-src</span>=<span class="string">"images/sm2.jpeg"</span></div><div class="line">        <span class="attr">src</span>=<span class="string">"https://cdn-images-1.medium.com/max/2000/1*0WwtDkE1q6HGZwD6Kn9SuQ.jpeg"</span></div><div class="line">&gt;<span class="tag">&lt;/<span class="name">figure</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>其中各个参数代表的含义是：</p>
+<ul>
+<li><code>data-real-width</code>: 大图的宽度</li>
+<li><code>data-real-height</code>: 大图的高度</li>
+<li><code>data-src</code>: 小图的 URL</li>
+<li><code>src</code>: 大图的 URL</li>
+</ul>
+<p>同时，我们需要定义一些 CSS 的 class 来对大图和小图进行处理：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.blur-img-container</span> &#123;</div><div class="line">    <span class="attribute">position</span>: relative;</div><div class="line">    <span class="attribute">background</span>: <span class="number">#eeeeee</span>;</div><div class="line">    <span class="attribute">background-size</span>: cover;</div><div class="line">    <span class="attribute">overflow</span>: hidden;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-class">.blur-img-container</span> <span class="selector-tag">img</span> &#123;</div><div class="line">    <span class="attribute">position</span>: absolute;</div><div class="line">    <span class="attribute">top</span>: <span class="number">0</span>;</div><div class="line">    <span class="attribute">left</span>: <span class="number">0</span>;</div><div class="line">    <span class="attribute">width</span>: <span class="number">100%</span>;</div><div class="line">    <span class="attribute">height</span>: <span class="number">100%</span>;</div><div class="line">    <span class="attribute">opacity</span>: <span class="number">0</span>;</div><div class="line">    <span class="attribute">transition</span>: all <span class="number">0.4s</span> ease-in-out;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-class">.blur-img-container</span> <span class="selector-class">.thumb-loaded</span> &#123;</div><div class="line">    <span class="attribute">opacity</span>: <span class="number">1</span>;</div><div class="line">    <span class="attribute">filter</span>: <span class="built_in">blur</span>(10px);</div><div class="line">    <span class="attribute">transform</span>: <span class="built_in">scale</span>(1);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-class">.blur-img-container</span> <span class="selector-class">.large-loaded</span> &#123;</div><div class="line">    <span class="attribute">opacity</span>: <span class="number">1</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-class">.blur-img-container</span> <span class="selector-class">.thumb-hidden</span> &#123;</div><div class="line">    <span class="attribute">opacity</span>: <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>然后，我们的重点在于 JavaScript 的处理。</p>
+<ul>
+<li>需要动态的设置每个图片的容器的 <code>padding-bottom</code> 以防止页面发生重排；</li>
+<li>通过 <code>image</code> 的 <code>onload</code> 事件来控制其样式和进度</li>
+</ul>
+<p>第一点，动态设置我们的容器的 <code>padding-bottom</code>。可以通过计算宽高比然后换算成百分比：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">elem.style.paddingBottom = <span class="string">`<span class="subst">$&#123;(realHeight <span class="regexp">/ realWidth) * 100&#125;%`;</span></span></span></div></pre></td></tr></table></figure>
+<p>第二点，使用图像的 <code>onload</code> 事件来控制加载的进度：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> thumb = <span class="keyword">new</span> Image();</div><div class="line">thumb.src = thumbSrc;</div><div class="line">thumb.onload = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">	<span class="comment">// 小图加载完成，显示小图，设置样式</span></div><div class="line">    setStyle(thumb, <span class="string">'thumb-loaded'</span>);</div><div class="line">&#125;;</div><div class="line">elem.appendChild(thumb);</div><div class="line"></div><div class="line"><span class="keyword">let</span> realImg = <span class="keyword">new</span> Image();</div><div class="line">realImg.src = lgSrc;</div><div class="line">realImg.onload = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">	<span class="comment">// 大图加载完成，显示大图，隐藏小图</span></div><div class="line">    setStyle(realImg, <span class="string">'large-loaded'</span>);</div><div class="line">    setStyle(thumb, <span class="string">'thumb-hidden'</span>);</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="comment">// 将大图添加到页面中</span></div><div class="line">elem.appendChild(realImg);</div></pre></td></tr></table></figure>
+<p>其实，只要把上面两点主要的功能做好了，我们的这个效果基本上就实现了。</p>
+<hr>
+<p><strong>可以通过我的 GitHub Repo 来查看完整的源代码和例子 <a href="https://github.com/Erichain/blur-image" target="_blank" rel="external">blur-image</a></strong>。</p>
+<p><strong>同时，我将这个小功能封装成了一个 package，需要的朋友可以通过 <code>npm install blur-image</code> 或者 <code>bower install blur-image</code> 进行安装和使用。具体的安装和使用方法可以查看文档</strong>。</p>
+<blockquote>
+<p>参考链接 <br><br><a href="https://jmperezperez.com/medium-image-progressive-loading-placeholder/" target="_blank" rel="external">How Medium does progressive image loading</a> <br><br><a href="https://css-tricks.com/the-blur-up-technique-for-loading-background-images/" target="_blank" rel="external">The “Blur Up” Technique for Loading Background Images</a></p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://erichain.me/2016/08/28/2016-08-28-progressive-loading-images-with-blur-effect/" data-id="cj154uq4z002h5ophdw2pvghv" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2016-08-23-making-indicator-with-pure-css" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/08/23/2016-08-23-making-indicator-with-pure-css/" class="article-date">
+  <time datetime="2016-08-23T00:00:00.000Z" itemprop="datePublished">2016-08-23</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Front-End/">Front-End</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/08/23/2016-08-23-making-indicator-with-pure-css/">Making An Indicator With Pure CSS</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>简单的说明一下，使用这个标题并不就是说要使用全英文来写这篇文章，主要是实在想不到更好的叫法了，也不知道怎么样能够更好的翻译成中文。</p>
+<p>可以简单地理解为：<strong>使用 CSS 来实现一个阅读文章时的简单的进度条效果。</strong></p>
+<p>本文所需要用到的背景知识点包括：<code>background-size, linear-gradient, calc() 函数， vh 单位</code>。</p>
+</blockquote>
+<p>Indicator 是什么？可以把它看作是一个指标，这种指标其实很常见，在我们阅读文章的时候，我们会将文章向上滚动，一些网站的做法就是给用户一个指标，标示用户已经读了多少内容了，这个指标就类似于一个进度条的样子，鼠标每向上或者向下滚动一点，这“进度条”会增加或者减少一点。用户阅读完毕的时候，它的长度也会达到整个网页的宽度。</p>
+<p>一般情况下，如果要实现一个这样的效果，我们首先想到的肯定是使用 JavaScript。通过使用 JavaScript 来根据用户滚动的距离，然后，将这个距离和 Indicator 的总长度以及剩余内容的高度综合进行比较，进行一些换算，然后改变 Indicator 的长度，这样，就实现了一个 Indicator 了。</p>
+<p>本文不会讲解如何使用 JavaScript 来实现此效果，如果有需要的，可以参考 <a href="https://codepen.io/Erichain/pen/BzEXkv?editors=0010" target="_blank" rel="external">Bloomberg Article Scroll Indicator</a>。</p>
+<p>那么，本文主要讲解的就是如何使用 CSS 来实现此效果。</p>
+<p>首先，我们将 HTML 都写好了(由于涉及到滚动，所以，可以随意的多加点内容，此处只是示范性地写了一点内容，具体的读者可以自行添加更多内容)：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">header</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Scroll Indicator<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">header</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">main</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">h2</span>&gt;</span>I was interested to see if I could make a scroll indicator like this with just CSS.<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>You can! But maybe you shouldn't. This is an interesting consequence of a bunch of hacks held together with duct tape. It uses z-index hacks, gradient hacks and tricks with calc and viewport units.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>Having said that, hacks are not always bad. I love hacks and many of us have made quite a good living selling floats and clearfixes.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>The techniques used here are well supported, if not conventional. If you can read the CSS, understand how it works, and how to change it, and you think this works better for you than JavaScript, feel free to implement it. Just be aware of the z-index behaviour and possible conflict with other CSS using negative z-index.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">hr</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>Cras mattis consectetur purus sit amet fermentum. Donec id elit non mi porta gravida at eget metus. Donec id elit non mi porta gravida at eget metus. Aenean lacinia bibendum nulla sed consectetur.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">h3</span>&gt;</span>Tristique Aenean Etiam Cras<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>Donec id elit non mi porta gravida at eget metus. Donec ullamcorper nulla non metus auctor fringilla. Nulla vitae elit libero, a pharetra augue. Donec sed odio dui. Donec id elit non mi porta gravida at eget metus. Praesent commodo cursus magna, vel scelerisque nisl consectetur et.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>Cras mattis consectetur purus sit amet fermentum. Donec id elit non mi porta gravida at eget metus. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Etiam porta sem malesuada magna mollis euismod. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec ullamcorper nulla non metus auctor fringilla.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Donec ullamcorper nulla non metus auctor fringilla. Sed posuere consectetur est at lobortis. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Aenean lacinia bibendum nulla sed consectetur. Nulla vitae elit libero, a pharetra augue.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>Donec sed odio dui. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Cras mattis consectetur purus sit amet fermentum. Maecenas sed diam eget risus varius blandit sit amet non magna.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">main</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>然后，我们简单的调整一下样式：</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">html</span>,</div><div class="line"><span class="selector-tag">body</span> &#123;</div><div class="line">    <span class="attribute">margin</span>: <span class="number">0</span>;</div><div class="line">    <span class="attribute">padding</span>: <span class="number">0</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-tag">body</span> &#123;</div><div class="line">	<span class="attribute">font-family</span>: <span class="string">"Times New Roman"</span>, Courier, monospace;</div><div class="line">	<span class="attribute">font-size</span>: <span class="number">1.25rem</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>由于我们滚动的时候，需要让 <code>header</code> 保持不动，所以，需要给它设置 <code>position: fixed;</code>：</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">header</span> &#123;</div><div class="line">    <span class="attribute">position</span>: fixed;</div><div class="line">    <span class="attribute">top</span>: <span class="number">0</span>;</div><div class="line">    <span class="attribute">width</span>: <span class="number">100%</span>;</div><div class="line">    <span class="attribute">height</span>: <span class="number">125px</span>;</div><div class="line">    <span class="attribute">padding</span>: <span class="number">0</span> <span class="number">10%</span>;</div><div class="line">    <span class="attribute">background</span>: <span class="number">#ffffff</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>然后，为了避免 <code>main</code> 元素包含的内容被 <code>header</code> 覆盖，我们需要让 <code>main</code> 往下挪一些，同时给它设置一个 <code>padding</code>：</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">main &#123;</div><div class="line">    <span class="attribute">margin-top</span>: <span class="number">125px</span>;</div><div class="line">    <span class="attribute">padding</span>: <span class="number">10px</span> <span class="number">10%</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>OK，大概的调整就这些，我们现在来构思如何实现这个 Amazing 的效果。</p>
+<p>按照使用 JavaScript 来实现这个效果的思想，那么，我们就需要先去计算一个百分比——也就是滚动的文章长度与总的剩余文章长度的比。</p>
+<p>如下图所示：</p>
+<p><img src="https://sfault-image.b0.upaiyun.com/159/376/1593764135-57bc54702c2fd" alt="Indicator JavaScript"></p>
+<p>假设我们文章的总长度为 <code>a</code>，以红色的线为界限，超出红线上的部分即为滚动的距离。那么，我们此刻滚动的距离为 <code>x</code>，<code>z</code> 代表的是滚动的进度百分比，红线的总长度 <code>y</code> 即为我们的 Indicator 的总长度，也就是所谓的 100%。那么，我们需要的肯定是以下的关系：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">x / a === z / y;</div></pre></td></tr></table></figure>
+<p>那么，计算出来的滚动的进度百分比 <code>z</code> 应该就是：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">z = (x * y) / a;</div></pre></td></tr></table></figure>
+<p>好了，这是 JavaScript 的大概思路，我们已经了解了，我们先把这个结果放这儿，来看看如何使用 CSS 来实现。</p>
+<p>在这里，我们需要用到两个 CSS 属性和一个 CSS 方法和一个 CSS 单位——<code>linear-gradient, background-position 和 calc() 和 vh</code>。</p>
+<blockquote>
+<p>简单的介绍一下这两个属性：</p>
+<p><code>background-position</code> 接受 1 到 4 个参数，默认值为 <code>0% 0%</code>。可以设置的值有 <code>top right bottom left center</code>，前四个值后面还可以跟具体的数值或者百分比。如果不加方向说明，直接设置数值或者百分比，位置则会以 <code>left top</code> 进行定位。<strong>注意：此处的 <code>top right bottom left</code> 定位是以 <code>padding-box(即 padding 的外沿框)</code> 进行定位的。</strong><br>若要了解详细内容，可查看 <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/background-position" target="_blank" rel="external">background-position | MDN</a>。</p>
+<p>关于 <code>linear-gradient</code>，即用来创建线性渐变。这个函数可接受多个参数值，其中，第一个表示渐变的方向，如果不写的话，默认为 <code>to bottom</code>，其余分别是 <code>to top | left | right</code>，后面的参数表示渐变的颜色，可以有多个颜色，每一个颜色后面还可以指定颜色的渐变位置。<br><strong>注意：由于 <code>linear-gradient</code> 生成的是一个 CSS image 对象，所以，这个函数只能应用在需要的数据类型是 image 的属性(如 <code>background-image</code>, <code>background</code>)上。也就是说，如果在 <code>color</code> 或者 <code>background-color</code> 属性上应用这个函数的话，将会不起作用。</strong><br>若要了解详细内容，可查看 <a href="https://www.google.com/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=1&amp;ved=0ahUKEwj8q-vgptXOAhUHKZQKHaRoARkQFggeMAA&amp;url=https%3A%2F%2Fdeveloper.mozilla.org%2Fen-US%2Fdocs%2FWeb%2FCSS%2Flinear-gradient&amp;usg=AFQjCNGAxCVsqUsyi3eKCZtfY_1mogvBOA&amp;sig2=_lxb9pGmaIB3HuO3vZ1VJw" target="_blank" rel="external">linear-gradient | MDN</a>。</p>
+<p>关于 <code>calc()</code> 函数，可以用来动态计算 CSS 的属性值。比如 <code>calc(100px - 10px)</code> 最终结果就为 <code>90px</code>;<br><strong>注意：为了让这个函数向上兼容，以后可能会在 calc 的内部允许使用关键字(或者说变量)，而这些关键字(或者变量)就包含连字符(即减号)，所以，为了避免解析冲突，要在运算符的前后加上空格。其中，+ 和 - 前后必须加上空格，* 和 / 前后不要求，但为了一致性，最好也都加上空格。</strong><br>若要了解详细内容，可查看 <a href="https://www.google.com/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=3&amp;ved=0ahUKEwiys7Xnr9XOAhVFmZQKHcKUBacQFggrMAI&amp;url=https%3A%2F%2Fdeveloper.mozilla.org%2Fen-US%2Fdocs%2FWeb%2FCSS%2Fcalc&amp;usg=AFQjCNF5twSLhepdlzZqBQpdyDyquf7QEQ&amp;sig2=3ygEHlH7kC027eG_IuJQFw" target="_blank" rel="external">calc | MDN</a>。</p>
+<p>关于 <code>vh</code> 单位，这个单位代表的意思即 <code>ViewHeight</code>，即浏览器可视区域的高度。与百分比类似，<code>100vh = height: 100%</code>。<br>若要了解详细内容，可查看 <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/length" target="_blank" rel="external">length | MDN</a>。</p>
+</blockquote>
+<p>那么，我们使用 CSS 实现的话，思路和 JavaScript 稍微有一点区别。但原理是一样的，我们仍然需要计算一个比例。</p>
+<p>还是来看一张图：</p>
+<p><img src="https://sfault-image.b0.upaiyun.com/338/644/3386442365-57bc547edc66a" alt="Indicator CSS"></p>
+<p>我们将我们的我们让 Indicator 的宽度和 <code>body</code> 等宽(好吧，其实就是 100%，此处这样话会好理解一点)，然后，注意到黄色的三角形了吗，当我们向上滚动的时候，黄色的三角形也会跟着向上滚动，同时，它会和长度为 <code>y</code> 的 Indicator 发生交叉，Indicator 会从三角形截出一段距离 <code>z</code>。这时候，黄色三角形向上移动的距离是 <code>x</code>。那么，要达到 Indicator 的效果，我么肯定要满足下面的条件：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">x / a === z / y;</div></pre></td></tr></table></figure>
+<p>所以，这样计算出来，我们的 <code>z</code> 就是：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">z = (x * y) / a;</div></pre></td></tr></table></figure>
+<p>注意到没，其实和我们上面的使用 JavaScript 时的计算结果是一样的。所以，原理相同，我们只需要变通一下就好了。</p>
+<p>那么，怎么用 CSS 写出来呢？</p>
+<p>注意到黄色三角形了吗，它上面还有一个白色三角形，它们两个是对称的，由两种不同的颜色组成，正好可以将其作为我们的 Indicator 的高亮色和默认色。</p>
+<p>我们把这两种颜色作为 <code>body</code> 的背景颜色，文章就在这个背景的上面，那么，我们滚动文章的时候，背景也会跟着动，就会有以上图中的效果了。</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">body</span> &#123;</div><div class="line">	<span class="attribute">background</span>: linear-gradient(to right top, <span class="number">#0089f2</span> <span class="number">50%</span>, <span class="number">#DDD</span> <span class="number">50%</span>);</div><div class="line">	<span class="attribute">background-position</span>: <span class="number">0</span> <span class="number">125px</span>;</div><div class="line">	<span class="attribute">background-size</span>: <span class="number">100%</span> calc(<span class="number">100%</span> - <span class="number">100vh</span> + <span class="number">5px</span>);</div><div class="line">	<span class="attribute">background-repeat</span>: no-repeat;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>注意到第一个属性的设置了吗，我们将两个颜色的位置都设置成了 <code>50%</code>，那么，这就相当于简便的过渡区域趋于无限小，看上去就相当于两种颜色累积在一起。</p>
+<p>第二个属性，我们将背景的位置进行了更改，将其往下移动了 <code>125px</code>，这个距离正好是我们的 <code>header</code> 的高度。这样，在我们没有滚动的时候，Indicator 的进度将会是 0；。</p>
+<p>第三个属性，看着这么长一个计算的等式，其实计算的是我们的剩余文章的长度。<code>100%</code> 即文章的总长度，<code>100vh</code> 即我们所看到的文章的长度，至于那个 <code>5px</code> 是什么，那是我们预留出来显示 Indicator 的高度。</p>
+<p>OK，我们现在来看效果将会是下面这张图片显示的样子。</p>
+<p><img src="https://sfault-image.b0.upaiyun.com/298/232/2982321310-57bc549102013" alt="Indicator Effect"></p>
+<p>我们看到，当我们向上滚动的时候，<code>header</code> 和 <code>main</code> 的交界处的蓝色区域在变化，对，这就是我们将要实现的 Indicator 的原型。</p>
+<p>那么，既然是一个 Indicator，那他就应该有一个 Indicator 的样子。我们需要把下面的那些全部遮住，只留出 Indicator 的那一条 progress bar。</p>
+<p>所以，我们继续完善代码：</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">body</span>:before &#123;</div><div class="line">    <span class="attribute">content</span>:<span class="string">''</span>;</div><div class="line">    <span class="attribute">position</span>: fixed;</div><div class="line">    <span class="attribute">top</span>: <span class="number">127px</span>;</div><div class="line">    <span class="attribute">bottom</span>: <span class="number">0</span>;</div><div class="line">    <span class="attribute">width</span>: <span class="number">100%</span>;</div><div class="line">    <span class="attribute">z-index</span>: -<span class="number">1</span>;</div><div class="line">    <span class="attribute">background</span>: white;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>我们通过使用一个伪元素来把 <code>body</code> 中多余的背景给隐藏掉。</p>
+<p>设置 <code>top: 127px;</code> 目的即让 Indicator 的高度为 <code>2px</code>，即到顶部的距离减去 <code>header</code> 的距离。</p>
+<p>至此，我们使用 CSS 制作的 Indicator 就上大功告成了。</p>
+<p>下面是我们实现的所有代码和效果：</p>
+<p></p><p data-height="265" data-theme-id="0" data-slug-hash="PzggNB" data-default-tab="html,result" data-user="Erichain" data-embed-version="2" data-preview="true" class="codepen">See the Pen <a href="http://codepen.io/Erichain/pen/PzggNB/" target="_blank" rel="external">CSS only scroll indicator</a> by Erichain (<a href="http://codepen.io/Erichain" target="_blank" rel="external">@Erichain</a>) on <a href="http://codepen.io" target="_blank" rel="external">CodePen</a>.</p><p></p>
+<script async src="//assets.codepen.io/assets/embed/ei.js"></script>
+
+<blockquote>
+<p>本文参考自 <a href="https://codepen.io/MadeByMike/pen/ZOrEmr?editors=1100，我在此基础上对其进行了一些优化。如果有问题，欢迎在评论区留言，Feel" target="_blank" rel="external">https://codepen.io/MadeByMike/pen/ZOrEmr?editors=1100，我在此基础上对其进行了一些优化。如果有问题，欢迎在评论区留言，Feel</a> Free To Ask。</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://erichain.me/2016/08/23/2016-08-23-making-indicator-with-pure-css/" data-id="cj154uq4t00265ophg1ijssyr" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2016-08-01-css-link-specificity" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/08/01/2016-08-01-css-link-specificity/" class="article-date">
+  <time datetime="2016-08-01T00:00:00.000Z" itemprop="datePublished">2016-08-01</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Front-End/">Front-End</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/08/01/2016-08-01-css-link-specificity/">CSS Link 伪类特性</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>本文参考自 <a href="http://meyerweb.com/eric/css/link-specificity.html" target="_blank" rel="external">Link Specificity</a></p>
+<p>CSS Link 伪类，包括 <code>:link, :visited, :hover, :active</code>。</p>
+<p>我们平时写的时候，用得最多的应该是 <code>:hover</code> 这个伪类，将四个伪类一起写的情况可能不多。正是由于用的不多，所以，这其中的一些需要注意的地方就必须要知道，不然，将调试器杀了可能也找不到问题所在。</p>
+<h4 id="伪类的书写顺序"><a href="#伪类的书写顺序" class="headerlink" title="伪类的书写顺序"></a>伪类的书写顺序</h4><p>对于这四个伪类，必须要记住的就是他们的书写顺序：<code>link-visited-hover-active</code> 或者 <code>visited-link-hover-active</code>。</p>
+<p>用一种简单的方式来记忆就是 <code>LoVe, HAte</code>( 按照 <code>link-visited-hover-active</code>  的顺序的话)。只有 <code>link</code> 和 <code>visited</code> 的顺序是可以互换的。</p>
+<p>那么，如果不按照正确的书写顺序写的话，会有什么问题呢？</p>
+<p>下面这个示例会展示正确的写法和不正确的写法之间的区别：</p>
+<p><strong>错误的写法</strong></p>
+<p></p><p data-height="265" data-theme-id="dark" data-slug-hash="WxgNJO" data-default-tab="css,result" data-user="Erichain" data-embed-version="2" class="codepen">See the Pen <a href="https://codepen.io/Erichain/pen/WxgNJO/" target="_blank" rel="external">LinkSpecificity( Bad Code)</a> by Erichain (<a href="http://codepen.io/Erichain" target="_blank" rel="external">@Erichain</a>) on <a href="http://codepen.io" target="_blank" rel="external">CodePen</a>.</p><p></p>
+<script async src="//assets.codepen.io/assets/embed/ei.js"></script>
+
+<hr>
+<p><strong>正确的写法</strong></p>
+<p></p><p data-height="265" data-theme-id="dark" data-slug-hash="kXRNZL" data-default-tab="css,result" data-user="Erichain" data-embed-version="2" class="codepen">See the Pen <a href="http://codepen.io/Erichain/pen/kXRNZL/" target="_blank" rel="external">LinkSpecificy</a> by Erichain (<a href="http://codepen.io/Erichain" target="_blank" rel="external">@Erichain</a>) on <a href="http://codepen.io" target="_blank" rel="external">CodePen</a>.</p><p></p>
+<script async src="//assets.codepen.io/assets/embed/ei.js"></script>
+
+<p>看出区别了吗？</p>
+<p>其实，其中的原理，仔细想想的话，很容易就能够明白。</p>
+<p>CSS 的样式应用是按照权重来进行应用的，权重越大的样式就会被应用到元素上。当权重相同的时候，后定义的样式会覆盖先定义的样式( 当然，Sass 的替换默认值的那种方式不一样 )。所以说，如果将 <code>:visited</code> 或者 <code>:link</code> 写在 <code>:hover</code> 和 <code>active</code> 的后面的话，<code>:hover</code> 和 <code>active</code> 的样式就会被 <code>:visited</code> 或者 <code>:link</code> 给重写了，那么，也就永远看不到 Hover 以及 Active 的效果了。</p>
+<p>至于 <code>:link</code> 和 <code>:visited</code> 可以交换的原因，想一想也很简单了，一个链接的状态不可能是既被访问过又没有被访问过吧。<code>:link</code> 其实代表的就是链接没有被访问的状态。</p>
+<blockquote>
+<p><code>:link</code> 这个伪类，其实很多情况下貌似都不用明确写出来，可以直接使用 <code>color</code> 属性代替。</p>
+</blockquote>
+<p>最后，说一下关于 <code>:visited</code> 这个伪类。<code>:visited</code> 作为一个查询用户访问历史的媒介，本身并没有什么危险性可言，但是，当与 <code>getComputedStyle()</code> 结合起来时，就表明别人可以通过浏览你的访问历史来得到你的一些信息。所以，对于 <code>:visited</code> 的样式，现代的大多数浏览器就严格限制了在这个伪类上的样式设置。查看详细信息，可以参考 <a href="https://hacks.mozilla.org/2010/03/privacy-related-changes-coming-to-css-vistited/" target="_blank" rel="external">privacy-related changes coming to CSS :visited</a>。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://erichain.me/2016/08/01/2016-08-01-css-link-specificity/" data-id="cj154uq4w002a5opho1syv8sv" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/2/">__('next') &raquo;</a>
+  </nav>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Angular-Front-End/">Angular Front-End</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Front-End/">Front-End</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Front-End-Full-Stack/">Front-End Full-Stack</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Front-End-Responsive/">Front-End Responsive</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Full-Stack/">Full-Stack</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Full-Stack-Mobile/">Full-Stack Mobile</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular/">angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bower/">bower</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/coffeescript/">coffeescript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css3/">css3</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/express/">express</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gem/">gem</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git-flow/">git-flow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html5/">html5</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ionic/">ionic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jquery/">jquery</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mongodb/">mongodb</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/">npm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ruby/">ruby</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sass/">sass</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/android/" style="font-size: 10px;">android</a> <a href="/tags/angular/" style="font-size: 15px;">angular</a> <a href="/tags/bower/" style="font-size: 10px;">bower</a> <a href="/tags/coffeescript/" style="font-size: 10px;">coffeescript</a> <a href="/tags/css/" style="font-size: 20px;">css</a> <a href="/tags/css3/" style="font-size: 10px;">css3</a> <a href="/tags/express/" style="font-size: 10px;">express</a> <a href="/tags/gem/" style="font-size: 10px;">gem</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/git-flow/" style="font-size: 10px;">git-flow</a> <a href="/tags/html5/" style="font-size: 10px;">html5</a> <a href="/tags/ionic/" style="font-size: 10px;">ionic</a> <a href="/tags/javascript/" style="font-size: 17.5px;">javascript</a> <a href="/tags/jquery/" style="font-size: 10px;">jquery</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/mac/" style="font-size: 12.5px;">mac</a> <a href="/tags/mongodb/" style="font-size: 10px;">mongodb</a> <a href="/tags/node/" style="font-size: 12.5px;">node</a> <a href="/tags/npm/" style="font-size: 12.5px;">npm</a> <a href="/tags/ruby/" style="font-size: 10px;">ruby</a> <a href="/tags/sass/" style="font-size: 10px;">sass</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">July 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/10/16/2016-10-16-css-negative-margin/">理解并运用 CSS 的负 margin 值</a>
+          </li>
+        
+          <li>
+            <a href="/2016/09/05/2016-09-05-how-to-implement-responsive-font-size/">如何实现 font-size 的响应式</a>
+          </li>
+        
+          <li>
+            <a href="/2016/08/28/2016-08-28-progressive-loading-images-with-blur-effect/">使用模糊效果逐步加载图片 (仿 Medium)</a>
+          </li>
+        
+          <li>
+            <a href="/2016/08/23/2016-08-23-making-indicator-with-pure-css/">Making An Indicator With Pure CSS</a>
+          </li>
+        
+          <li>
+            <a href="/2016/08/01/2016-08-01-css-link-specificity/">CSS Link 伪类特性</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 Erichain<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
