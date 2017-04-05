@@ -3,19 +3,18 @@
 <head>
   <meta charset="utf-8">
   
-  <title>在Mac上安装MongoDB | Erichain&#39;s Causeries</title>
+  <title>Erichain&#39;s Causeries</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="在Mac上安装MongoDB有两种方法，也是官方给出的两种方法。 第一种，直接使用homebrew安装 $ brew install mongodb 但是，这种方法可能会存在问题。在安装的过程中，到从Google上下载go--tools那一步的时候，总是会失败(总之我没成功过，尽管可以通过浏览器访问到)。所以，也就有了手动安装的方法。 第二种，就是手动安装，官方文档里，关于手动安装的过程，我觉得少">
-<meta name="keywords" content="mac,mongodb">
-<meta property="og:type" content="article">
-<meta property="og:title" content="在Mac上安装MongoDB">
-<meta property="og:url" content="https://erichain.me/2015/12/14/2015-12-14-install-mongodb-on-mac/index.html">
+  <meta name="description" content="Erichain.github.ioPersonal website - http://erichain.me.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Erichain's Causeries">
+<meta property="og:url" content="https://erichain.me/README.html">
 <meta property="og:site_name" content="Erichain's Causeries">
-<meta property="og:description" content="在Mac上安装MongoDB有两种方法，也是官方给出的两种方法。 第一种，直接使用homebrew安装 $ brew install mongodb 但是，这种方法可能会存在问题。在安装的过程中，到从Google上下载go--tools那一步的时候，总是会失败(总之我没成功过，尽管可以通过浏览器访问到)。所以，也就有了手动安装的方法。 第二种，就是手动安装，官方文档里，关于手动安装的过程，我觉得少">
-<meta property="og:updated_time" content="2017-04-05T14:56:03.000Z">
+<meta property="og:description" content="Erichain.github.ioPersonal website - http://erichain.me.">
+<meta property="og:updated_time" content="2017-04-05T15:46:57.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="在Mac上安装MongoDB">
-<meta name="twitter:description" content="在Mac上安装MongoDB有两种方法，也是官方给出的两种方法。 第一种，直接使用homebrew安装 $ brew install mongodb 但是，这种方法可能会存在问题。在安装的过程中，到从Google上下载go--tools那一步的时候，总是会失败(总之我没成功过，尽管可以通过浏览器访问到)。所以，也就有了手动安装的方法。 第二种，就是手动安装，官方文档里，关于手动安装的过程，我觉得少">
+<meta name="twitter:title" content="Erichain's Causeries">
+<meta name="twitter:description" content="Erichain.github.ioPersonal website - http://erichain.me.">
   
     <link rel="alternate" href="/atom.xml" title="Erichain&#39;s Causeries" type="application/atom+xml">
   
@@ -68,93 +67,30 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-2015-12-14-install-mongodb-on-mac" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2015/12/14/2015-12-14-install-mongodb-on-mac/" class="article-date">
-  <time datetime="2015-12-14T00:00:00.000Z" itemprop="datePublished">2015-12-14</time>
+    <a href="/README.html" class="article-date">
+  <time datetime="2017-04-05T15:46:57.000Z" itemprop="datePublished">2017-04-05</time>
 </a>
     
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Full-Stack/">Full-Stack</a>
-  </div>
-
   </div>
   <div class="article-inner">
     
     
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      在Mac上安装MongoDB
-    </h1>
-  
-
-      </header>
-    
     <div class="article-entry" itemprop="articleBody">
       
-        <p>在Mac上安装MongoDB有两种方法，也是官方给出的两种方法。</p>
-<p>第一种，直接使用<code>homebrew</code>安装</p>
-<p><code>$ brew install mongodb</code></p>
-<p>但是，这种方法可能会存在问题。在安装的过程中，到从Google上下载<code>go--tools</code>那一步的时候，总是会失败(总之我没成功过，尽管可以通过浏览器访问到)。所以，也就有了手动安装的方法。</p>
-<p>第二种，就是手动安装，官方文档里，关于手动安装的过程，我觉得少了一个关键点就是，没有说明应该把MongoDB安装在哪儿。</p>
-<p>所以，这里总结一下手动安装的方法。</p>
-<p>首先，去MongoDB官网下载<a href="https://www.mongodb.org/downloads#production" target="_blank" rel="external">MongoDB的压缩包</a>，也可以使用命令，这里，我们将其下载到<code>~/Downloads</code>里面。</p>
-<p><code>$ curl -O https://fastdl.mongodb.org/osx/mongodb-osx-x86_64-3.2.0.tgz</code></p>
-<p><strong>第二、解压</strong></p>
-<p><code>$ tar xzf mongodb-osx-x86_64-3.2.0.tgz</code></p>
-<p><strong>第三、安装，即将这个文件夹复制到<code>/usr/local</code>目录下</strong></p>
-<p>先重命名</p>
-<p><code>$ mv mongodb-osx-x86_64-3.2.0 mongodb</code></p>
-<p>然后，复制(或者移动)到<code>/usr/local</code>目录下(这里要加上<code>sudo</code>)</p>
-<p><code>$ sudo mv mongodb /usr/local/</code></p>
-<p><strong>第四、创建MongoDB的数据库存放文件夹</strong></p>
-<p><code>$ sudo mkdir -p /data/db</code></p>
-<p>然后，为这个文件夹指定用户权限，这里就指定你自己</p>
-<p><code>$ sudo chown User /data/db</code></p>
-<p><strong>第五、配置环境变量</strong></p>
-<p>用vim编辑器打开<code>.bash_profile</code>文件</p>
-<p><code>$ sudo vim ~/.bash_profile</code></p>
-<p>然后，将下面的两行代码加入到里面</p>
-<p><code>export MONGO_PATH=&quot;/usr/local/mongodb&quot;</code><br><code>export PATH=$PATH:$MONGO_PATH/bin</code></p>
-<p>wq保存之后，使用以下命令让<code>.bash_profile</code>生效</p>
-<p><code>$ source ~/.bash_profile</code></p>
-<p>然后，MongoDB就安装好了。</p>
-<p><code>$ mongo --version</code> 可以查看数据库版本。</p>
-<p><code>$ mongod</code> 可以启动数据库</p>
+        <h2 id="Erichain-github-io"><a href="#Erichain-github-io" class="headerlink" title="Erichain.github.io"></a>Erichain.github.io</h2><p>Personal website - <a href="http://erichain.me">http://erichain.me</a>.</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://erichain.me/2015/12/14/2015-12-14-install-mongodb-on-mac/" data-id="cj155fk7t0006s4ph32d9pkvn" class="article-share-link">Share</a>
+      <a data-url="https://erichain.me/README.html" data-id="cj155fk6d0000s4phb0vicwha" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mac/">mac</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mongodb/">mongodb</a></li></ul>
-
     </footer>
   </div>
   
     
-<nav id="article-nav">
-  
-    <a href="/2015/11/01/2015-11-01-scope-of-javascript/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          关于 JavaScript 的作用域
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2016/01/05/2016-01-05-config-ruby-on-mac/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">在Mac OS X下安装Ruby环境</div>
-    </a>
-  
-</nav>
-
   
 </article>
 
