@@ -348,7 +348,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: url("images/banner.jpg") center #000;
+  background: url("../images/banner.jpg") center #000;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   background-size: cover;
@@ -623,10 +623,16 @@ a.article-title:hover {
   padding: 10px 0;
 }
 .article-entry blockquote {
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 1.4em;
-  margin: 1.6em 20px;
-  text-align: center;
+  font-family: "Helvetica CE 35 Thin", "Myriad Pro", serif;
+  font-size: 1em;
+  margin: 15px 0;
+  padding: 10px 0 10px 10px;
+  text-align: left;
+  border-left: 10px solid #ddd;
+  background: #eee;
+}
+.article-entry blockquote p {
+  margin: 0;
 }
 .article-entry blockquote footer {
   font-size: 14px;
