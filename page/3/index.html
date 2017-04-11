@@ -118,7 +118,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://erichain.me/2016/04/17/2016-04-17-diff-between-jquery-prop-and-attr/" data-id="cj1dpmych001x8aphkdfx0qft" class="article-share-link">Share</a>
+      <a data-url="https://erichain.me/2016/04/17/2016-04-17-diff-between-jquery-prop-and-attr/" data-id="cj1dptcxp002ojuph0tpmq3qi" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jquery/">jquery</a></li></ul>
@@ -201,10 +201,61 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://erichain.me/2016/04/06/2016-04-06-great-css-tips-you-should-know/" data-id="cj1dpmyc6001l8aph8ul7umfl" class="article-share-link">Share</a>
+      <a data-url="https://erichain.me/2016/04/06/2016-04-06-great-css-tips-you-should-know/" data-id="cj1dptcwz001mjuph2sbbr1es" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2016-03-30-tip-for-calc-when-setting-height" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/03/30/2016-03-30-tip-for-calc-when-setting-height/" class="article-date">
+  <time datetime="2016-03-30T00:00:00.000Z" itemprop="datePublished">2016-03-30</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Front-End/">Front-End</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/03/30/2016-03-30-tip-for-calc-when-setting-height/">CSS3的calc属性设置高度的时候的tip</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>CSS3有一个很强大的<code>calc</code>属性可以供我们通过动态计算的方法来设置元素的宽高。</p>
+<p>但是，在使用这个属性的时候，需要有一些注意的地方。</p>
+<p>看下面这个例子：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"container"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"title"</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"content"</span>&gt;</span>Content<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"footer"</span>&gt;</span>Footer<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.title</span> &#123;</div><div class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</div><div class="line">  <span class="attribute">height</span>: <span class="number">100px</span>;</div><div class="line">  <span class="attribute">background-color</span>: blue;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-class">.content</span> &#123;</div><div class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</div><div class="line">  </div><div class="line">  <span class="comment">/* 设置内容高度为视区的总高度减去footer和header的高度，使用CSS3的calc属性 */</span></div><div class="line">  <span class="attribute">height</span>: <span class="built_in">calc</span>(100% - 150px);</div><div class="line">  <span class="attribute">background-color</span>: <span class="number">#aaaaaa</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-class">.footer</span> &#123;</div><div class="line">    <span class="attribute">position</span>: fixed;</div><div class="line">    <span class="attribute">width</span>: <span class="number">100%</span>;</div><div class="line">    <span class="attribute">height</span>: <span class="number">50px</span>;</div><div class="line">    <span class="attribute">bottom</span>: <span class="number">0</span>;</div><div class="line">    <span class="attribute">background-color</span>: black;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>表面上看这段代码没有问题，但是，我们在使用的时候就会发现，高度没能设置成功。因为高度为100%的时候，是相对于父级容器的高度来的，所以，还需要给父级容器设置高度才行。</p>
+<p>所以，更改后的CSS如下：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* 父级容器设置高度为视区高度，vh表示view height，100vh表示高度为100% */</span></div><div class="line"><span class="selector-class">.container</span> &#123;</div><div class="line">    <span class="attribute">color</span>: <span class="number">#ffffff</span>;</div><div class="line">    <span class="attribute">height</span>: <span class="number">100vh</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-class">.title</span> &#123;</div><div class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</div><div class="line">  <span class="attribute">height</span>: <span class="number">100px</span>;</div><div class="line">  <span class="attribute">background-color</span>: blue;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-class">.content</span> &#123;</div><div class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</div><div class="line">  </div><div class="line">  <span class="comment">/* 设置内容高度为视区的总高度减去footer和header的高度，使用CSS3的calc属性 */</span></div><div class="line">  <span class="attribute">height</span>: <span class="built_in">calc</span>(100% - 150px);</div><div class="line">  <span class="attribute">background-color</span>: <span class="number">#aaaaaa</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-class">.footer</span> &#123;</div><div class="line">    <span class="attribute">position</span>: fixed;</div><div class="line">    <span class="attribute">width</span>: <span class="number">100%</span>;</div><div class="line">    <span class="attribute">height</span>: <span class="number">50px</span>;</div><div class="line">    <span class="attribute">bottom</span>: <span class="number">0</span>;</div><div class="line">    <span class="attribute">background-color</span>: black;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这样，我们的高度设置就可以了。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://erichain.me/2016/03/30/2016-03-30-tip-for-calc-when-setting-height/" data-id="cj1dptcwv001jjupho0rflx5h" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css3/">css3</a></li></ul>
 
     </footer>
   </div>
@@ -305,61 +356,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://erichain.me/2016/03/30/2016-03-30-css-center-complete/" data-id="cj1dpmyc3001i8aphthmqkl3h" class="article-share-link">Share</a>
+      <a data-url="https://erichain.me/2016/03/30/2016-03-30-css-center-complete/" data-id="cj1dptcwo001bjuph90yrw5ym" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-2016-03-30-tip-for-calc-when-setting-height" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/03/30/2016-03-30-tip-for-calc-when-setting-height/" class="article-date">
-  <time datetime="2016-03-30T00:00:00.000Z" itemprop="datePublished">2016-03-30</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Front-End/">Front-End</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/03/30/2016-03-30-tip-for-calc-when-setting-height/">CSS3的calc属性设置高度的时候的tip</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>CSS3有一个很强大的<code>calc</code>属性可以供我们通过动态计算的方法来设置元素的宽高。</p>
-<p>但是，在使用这个属性的时候，需要有一些注意的地方。</p>
-<p>看下面这个例子：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"container"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"title"</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"content"</span>&gt;</span>Content<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"footer"</span>&gt;</span>Footer<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.title</span> &#123;</div><div class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</div><div class="line">  <span class="attribute">height</span>: <span class="number">100px</span>;</div><div class="line">  <span class="attribute">background-color</span>: blue;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-class">.content</span> &#123;</div><div class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</div><div class="line">  </div><div class="line">  <span class="comment">/* 设置内容高度为视区的总高度减去footer和header的高度，使用CSS3的calc属性 */</span></div><div class="line">  <span class="attribute">height</span>: <span class="built_in">calc</span>(100% - 150px);</div><div class="line">  <span class="attribute">background-color</span>: <span class="number">#aaaaaa</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-class">.footer</span> &#123;</div><div class="line">    <span class="attribute">position</span>: fixed;</div><div class="line">    <span class="attribute">width</span>: <span class="number">100%</span>;</div><div class="line">    <span class="attribute">height</span>: <span class="number">50px</span>;</div><div class="line">    <span class="attribute">bottom</span>: <span class="number">0</span>;</div><div class="line">    <span class="attribute">background-color</span>: black;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>表面上看这段代码没有问题，但是，我们在使用的时候就会发现，高度没能设置成功。因为高度为100%的时候，是相对于父级容器的高度来的，所以，还需要给父级容器设置高度才行。</p>
-<p>所以，更改后的CSS如下：</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* 父级容器设置高度为视区高度，vh表示view height，100vh表示高度为100% */</span></div><div class="line"><span class="selector-class">.container</span> &#123;</div><div class="line">    <span class="attribute">color</span>: <span class="number">#ffffff</span>;</div><div class="line">    <span class="attribute">height</span>: <span class="number">100vh</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-class">.title</span> &#123;</div><div class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</div><div class="line">  <span class="attribute">height</span>: <span class="number">100px</span>;</div><div class="line">  <span class="attribute">background-color</span>: blue;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-class">.content</span> &#123;</div><div class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</div><div class="line">  </div><div class="line">  <span class="comment">/* 设置内容高度为视区的总高度减去footer和header的高度，使用CSS3的calc属性 */</span></div><div class="line">  <span class="attribute">height</span>: <span class="built_in">calc</span>(100% - 150px);</div><div class="line">  <span class="attribute">background-color</span>: <span class="number">#aaaaaa</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-class">.footer</span> &#123;</div><div class="line">    <span class="attribute">position</span>: fixed;</div><div class="line">    <span class="attribute">width</span>: <span class="number">100%</span>;</div><div class="line">    <span class="attribute">height</span>: <span class="number">50px</span>;</div><div class="line">    <span class="attribute">bottom</span>: <span class="number">0</span>;</div><div class="line">    <span class="attribute">background-color</span>: black;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>这样，我们的高度设置就可以了。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://erichain.me/2016/03/30/2016-03-30-tip-for-calc-when-setting-height/" data-id="cj1dpmyby001d8aph36yn0nef" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css3/">css3</a></li></ul>
 
     </footer>
   </div>
@@ -411,7 +411,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://erichain.me/2016/03/29/2016-03-29-add-same-models-to-array/" data-id="cj1dpmybt001a8aphh7nys9dd" class="article-share-link">Share</a>
+      <a data-url="https://erichain.me/2016/03/29/2016-03-29-add-same-models-to-array/" data-id="cj1dptcwr001ejuphiy17flxr" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/angular/">angular</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
