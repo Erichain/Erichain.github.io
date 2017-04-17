@@ -12,7 +12,7 @@
 <meta property="og:url" content="https://erichain.me/2017/04/17/2017-04-17-more-reasonable-setstate/index.html">
 <meta property="og:site_name" content="Erichain's Causeries">
 <meta property="og:description" content="React 是我做前端以来接触到的第三个框架（前两个分别是 Angular 和 Vue），无论是从开发体验上和效率上，这都是一门非常优秀的框架，非常值得学习。  原谅我说了一些废话，以下是正文。  借助于 Redux，我们可以轻松的对 React 中的状态进行管理和维护，同时，React 也为我们提供了组件内的状态管理的方案，也就是 setState()。本文不会涉及到 Redux，我们将从 Co">
-<meta property="og:updated_time" content="2017-04-17T13:41:28.000Z">
+<meta property="og:updated_time" content="2017-04-17T14:03:29.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="更合理的 setState">
 <meta name="twitter:description" content="React 是我做前端以来接触到的第三个框架（前两个分别是 Angular 和 Vue），无论是从开发体验上和效率上，这都是一门非常优秀的框架，非常值得学习。  原谅我说了一些废话，以下是正文。  借助于 Redux，我们可以轻松的对 React 中的状态进行管理和维护，同时，React 也为我们提供了组件内的状态管理的方案，也就是 setState()。本文不会涉及到 Redux，我们将从 Co">
@@ -139,19 +139,18 @@
 <h4 id="问题所在"><a href="#问题所在" class="headerlink" title="问题所在"></a>问题所在</h4><p>那么，这就是传入对象来更新 state 会导致的问题吗？当然，这只是问题之一，还不是主要的问题。</p>
 <p>我们之前也说过，我们在处理异步更新的时候，需要用到传入函数的方式来更新我们的 state。这样，在更新下一个 state 的时候，我们能够正确的获取到之前的 state，并在在其基础之上进行相应的修改。而不是简单地执行所谓的对象合并。</p>
 <p>所以说，我们建议，在使用 <code>setState</code> 的时候，采用传入函数来更新 state 的方式，这样也是一个更合理的方式。</p>
-<blockquote>
+<hr>
 <p>我在 CodePen 上将这两个效果组合到了一起，感兴趣的话，你可以去试着点击一下。</p>
 <p></p><p data-height="265" data-theme-id="0" data-slug-hash="KWbLxg" data-default-tab="result" data-user="Erichain" data-embed-version="2" data-pen-title="React Functional setState" data-preview="true" class="codepen">See the Pen <a href="http://codepen.io/Erichain/pen/KWbLxg/" target="_blank" rel="external">React Functional setState</a> by Erichain (<a href="http://codepen.io/Erichain" target="_blank" rel="external">@Erichain</a>) on <a href="http://codepen.io" target="_blank" rel="external">CodePen</a>.</p><p></p>
 <script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
 
-</blockquote>
 <hr>
 <h4 id="References"><a href="#References" class="headerlink" title="References"></a>References</h4><p><a href="https://medium.freecodecamp.com/functional-setstate-is-the-future-of-react-374f30401b6b" target="_blank" rel="external">Functional setState is the future of React</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://erichain.me/2017/04/17/2017-04-17-more-reasonable-setstate/" data-id="cj1m66amv002r3dph4x8vznqx" class="article-share-link">Delen</a>
+      <a data-url="https://erichain.me/2017/04/17/2017-04-17-more-reasonable-setstate/" data-id="cj1m705zh002kcjpht3hpwptk" class="article-share-link">Delen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/react/">react</a></li></ul>
