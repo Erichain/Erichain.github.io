@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>更合理的 setState | Erichain&#39;s Causeries</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="React 是我做前端以来接触到的第三个框架（前两个分别是 Angular 和 Vue），无论是从开发体验上和效率上，这都是一门非常优秀的框架，非常值得学习。  原谅我说了一些废话，以下是正文。  借助于 Redux，我们可以轻松的对 React 中的状态进行管理和维护，同时，React 也为我们提供了组件内的状态管理的方案，也就是 setState()。本文不会涉及到 Redux，我们将从 Co">
+<meta name="keywords" content="javascript,react">
+<meta property="og:type" content="article">
+<meta property="og:title" content="更合理的 setState">
+<meta property="og:url" content="https://erichain.me/2017/04/17/2017-04-17-more-reasonable-setstate/index.html">
+<meta property="og:site_name" content="Erichain's Causeries">
+<meta property="og:description" content="React 是我做前端以来接触到的第三个框架（前两个分别是 Angular 和 Vue），无论是从开发体验上和效率上，这都是一门非常优秀的框架，非常值得学习。  原谅我说了一些废话，以下是正文。  借助于 Redux，我们可以轻松的对 React 中的状态进行管理和维护，同时，React 也为我们提供了组件内的状态管理的方案，也就是 setState()。本文不会涉及到 Redux，我们将从 Co">
+<meta property="og:updated_time" content="2017-04-17T13:41:28.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="更合理的 setState">
+<meta name="twitter:description" content="React 是我做前端以来接触到的第三个框架（前两个分别是 Angular 和 Vue），无论是从开发体验上和效率上，这都是一门非常优秀的框架，非常值得学习。  原谅我说了一些废话，以下是正文。  借助于 Redux，我们可以轻松的对 React 中的状态进行管理和维护，同时，React 也为我们提供了组件内的状态管理的方案，也就是 setState()。本文不会涉及到 Redux，我们将从 Co">
+  
+    <link rel="alternate" href="/atom.xml" title="Erichain&#39;s Causeries" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Erichain&#39;s Causeries</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">A website to record Erichain&#39;s life.</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Zoeken"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://erichain.me"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-2017-04-17-more-reasonable-setstate" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/04/17/2017-04-17-more-reasonable-setstate/" class="article-date">
+  <time datetime="2017-04-17T00:00:00.000Z" itemprop="datePublished">2017-04-17</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Front-End/">Front-End</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      更合理的 setState
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>React 是我做前端以来接触到的第三个框架（前两个分别是 Angular 和 Vue），无论是从开发体验上和效率上，这都是一门非常优秀的框架，非常值得学习。</p>
+<blockquote>
+<p>原谅我说了一些废话，以下是正文。</p>
+</blockquote>
+<p>借助于 Redux，我们可以轻松的对 React 中的状态进行管理和维护，同时，React 也为我们提供了组件内的状态管理的方案，也就是 <code>setState()</code>。本文不会涉及到 Redux，我们将从 Component 的角度来说明你不知道的以及更合理的 <code>setState()</code>。</p>
+<h4 id="先说说大家都知道的"><a href="#先说说大家都知道的" class="headerlink" title="先说说大家都知道的"></a>先说说大家都知道的</h4><p>在 React 文档的 <a href="https://facebook.github.io/react/docs/state-and-lifecycle.html" target="_blank" rel="external">State and Lifecycle</a> 一章中，其实有明确的说明 <code>setState()</code> 的用法，向 <code>setState()</code> 中传入一个对象来对已有的 state 进行更新。</p>
+<p>比如现在有下面的这样一段代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyComponent</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</div><div class="line">  <span class="keyword">constructor</span>(props) &#123;</div><div class="line">    <span class="keyword">super</span>(props);</div><div class="line">    <span class="keyword">this</span>.state = &#123;</div><div class="line">      <span class="attr">count</span>: <span class="keyword">this</span>.state.count + <span class="number">1</span></div><div class="line">    &#125;;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>我们如果想要对这个 state 进行更新的话，就可以这样使用 <code>setState()</code>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">this</span>.setState(&#123;</div><div class="line">  <span class="attr">count</span>: <span class="number">1</span></div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<hr>
+<h4 id="你可能不知道的"><a href="#你可能不知道的" class="headerlink" title="你可能不知道的"></a>你可能不知道的</h4><p>最基本的用法世人皆知，但是，在 React 的文档下面，还写着，处理关于异步更新 state 的问题的时候，就不能简单地传入对象来进行更新了。这个时候，需要采用另外一种方式来对 state 进行更新。</p>
+<p><code>setState()</code> 不仅能够接受一个对象作为参数，还能够接受一个函数作为参数。函数的参数即为 state 的前一个状态以及 props。</p>
+<p>所以，我们可以向下面这样来更新 state：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">this</span>.setState(<span class="function">(<span class="params">prevState, props</span>) =&gt;</span> (&#123; <span class="attr">count</span>: prevState.count + <span class="number">1</span> &#125;));</div></pre></td></tr></table></figure>
+<p>这样写的话，能够达到同样的效果。那么，他们之间有什么区别呢？</p>
+<hr>
+<h4 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h4><p>我们来详细探讨一下为什么会有两种设置 state 的方案，他们之间有什么区别，我们应该在何时使用何种方案来更新我们的 state 才是最好的。</p>
+<p>此处，为了能够明确的看出 state 的更新，我们采用一个比较简单的例子来进行说明。</p>
+<p>我们设置一个累加器，在 state 上设置一个 <code>count</code> 属性，同时，为其增加一个 <code>increment</code> 方法，通过这个 <code>increment</code> 方法来更新 <code>count</code>。</p>
+<p>此处，我们采用给 <code>setState()</code> 传入对象的方式来更新 state，同时，我们在此处设置每调用一次 <code>increment</code> 方法的时候，就调用两次 <code>setState()</code>。具体的原因我们在后文中会讲解。</p>
+<p>具体的代码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">IncrementByObject</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</div><div class="line">  <span class="keyword">constructor</span>(props) &#123;</div><div class="line">    <span class="keyword">super</span>(props);</div><div class="line">    <span class="keyword">this</span>.state = &#123;</div><div class="line">      <span class="attr">count</span>: <span class="number">0</span></div><div class="line">    &#125;;</div><div class="line">    <span class="keyword">this</span>.increment = <span class="keyword">this</span>.increment.bind(<span class="keyword">this</span>);</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">  <span class="comment">// 此处设置调用两次 setState()</span></div><div class="line">  increment() &#123;</div><div class="line">    <span class="keyword">this</span>.setState(&#123;</div><div class="line">      <span class="attr">count</span>: <span class="keyword">this</span>.state.count + <span class="number">1</span></div><div class="line">    &#125;);</div><div class="line">	</div><div class="line">    <span class="keyword">this</span>.setState(&#123;</div><div class="line">      <span class="attr">count</span>: <span class="keyword">this</span>.state.count + <span class="number">1</span></div><div class="line">    &#125;);</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">  render() &#123;</div><div class="line">    <span class="keyword">return</span> (</div><div class="line">      <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></div><div class="line">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;this.increment&#125;</span>&gt;</span>IncrementByObject<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">span</span>&gt;</span>&#123;this.state.count&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></div><div class="line">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    );</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">ReactDOM.render(</div><div class="line">  <span class="xml"><span class="tag">&lt;<span class="name">IncrementByObject</span> /&gt;</span>,</span></div><div class="line">  document.getElementById('root')</div><div class="line">);</div></pre></td></tr></table></figure>
+<p>这时候，我们点击 button 的时候，<code>count</code> 就会更新了。但是，可能与我们所预期的有所差别。我们设置了点击一次就调用两次 <code>setState()</code>，但是，<code>count</code> 每一次却还是只增加了 1，所以这是为什么呢？</p>
+<p>其实，在 React 内部，对于这种情况，采用的是对象合并的操作，就和我们所熟知的 <code>Object.assign()</code> 执行的结果一样。</p>
+<p>比如，我们有以下的代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">Object</span>.assign(&#123;&#125;, &#123; <span class="attr">a</span>: <span class="number">2</span>, <span class="attr">b</span>: <span class="number">3</span> &#125;, &#123; <span class="attr">a</span>: <span class="number">1</span>, <span class="attr">c</span>: <span class="number">4</span> &#125;);</div></pre></td></tr></table></figure>
+<p>那么，我们最终得到的结果将会是 <code>{ a: 1, b: 3, c: 4 }</code>。对象合并的操作，属性值将会以最后设置的属性的值为准，如果发现之前存在相同的属性，那么，这个属性将会被后设置的属性所替换。所以，也就不难理解为什么我们调用了两次 <code>setState()</code> 之后，<code>count</code> 依然只增加了 1 了。</p>
+<p>用简短的代码说明就是这样：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">this</span>.setState(&#123;</div><div class="line">  <span class="attr">count</span>: <span class="keyword">this</span>.state.count + <span class="number">1</span></div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="comment">// 同理于</span></div><div class="line"><span class="built_in">Object</span>.assign(&#123;&#125;, <span class="keyword">this</span>.state, &#123; <span class="attr">count</span>: <span class="keyword">this</span>.state.count + <span class="number">1</span> &#125;);</div></pre></td></tr></table></figure>
+<p>以上是我们采用对象的方式传入 <code>setState()</code> 来更新 state 的说明。接下来我们再看看使用函数的方式来更新 state 会有怎么样的效果呢？</p>
+<hr>
+<p>我们将上面的累加器采用另外的方式来实现一次，在 <code>setState()</code> 的时候，我们采用传入一个函数的方式来更新我们的 state。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">IncrementByFunction</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</div><div class="line">  <span class="keyword">constructor</span>(props) &#123;</div><div class="line">    <span class="keyword">super</span>(props);</div><div class="line">    <span class="keyword">this</span>.state = &#123;</div><div class="line">      <span class="attr">count</span>: <span class="number">0</span></div><div class="line">    &#125;;</div><div class="line">    <span class="keyword">this</span>.increment = <span class="keyword">this</span>.increment.bind(<span class="keyword">this</span>);</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  increment() &#123;</div><div class="line">    <span class="comment">// 采用传入函数的方式来更新 state</span></div><div class="line">    <span class="keyword">this</span>.setState(<span class="function">(<span class="params">prevState, props</span>) =&gt;</span> (&#123;</div><div class="line">      <span class="attr">count</span>: prevState.count + <span class="number">1</span></div><div class="line">    &#125;));</div><div class="line">    <span class="keyword">this</span>.setState(<span class="function">(<span class="params">prevState, props</span>) =&gt;</span> (&#123;</div><div class="line">      <span class="attr">count</span>: prevState.count + <span class="number">1</span></div><div class="line">    &#125;));</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  render() &#123;</div><div class="line">    <span class="keyword">return</span> (</div><div class="line">      <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></div><div class="line">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;this.increment&#125;</span>&gt;</span>IncrementByFunction<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">span</span>&gt;</span>&#123;this.state.count&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></div><div class="line">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    );</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">ReactDOM.render(</div><div class="line">  <span class="xml"><span class="tag">&lt;<span class="name">IncrementByFunction</span> /&gt;</span>,</span></div><div class="line">  document.getElementById('root')</div><div class="line">);</div></pre></td></tr></table></figure>
+<p>当我们再次点击按钮的时候，就会发现，我们的累加器就会每次增加 2 了。</p>
+<p>我们可以通过查看 React 的源代码来找出这两种更新 state 的区别 (此处只展示通过传入函数进行更新的方式的部分源码)。</p>
+<p>在 React 的源代码中，我们可以看到这样一句代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">this</span>.updater.enqueueSetState(<span class="keyword">this</span>, partialState, callback, <span class="string">'setState'</span>);</div></pre></td></tr></table></figure>
+<p>然后，<code>enqueueSetState</code> 函数中又会有这样的实现：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">queue.push(partialState);</div><div class="line">enqueueUpdate(internalInstance);</div></pre></td></tr></table></figure>
+<p>所以，与传入对象更新 state 的方式不同，我们传入函数来更新 state 的时候，React 会把我们更新 state 的函数加入到一个队列里面，然后，按照函数的顺序依次调用。同时，为每个函数传入 state 的前一个状态，这样，就能更合理的来更新我们的 state 了。</p>
+<hr>
+<h4 id="问题所在"><a href="#问题所在" class="headerlink" title="问题所在"></a>问题所在</h4><p>那么，这就是传入对象来更新 state 会导致的问题吗？当然，这只是问题之一，还不是主要的问题。</p>
+<p>我们之前也说过，我们在处理异步更新的时候，需要用到传入函数的方式来更新我们的 state。这样，在更新下一个 state 的时候，我们能够正确的获取到之前的 state，并在在其基础之上进行相应的修改。而不是简单地执行所谓的对象合并。</p>
+<p>所以说，我们建议，在使用 <code>setState</code> 的时候，采用传入函数来更新 state 的方式，这样也是一个更合理的方式。</p>
+<blockquote>
+<p>我在 CodePen 上将这两个效果组合到了一起，感兴趣的话，你可以去试着点击一下。</p>
+<p></p><p data-height="265" data-theme-id="0" data-slug-hash="KWbLxg" data-default-tab="result" data-user="Erichain" data-embed-version="2" data-pen-title="React Functional setState" data-preview="true" class="codepen">See the Pen <a href="http://codepen.io/Erichain/pen/KWbLxg/" target="_blank" rel="external">React Functional setState</a> by Erichain (<a href="http://codepen.io/Erichain" target="_blank" rel="external">@Erichain</a>) on <a href="http://codepen.io" target="_blank" rel="external">CodePen</a>.</p><p></p>
+<script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
+
+</blockquote>
+<hr>
+<h4 id="References"><a href="#References" class="headerlink" title="References"></a>References</h4><p><a href="https://medium.freecodecamp.com/functional-setstate-is-the-future-of-react-374f30401b6b" target="_blank" rel="external">Functional setState is the future of React</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://erichain.me/2017/04/17/2017-04-17-more-reasonable-setstate/" data-id="cj1m66amv002r3dph4x8vznqx" class="article-share-link">Delen</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/react/">react</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/10/16/2016-10-16-css-negative-margin/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Nieuwer</strong>
+      <div class="article-nav-title">
+        
+          理解并运用 CSS 的负 margin 值
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categorieën</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Angular-Front-End/">Angular Front-End</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Front-End/">Front-End</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Front-End-Full-Stack/">Front-End Full-Stack</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Front-End-Responsive/">Front-End Responsive</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Full-Stack/">Full-Stack</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Full-Stack-Mobile/">Full-Stack Mobile</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Labels</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular/">angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bower/">bower</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/coffeescript/">coffeescript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css3/">css3</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/express/">express</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gem/">gem</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git-flow/">git-flow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html5/">html5</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ionic/">ionic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jquery/">jquery</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mongodb/">mongodb</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/">npm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/">react</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ruby/">ruby</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sass/">sass</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/android/" style="font-size: 10px;">android</a> <a href="/tags/angular/" style="font-size: 15px;">angular</a> <a href="/tags/bower/" style="font-size: 10px;">bower</a> <a href="/tags/coffeescript/" style="font-size: 10px;">coffeescript</a> <a href="/tags/css/" style="font-size: 20px;">css</a> <a href="/tags/css3/" style="font-size: 10px;">css3</a> <a href="/tags/express/" style="font-size: 10px;">express</a> <a href="/tags/gem/" style="font-size: 10px;">gem</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/git-flow/" style="font-size: 10px;">git-flow</a> <a href="/tags/html5/" style="font-size: 10px;">html5</a> <a href="/tags/ionic/" style="font-size: 10px;">ionic</a> <a href="/tags/javascript/" style="font-size: 17.5px;">javascript</a> <a href="/tags/jquery/" style="font-size: 10px;">jquery</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/mac/" style="font-size: 12.5px;">mac</a> <a href="/tags/mongodb/" style="font-size: 10px;">mongodb</a> <a href="/tags/node/" style="font-size: 12.5px;">node</a> <a href="/tags/npm/" style="font-size: 12.5px;">npm</a> <a href="/tags/react/" style="font-size: 10px;">react</a> <a href="/tags/ruby/" style="font-size: 10px;">ruby</a> <a href="/tags/sass/" style="font-size: 10px;">sass</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archieven</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">July 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recente berichten</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/04/17/2017-04-17-more-reasonable-setstate/">更合理的 setState</a>
+          </li>
+        
+          <li>
+            <a href="/2016/10/16/2016-10-16-css-negative-margin/">理解并运用 CSS 的负 margin 值</a>
+          </li>
+        
+          <li>
+            <a href="/2016/09/05/2016-09-05-how-to-implement-responsive-font-size/">如何实现 font-size 的响应式</a>
+          </li>
+        
+          <li>
+            <a href="/2016/08/28/2016-08-28-progressive-loading-images-with-blur-effect/">使用模糊效果逐步加载图片 (仿 Medium)</a>
+          </li>
+        
+          <li>
+            <a href="/2016/08/23/2016-08-23-making-indicator-with-pure-css/">Making An Indicator With Pure CSS</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 Erichain<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="/js/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
