@@ -135,7 +135,7 @@ body {
   -webkit-text-size-adjust: 100%;
 }
 .outer {
-  max-width: 1220px;
+  max-width: 1600px;
   margin: 0 auto;
   padding: 0 20px;
 }
@@ -192,6 +192,11 @@ body {
     float: left;
     width: 73.33333333333333%;
     margin: 0 0.833333333333333%;
+  }
+}
+@media screen and (min-width: 768px) {
+  #main {
+    float: right;
   }
 }
 .article-date,
@@ -397,7 +402,6 @@ body {
 .main-nav-link {
   float: left;
   color: #fff;
-  opacity: 0.6;
   text-decoration: none;
   text-shadow: 0 1px rgba(0,0,0,0.2);
   -webkit-transition: opacity 0.2s;
@@ -409,7 +413,7 @@ body {
 }
 .nav-icon:hover,
 .main-nav-link:hover {
-  opacity: 1;
+  color: #00cbcb;
 }
 .nav-icon {
   font-family: FontAwesome;
@@ -556,7 +560,7 @@ body {
   transition: color 0.2s;
 }
 a.article-title:hover {
-  color: #258fb8;
+  color: #00cbcb;
 }
 .article-entry {
   color: #555;
@@ -597,7 +601,7 @@ a.article-title:hover {
   color: #4d4d4d;
 }
 .article-entry a {
-  color: #258fb8;
+  color: #00cbcb;
   text-decoration: none;
 }
 .article-entry a:hover {
@@ -702,10 +706,10 @@ a.article-title:hover {
   text-decoration: none;
 }
 .article-more-link a:hover {
-  background: #258fb8;
+  background: #00cbcb;
   color: #fff;
   text-decoration: none;
-  text-shadow: 0 1px #1e7293;
+  text-shadow: 0 1px #00a2a2;
 }
 .article-footer {
   font-size: 0.85em;
@@ -968,7 +972,7 @@ a.article-title:hover {
   margin: 50px 0;
 }
 #comments a {
-  color: #258fb8;
+  color: #00cbcb;
 }
 .archives-wrap {
   margin: 50px 0;
@@ -1024,7 +1028,7 @@ a.article-title:hover {
   line-height: 1.6em;
 }
 .archive-article-title:hover {
-  color: #258fb8;
+  color: #00cbcb;
 }
 .archive-article-footer {
   margin-top: 1em;
@@ -1098,7 +1102,7 @@ a.article-title:hover {
   color: #999;
 }
 #footer a {
-  color: #258fb8;
+  color: #00cbcb;
   text-decoration: none;
 }
 #footer a:hover {
@@ -1114,6 +1118,7 @@ a.article-title:hover {
   font-size: 12px;
   color: #fff;
   background: #2f1e2e;
+  border-radius: 5px;
   overflow: auto;
 }
 .highlight table {
@@ -1228,7 +1233,7 @@ a.article-title:hover {
   border-radius: 3px;
 }
 .widget a {
-  color: #258fb8;
+  color: #00cbcb;
   text-decoration: none;
 }
 .widget a:hover {

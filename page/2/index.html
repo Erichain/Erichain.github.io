@@ -55,9 +55,9 @@
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://erichain.me"></form>
@@ -68,10 +68,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-2016-08-01-css-link-specificity" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-2016-09-05-how-to-implement-responsive-font-size" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2016/08/01/2016-08-01-css-link-specificity/" class="article-date">
-  <time datetime="2016-08-01T00:00:00.000Z" itemprop="datePublished">2016-08-01</time>
+    <a href="/2016/09/05/2016-09-05-how-to-implement-responsive-font-size/" class="article-date">
+  <time datetime="2016-09-05T00:00:00.000Z" itemprop="datePublished">2016-09-05</time>
 </a>
     
   <div class="article-category">
@@ -86,7 +86,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/08/01/2016-08-01-css-link-specificity/">CSS Link 伪类特性</a>
+      <a class="article-title" href="/2016/09/05/2016-09-05-how-to-implement-responsive-font-size/">如何实现 font-size 的响应式</a>
     </h1>
   
 
@@ -94,35 +94,75 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>本文参考自 <a href="http://meyerweb.com/eric/css/link-specificity.html" target="_blank" rel="external">Link Specificity</a></p>
-<p>CSS Link 伪类，包括 <code>:link, :visited, :hover, :active</code>。</p>
-<p>我们平时写的时候，用得最多的应该是 <code>:hover</code> 这个伪类，将四个伪类一起写的情况可能不多。正是由于用的不多，所以，这其中的一些需要注意的地方就必须要知道，不然，将调试器杀了可能也找不到问题所在。</p>
-<h4 id="伪类的书写顺序"><a href="#伪类的书写顺序" class="headerlink" title="伪类的书写顺序"></a>伪类的书写顺序</h4><p>对于这四个伪类，必须要记住的就是他们的书写顺序：<code>link-visited-hover-active</code> 或者 <code>visited-link-hover-active</code>。</p>
-<p>用一种简单的方式来记忆就是 <code>LoVe, HAte</code>( 按照 <code>link-visited-hover-active</code>  的顺序的话)。只有 <code>link</code> 和 <code>visited</code> 的顺序是可以互换的。</p>
-<p>那么，如果不按照正确的书写顺序写的话，会有什么问题呢？</p>
-<p>下面这个示例会展示正确的写法和不正确的写法之间的区别：</p>
-<p><strong>错误的写法</strong></p>
-<p></p><p data-height="265" data-theme-id="dark" data-slug-hash="WxgNJO" data-default-tab="css,result" data-user="Erichain" data-embed-version="2" class="codepen">See the Pen <a href="https://codepen.io/Erichain/pen/WxgNJO/" target="_blank" rel="external">LinkSpecificity( Bad Code)</a> by Erichain (<a href="http://codepen.io/Erichain" target="_blank" rel="external">@Erichain</a>) on <a href="http://codepen.io" target="_blank" rel="external">CodePen</a>.</p><p></p>
-<script async src="//assets.codepen.io/assets/embed/ei.js"></script>
-
-<hr>
-<p><strong>正确的写法</strong></p>
-<p></p><p data-height="265" data-theme-id="dark" data-slug-hash="kXRNZL" data-default-tab="css,result" data-user="Erichain" data-embed-version="2" class="codepen">See the Pen <a href="http://codepen.io/Erichain/pen/kXRNZL/" target="_blank" rel="external">LinkSpecificy</a> by Erichain (<a href="http://codepen.io/Erichain" target="_blank" rel="external">@Erichain</a>) on <a href="http://codepen.io" target="_blank" rel="external">CodePen</a>.</p><p></p>
-<script async src="//assets.codepen.io/assets/embed/ei.js"></script>
-
-<p>看出区别了吗？</p>
-<p>其实，其中的原理，仔细想想的话，很容易就能够明白。</p>
-<p>CSS 的样式应用是按照权重来进行应用的，权重越大的样式就会被应用到元素上。当权重相同的时候，后定义的样式会覆盖先定义的样式( 当然，Sass 的替换默认值的那种方式不一样 )。所以说，如果将 <code>:visited</code> 或者 <code>:link</code> 写在 <code>:hover</code> 和 <code>active</code> 的后面的话，<code>:hover</code> 和 <code>active</code> 的样式就会被 <code>:visited</code> 或者 <code>:link</code> 给重写了，那么，也就永远看不到 Hover 以及 Active 的效果了。</p>
-<p>至于 <code>:link</code> 和 <code>:visited</code> 可以交换的原因，想一想也很简单了，一个链接的状态不可能是既被访问过又没有被访问过吧。<code>:link</code> 其实代表的就是链接没有被访问的状态。</p>
-<blockquote>
-<p><code>:link</code> 这个伪类，其实很多情况下貌似都不用明确写出来，可以直接使用 <code>color</code> 属性代替。</p>
+        <blockquote>
+<p>本文样式代码采用 SCSS。</p>
 </blockquote>
-<p>最后，说一下关于 <code>:visited</code> 这个伪类。<code>:visited</code> 作为一个查询用户访问历史的媒介，本身并没有什么危险性可言，但是，当与 <code>getComputedStyle()</code> 结合起来时，就表明别人可以通过浏览你的访问历史来得到你的一些信息。所以，对于 <code>:visited</code> 的样式，现代的大多数浏览器就严格限制了在这个伪类上的样式设置。查看详细信息，可以参考 <a href="https://hacks.mozilla.org/2010/03/privacy-related-changes-coming-to-css-vistited/" target="_blank" rel="external">privacy-related changes coming to CSS :visited</a>。</p>
+<p>那么多的文章讲了响应式的网站如何布局，使用 CSS 如何实现，如何 Blah Blah 的。但是，我们都忘了很重要的一点——对字体大小的响应式控制。</p>
+<p>现在的很多网站，从布局上来说，尽管是响应式的(当然，或许可以说成所谓响应式的)。但是，从字体上来说，却不一定是响应式的。虽然，每个网站可能会通过某些方式(比如频繁使用 <code>@media</code> )来让自己的网站在不同的屏幕大小下显示不同大小的字体，但是，这样不能叫做响应式，这只是一种适应式的做法。</p>
+<p>那么，怎么样才能对我们的 <code>font-size</code> 实现真正的响应式呢？</p>
+<p>我们需要做的主要有以下两点：</p>
+<p>1、制定一个最大的和最小的屏幕宽度值，我们的 <code>font-size</code> 应该是在这个屏幕范围内平滑均匀的变化；</p>
+<blockquote>
+<p>不可能让字体大小一直不停的变化。试想一下，自己一直缩小或者方法浏览器，字体一直变小或者变大的场景。</p>
+</blockquote>
+<p>2、制定最大和最小的 <code>font-size</code>，屏幕大小小于最小的屏幕宽度值的时候，应用最小的 <code>font-size</code>，反之，应用最大的 <code>font-size</code>；</p>
+<p>OK，计划制定好了，那么，应该如何实施呢？我们需要用到哪些技术呢？</p>
+<p>其实要用到的技术不多，只是，我们需要把脑子转一下。</p>
+<ul>
+<li><code>@media</code>：CSS Level 3 提供的媒体查询，只要做过响应式，或者任何适应屏幕功能的肯定用过这个属性。所以，在此不过多解释此属性，详细可查看 <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@media" target="_blank" rel="external">@media | MDN</a></li>
+<li><code>vw</code>：Viewport 单位，1vw 相当于屏幕宽度的百分之一。此处也不过多解释，详细可查看 <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/length" target="_blank" rel="external">length | CSS</a></li>
+<li><code>calc</code>：这是 CSS 提供的一个非常强大的属性，可以用来动态计算 CSS 的值。我们的功能主要就是通过这个函数来实现。详细可查看 <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/calc" target="_blank" rel="external">calc | MDN</a></li>
+</ul>
+<p>OK，需要的技术也齐全了。那么，现在就来一步一步实现。</p>
+<h4 id="定义变量"><a href="#定义变量" class="headerlink" title="定义变量"></a>定义变量</h4><p>按照上文中所说的计划那样，我们需要定义四个值，他们分别是最小屏幕宽度，最大屏幕宽度，最小字体，最大字体。</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$min-font-size</span>: <span class="number">14px</span>;</div><div class="line"><span class="variable">$max-font-size</span>: <span class="number">18px</span>;</div><div class="line"><span class="variable">$min-screen</span>: <span class="number">600px</span>;</div><div class="line"><span class="variable">$max-screen</span>: <span class="number">1200px</span>;</div></pre></td></tr></table></figure>
+<p>不过，使用 <code>px</code> 来定义字体大小显得不是很优雅，我们可以使用 <code>rem</code> 来定义我们的字体。那么，这时候，就需要先对网站的根元素设置字体大小了。</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">:root &#123;</div><div class="line">	<span class="attribute">font-size</span>: <span class="number">10px</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>然后，再来更新我们的变量。</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$min-font-size</span>: <span class="number">1.4rem</span>;</div><div class="line"><span class="variable">$max-font-size</span>: <span class="number">1.8rem</span>;</div><div class="line"><span class="variable">$min-screen</span>: <span class="number">600px</span>;</div><div class="line"><span class="variable">$max-screen</span>: <span class="number">1200px</span>;</div></pre></td></tr></table></figure>
+<p>我们把我们的变量定义和根元素的 <code>font-size</code> 放在文件的顶部。在这里，我们就不写那些相关的 reset 等样式了。</p>
+<h4 id="加入测试内容"><a href="#加入测试内容" class="headerlink" title="加入测试内容"></a>加入测试内容</h4><p>起了个好头，然后进行下一步，很简单，写我们的 HTML，此处不做过多赘述。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">header</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">h2</span>&gt;</span>This is Header.<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">header</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">section</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">article</span>&gt;</span></div><div class="line">        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div><div class="line">    <span class="tag">&lt;/<span class="name">article</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">section</span>&gt;</span></div></pre></td></tr></table></figure>
+<h4 id="使用-media-对限制字体大小边界值"><a href="#使用-media-对限制字体大小边界值" class="headerlink" title="使用 @media 对限制字体大小边界值"></a>使用 <code>@media</code> 对限制字体大小边界值</h4><p>上文中说过，在我们的屏幕宽度小于 600px 的时候，字体大小为 1.4rem，屏幕宽度大于 1200px 的时候，字体大小为 1.8rem。这个功能实现起来很简单，只需要应用相应的一小段媒体查询就行了。</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">@<span class="keyword">media</span> (min-width: <span class="variable">$max-screen</span>) &#123;</div><div class="line">    <span class="selector-tag">article</span> &#123;</div><div class="line">        <span class="attribute">font-size</span>: <span class="variable">$max-font-size</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">@<span class="keyword">media</span> (max-width: <span class="variable">$min-screen</span>) &#123;</div><div class="line">    <span class="selector-tag">article</span> &#123;</div><div class="line">        <span class="attribute">font-size</span>: <span class="variable">$min-font-size</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>OK，就这么一段代码，我们就可以将字体大小的边界值进行限制。在屏幕宽度小于或者大于对应的屏幕宽度值的时候，我们的字体大小都会保持在一个恒定的值。</p>
+<p>那么，边界限制做好了，接下来就是要实现真正的响应式了。怎么说呢？我们要让我们的 <code>font-size</code> 在 <code>600px ~ 1200px</code> 的屏幕宽度范围内平滑的变化。当然，这还不够，并不是说，只是给 <code>font-size</code> 设置一个百分比或者任何其他的相对单位，然后让这个字体能够在放大缩小屏幕的同时也能够放大缩小。我们要做的，是要通过精确的大小控制来实现响应式。</p>
+<h4 id="使用-calc-函数实现字体大小的响应式"><a href="#使用-calc-函数实现字体大小的响应式" class="headerlink" title="使用 calc 函数实现字体大小的响应式"></a>使用 <code>calc</code> 函数实现字体大小的响应式</h4><p>仔细看看上文中对字体大小边界值的限制的代码，已经有两个 <code>@media</code> 了，在这个部分，我们肯定还要加一个 <code>@media</code>，是不是显得有点多余？所以，我们可以稍微精简一下。</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">article</span> &#123;</div><div class="line">    <span class="attribute">font-size</span>: <span class="variable">$min-font-size</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line">@<span class="keyword">media</span> (min-width: <span class="variable">$min-screen</span>) and (max-width: <span class="variable">$max-screen</span>) &#123;</div><div class="line">	<span class="comment">// ...</span></div><div class="line">&#125;</div><div class="line"></div><div class="line">@<span class="keyword">media</span> (min-width: <span class="variable">$max-screen</span>) &#123;</div><div class="line">    <span class="selector-tag">article</span> &#123;</div><div class="line">        <span class="attribute">font-size</span>: <span class="variable">$max-font-size</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>只要两个 <code>@media</code> 其实就够了。对于不在媒体查询范围内的，只需要设置一个默认值就行了。但是，要注意的是，这个默认值一定要写在两个媒体查询规则的前面。否则，会由于 CSS 的层叠的特性，后声明的样式会覆盖掉先声明的样式，从而导致媒体查询规则不起作用。</p>
+<p>那么，要实现在这个屏幕宽度范围内精确平滑的变化，肯定需要用到一点数学计算。</p>
+<p>1、<code>font-size</code> 变化的范围是 <code>1.8rem - 1.4rem = 0.4rem</code>；</p>
+<p>2、屏幕宽度的变化范围是 <code>1200px - 600px = 600px</code>；</p>
+<p>3、最小的 <code>font-size</code> 是 <code>1.4rem</code>。那么，屏幕宽度只要大于 600px，这个值肯定会增加，同时，只要屏幕宽度达到 1200px，这个值也达到 1.8rem，然后便不再变化；</p>
+<p>可以看下图：</p>
+<p><img src="https://sfault-image.b0.upaiyun.com/606/687/60668762-57cd792b6a014" alt=""></p>
+<p>比如，我们现在有三种屏幕宽度，分别是 600px，1000px，1200px。那么，仔细观察左边的参考线，我们将最小的那个屏幕宽度去掉，相当于就剩下了两个值，一个是 a，一个是 b。</p>
+<p>由于 1200px 是我们设置的屏幕宽度的最大值，那么，也就是说，b 的变化范围最大也就是 a 的长度。通俗一点说就是，可以把 a 和 b 看成进度条，a 为 100% 的长度，b 为不断增加或者减少的长度。所以，这里就存在了一个比例值，当 b 为 0 的时候，这个比例也为 0，当 b 为 100% 的时候，这个比例就是 1。</p>
+<p>那么，按照这样的思路，转换到对应 <code>font-size</code> 的变化：变化范围是 <code>0.4rem</code>，这是分母，那么，分子该如何计算呢？我们怎么知道字体增加了多少呢？</p>
+<blockquote>
+<p>此处肯定是没有减少的。我们是在 <code>600px ~ 1200px</code> 之间变化的，最小的字体为 <code>1.4rem</code>，无论怎么算，字体大小都不会再减小了。</p>
+</blockquote>
+<p>所以，此处还有一个小小的转换。想一想，我们变化的不只是字体大小，还有屏幕宽度也在变化。所以，就像图片解释的那样，可以使用屏幕宽度的计算来得到一个相应的比例，然后，乘以 <code>font-size</code> 的变化范围 <code>0.4rem</code>，就可以得到我们增加的字体大小了。然后，在最小 <code>font-size</code> 的基础之上加上这个变化的范围，就可以得到在对应屏幕宽度下的精准的 <code>font-size</code>了。</p>
+<p>所以，使用 <code>calc</code> 可以这样写：</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">@<span class="keyword">media</span> (min-width: <span class="variable">$min-screen</span>) and (max-width: <span class="variable">$max-screen</span>) &#123;</div><div class="line">    <span class="selector-tag">article</span> &#123;</div><div class="line">        <span class="attribute">font-size</span>: calc(<span class="variable">$min-font-size</span> + (<span class="number">1.8</span> - <span class="number">1.4</span>) * ((<span class="number">100vw</span> - <span class="variable">$min-screen</span>) / (<span class="number">1200</span> - <span class="number">600</span>)));</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>注意，<code>calc</code> 函数在计算除法的时候，<code>/</code> 右边只能是数字，不能带单位。<code>*</code> 要求至少一个参数是数字。</p>
+</blockquote>
+<p>对这个式子我也解释一下，可以看到，其中有个表达式是 <code>100vw - 600px</code>，这是什么意思呢？</p>
+<p>转换成文字：浏览器可视区域的宽度减去最小宽度。</p>
+<p>其实理解起来很简单，举个例子：假设现在屏幕宽度为 1000px，那么，<code>100vw - 600px</code> 得到的结果为 <code>400px</code>，然后，除以 600，最后得到的是 <code>2 / 3</code>。然后，这个值去乘以 <code>0.4rem</code>，那么，这样就能计算出增加的字体大小值了，然后加上 <code>1.4rem</code>，就能得到最终的一个 <code>font-size</code>了。</p>
+<p>所以，就这样，我们就对 <code>font-size</code> 实现了响应式。不用再通过各种屏幕大小的媒体查询来变化了。</p>
+<p>值得庆幸的是，此规则对于 <code>line-height</code> 同样适用。</p>
+<p>以下是完整的 SCSS 代码：</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$min-font-size</span>: <span class="number">1.4rem</span>;</div><div class="line"><span class="variable">$max-font-size</span>: <span class="number">1.8rem</span>;</div><div class="line"><span class="variable">$min-screen</span>: <span class="number">600px</span>;</div><div class="line"><span class="variable">$max-screen</span>: <span class="number">1200px</span>;</div><div class="line"></div><div class="line">:root &#123;</div><div class="line">    <span class="attribute">font-size</span>: <span class="number">10px</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-tag">article</span> &#123;</div><div class="line">    <span class="attribute">font-size</span>: <span class="variable">$min-font-size</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line">@<span class="keyword">media</span> (min-width: <span class="variable">$min-screen</span>) and (max-width: <span class="variable">$max-screen</span>) &#123;</div><div class="line">    <span class="selector-tag">article</span> &#123;</div><div class="line">        <span class="attribute">font-size</span>: calc(<span class="variable">$min-font-size</span> + (<span class="number">2</span> - <span class="number">1.4</span>) * ((<span class="number">100vw</span> - <span class="variable">$min-screen</span>) / (<span class="number">1200</span> - <span class="number">800</span>)));</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">@<span class="keyword">media</span> (min-width: <span class="variable">$max-screen</span>) &#123;</div><div class="line">    <span class="selector-tag">article</span> &#123;</div><div class="line">        <span class="attribute">font-size</span>: <span class="variable">$max-font-size</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<hr>
+<h3 id="References"><a href="#References" class="headerlink" title="References"></a>References</h3><p><a href="https://madebymike.com.au/writing/precise-control-responsive-typography/" target="_blank" rel="external">Precise control over responsive typography</a></p>
+<p><a href="http://blog.typekit.com/2016/08/17/flexible-typography-with-css-locks/?utm_source=Responsive+Design+Weekly&amp;utm_campaign=dbc98f86d4-Responsive_Design_Weekly_222&amp;utm_medium=email&amp;utm_term=0_df65b6d7c8-dbc98f86d4-59087657&amp;goal=0_df65b6d7c8-dbc98f86d4-59087657&amp;mc_cid=dbc98f86d4&amp;mc_eid=142e875650" target="_blank" rel="external">Flexible typography with CSS locks</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://erichain.me/2016/08/01/2016-08-01-css-link-specificity/" data-id="cj1w9deqb00271hphoqbhuhg0" class="article-share-link">Share</a>
+      <a data-url="https://erichain.me/2016/09/05/2016-09-05-how-to-implement-responsive-font-size/" data-id="cj1xn9sa4002h1jph6y6mnuc0" class="article-share-link">Partager</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li></ul>
@@ -134,10 +174,10 @@
 
 
   
-    <article id="post-2016-06-22-private-members-in-coffeescript" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-2016-08-28-progressive-loading-images-with-blur-effect" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2016/06/22/2016-06-22-private-members-in-coffeescript/" class="article-date">
-  <time datetime="2016-06-22T00:00:00.000Z" itemprop="datePublished">2016-06-22</time>
+    <a href="/2016/08/28/2016-08-28-progressive-loading-images-with-blur-effect/" class="article-date">
+  <time datetime="2016-08-28T00:00:00.000Z" itemprop="datePublished">2016-08-28</time>
 </a>
     
   <div class="article-category">
@@ -152,7 +192,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/06/22/2016-06-22-private-members-in-coffeescript/">在CoffeeScript中定义私有成员变量</a>
+      <a class="article-title" href="/2016/08/28/2016-08-28-progressive-loading-images-with-blur-effect/">使用模糊效果逐步加载图片 (仿 Medium)</a>
     </h1>
   
 
@@ -160,222 +200,59 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>最近花了一些时间把CoffeeScript学习了一下, 说实话, 习惯了原生JavaScript的语法和格式, 对于Coffee还真有点不太适应: 一是在Coffee里基本上都不会去写分号和括号, 大括号啥的(对于一个有分号强迫症的人来说, 这还真得适应一段时间); 然后就是, 使用类似于Python的那种语法格式, 通过代码缩进来让编译器进行推导. </p>
-<p>不过, 本文的主要目的当然不是不是吐槽Coffee, 而是我在看文档的过程中, 遇到了一个问题, 查阅了一些资料后, 还是解决了我心中的疑惑, 于是便拿出来分享一下.</p>
-<p>在Coffee的官方文档中, 有下面这样一段代码(我截取了其中的一小部分, 在文档的<a href="http://coffeescript.org/#classes" target="_blank" rel="external">Classes, Inheritance, and Super部分</a>):</p>
-<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Animal</span></span></div><div class="line">    constructor: <span class="function"><span class="params">(@name)</span> -&gt;</span></div><div class="line">    </div><div class="line">    move: <span class="function"><span class="params">(meters)</span> -&gt;</span></div><div class="line">        alert @name + <span class="string">" moved <span class="subst">#&#123;meters&#125;</span>m."</span></div></pre></td></tr></table></figure>
-<p>这段Coffee所对应的JavaScript如下(我也只是截取了一小部分):</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">Animal = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">Animal</span>(<span class="params">name</span>) </span>&#123;</div><div class="line">        <span class="keyword">this</span>.name = name;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    Animal.prototype.move = <span class="function"><span class="keyword">function</span>(<span class="params">meters</span>) </span>&#123;</div><div class="line">        <span class="keyword">return</span> alert(<span class="keyword">this</span>.name + (<span class="string">" moved "</span> + meters + <span class="string">"m."</span>));</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> Animal;</div><div class="line">&#125;)();</div></pre></td></tr></table></figure>
-<p>那么问题来了. <code>constructor</code>是Animal类的构造函数, 这个没什么问题, 然后, 在Animal这个类里, 定义了一个<code>move</code>方法, 按理说这个方法属于Animal类. 当然, 确实属于. 但是, 奇怪的是, 为什么它会默认添加到Animal的<code>prototype</code>上去呢?</p>
-<p>一开始, 我以为是<code>constructor</code>在作怪, 就把<code>constructor</code>这一块去掉了, 就像这样:</p>
-<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Animal</span></span></div><div class="line">    move: <span class="function"><span class="params">(meters)</span> -&gt;</span></div><div class="line">        alert @name + <span class="string">" moved <span class="subst">#&#123;meters&#125;</span>m."</span></div></pre></td></tr></table></figure>
-<p>但事实证明, 我的想法是完全错误的. 这段Coffee所编译出来的JavaScript中, <code>move</code>方法还是在<code>Animal.prototype</code>上.</p>
-<p>然后, 我在<code>move</code>方法下面又定义了一些变量和方法, 但无一例外, 全部都附加到了<code>Animal.prototype</code>上.</p>
-<p>于是, 我上Google去查了一下, 看到了一篇比较好的文章说了这个问题: <a href="https://crimefighter.svbtle.com/using-private-methods-in-coffeescript" target="_blank" rel="external">Using private methods in CoffeeScript</a>.</p>
-<p>那么, 如果要在Coffee中定义私有成员变量的话, 该怎么做呢?</p>
-<p>其实很简单, 就像下面这样:</p>
-<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Animal</span></span></div><div class="line">    constructor: <span class="function"><span class="params">(@name)</span> -&gt;</span></div><div class="line">    </div><div class="line">    publicMethod: <span class="function">-&gt;</span></div><div class="line">        <span class="string">'this is a public method'</span></div><div class="line"><span class="function">    </span></div><div class="line">    <span class="title">privateMethod</span> = -&gt;</div><div class="line">        <span class="string">'this is a private method'</span></div><div class="line">        </div><div class="line">    privateVariable = <span class="string">'private'</span></div></pre></td></tr></table></figure>
-<p>所以, 不难看出来, 在Coffee中定义公有成员和私有成员的差别就是使用<code>:</code>还是<code>=</code>. 所以, 通过使用<code>=</code>, 我们就可以在Coffee中为类定义私有成员变量了.</p>
+        <p>用过 Medium 的用户不会不记得它的图片加载方式——<strong>纯色-高斯模糊-加载完成并显示</strong>。</p>
+<p>这是一种很优雅的图片预加载的方式(因为 Medium 的图片质量都很高，如果全部一下加载的话，需要的时间难以想象，所以，这是一种很棒的做法)。从第一次打开 Medium 这个网站开始，我就被这种技术给吸引住了——好吧，直到今天才去研究它。</p>
+<p>在 Medium 网站，打开任何一篇文章，然后，我们来 inspect 一下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">figure</span> <span class="attr">name</span>=<span class="string">"512a"</span> </span></div><div class="line">        <span class="attr">id</span>=<span class="string">"512a"</span> </div><div class="line">        <span class="attr">class</span>=<span class="string">"graf--figure graf--layoutCroppedHeightPreview graf-after--h3"</span></div><div class="line">&gt;</div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"aspectRatioPlaceholder is-locked"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"aspectRatioPlaceholder-fill"</span> </span></div><div class="line">             <span class="attr">style</span>=<span class="string">"padding-bottom: 30%;"</span></div><div class="line">        &gt;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"progressiveMedia js-progressiveMedia graf-image is-canvasLoaded"</span> </span></div><div class="line">             <span class="attr">data-image-id</span>=<span class="string">"1*dZnfeZiXxf2BgN3VSQuOlA.jpeg"</span> </div><div class="line">             <span class="attr">data-width</span>=<span class="string">"3600"</span> </div><div class="line">             <span class="attr">data-height</span>=<span class="string">"3600"</span> </div><div class="line">             <span class="attr">data-scroll</span>=<span class="string">"native"</span></div><div class="line">        &gt;</div><div class="line">            <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"https://cdn-images-1.medium.com/freeze/fit/t/60/18/1*dZnfeZiXxf2BgN3VSQuOlA.jpeg?q=20"</span> </span></div><div class="line">                 <span class="attr">crossorigin</span>=<span class="string">"anonymous"</span> </div><div class="line">                 <span class="attr">class</span>=<span class="string">"progressiveMedia-thumbnail js-progressiveMedia-thumbnail"</span></div><div class="line">            &gt;</div><div class="line">            <span class="tag">&lt;<span class="name">canvas</span> <span class="attr">class</span>=<span class="string">"progressiveMedia-canvas js-progressiveMedia-canvas"</span> </span></div><div class="line">                    <span class="attr">width</span>=<span class="string">"75"</span> </div><div class="line">                    <span class="attr">height</span>=<span class="string">"22"</span></div><div class="line">            &gt;<span class="tag">&lt;/<span class="name">canvas</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">img</span> <span class="attr">class</span>=<span class="string">"progressiveMedia-image js-progressiveMedia-image"</span> </span></div><div class="line">                 <span class="attr">data-src</span>=<span class="string">"https://cdn-images-1.medium.com/fit/t/1600/480/1*dZnfeZiXxf2BgN3VSQuOlA.jpeg"</span> </div><div class="line">                 <span class="attr">src</span>=<span class="string">"https://cdn-images-1.medium.com/fit/t/1600/480/1*dZnfeZiXxf2BgN3VSQuOlA.jpeg"</span></div><div class="line">            &gt;</div><div class="line">            <span class="tag">&lt;<span class="name">noscript</span> <span class="attr">class</span>=<span class="string">"js-progressiveMedia-inner"</span>&gt;</span></div><div class="line">                &amp;lt;img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/fit/t/1600/480/1*dZnfeZiXxf2BgN3VSQuOlA.jpeg"&amp;gt;</div><div class="line">            <span class="tag">&lt;/<span class="name">noscript</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">figure</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>可以看到，Medium 为每一张图片都设置了这么长的一段 HTML。这样做的目的就是为了让这个图片的逐步加载过程能够平滑如一，同时还能在一定程度上提升用户体验。就算图片没有加载出来，显示给用户的是一个高斯模糊的图片，其实也不失美感。</p>
+<p>那么，这个图片的逐步加载过程具体是什么样的呢？</p>
+<p>1、渲染一个 <code>div</code> 容器，这个容器就是用来显示最终展示给用户的图片的。通过对容器设置一个百分比的 <code>padding-bottom</code> 来让其比例和大小与最终图片的比例和大小相同，这样，就能避免图片加载出来的时候导致的页面的重排；</p>
+<p>2、使用 <code>img</code> 标签来加载一张原图质量的 10% ~ 20% 左右的图片，这张图片的质量很低，而且很小，所以可以马上加载出来；</p>
+<p>3、一旦小图加载完成，就开始使用 canvas 来进行绘制，添加模糊效果，同时，开始请求最终要加载的大图；</p>
+<p>4、当最终的大图也加载完成之后，显示大图，隐藏掉 canvas。</p>
+<p>以上就是 Medium 的做法。</p>
+<hr>
+<p>我们可以自己来实现这个效果，实现过程如下：</p>
+<p>1、渲染一个容器，保持与原图的比例和尺寸相同，填充一个较浅的背景色；</p>
+<p>2、先加载小图，同时使用模糊效果；</p>
+<p>3、小图加载完成，开始请求大图；</p>
+<p>4、大图加载完成，显示大图，隐藏小图。</p>
+<p>所以，综合来看，其实并不复杂。</p>
+<p>首先，我们可以把大图和小图的 URL 和尺寸都存起来，通过标签的 <code>data</code> 属性去动态获取。所以，我们的 HTML 可以像下面这样写：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">figure</span> <span class="attr">name</span>=<span class="string">"blur"</span></span></div><div class="line">        <span class="attr">class</span>=<span class="string">"blur-img-container"</span></div><div class="line">        <span class="attr">data-real-width</span>=<span class="string">"1174"</span></div><div class="line">        <span class="attr">data-real-height</span>=<span class="string">"670"</span></div><div class="line">        <span class="attr">data-src</span>=<span class="string">"images/sm2.jpeg"</span></div><div class="line">        <span class="attr">src</span>=<span class="string">"https://cdn-images-1.medium.com/max/2000/1*0WwtDkE1q6HGZwD6Kn9SuQ.jpeg"</span></div><div class="line">&gt;<span class="tag">&lt;/<span class="name">figure</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>其中各个参数代表的含义是：</p>
+<ul>
+<li><code>data-real-width</code>: 大图的宽度</li>
+<li><code>data-real-height</code>: 大图的高度</li>
+<li><code>data-src</code>: 小图的 URL</li>
+<li><code>src</code>: 大图的 URL</li>
+</ul>
+<p>同时，我们需要定义一些 CSS 的 class 来对大图和小图进行处理：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.blur-img-container</span> &#123;</div><div class="line">    <span class="attribute">position</span>: relative;</div><div class="line">    <span class="attribute">background</span>: <span class="number">#eeeeee</span>;</div><div class="line">    <span class="attribute">background-size</span>: cover;</div><div class="line">    <span class="attribute">overflow</span>: hidden;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-class">.blur-img-container</span> <span class="selector-tag">img</span> &#123;</div><div class="line">    <span class="attribute">position</span>: absolute;</div><div class="line">    <span class="attribute">top</span>: <span class="number">0</span>;</div><div class="line">    <span class="attribute">left</span>: <span class="number">0</span>;</div><div class="line">    <span class="attribute">width</span>: <span class="number">100%</span>;</div><div class="line">    <span class="attribute">height</span>: <span class="number">100%</span>;</div><div class="line">    <span class="attribute">opacity</span>: <span class="number">0</span>;</div><div class="line">    <span class="attribute">transition</span>: all <span class="number">0.4s</span> ease-in-out;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-class">.blur-img-container</span> <span class="selector-class">.thumb-loaded</span> &#123;</div><div class="line">    <span class="attribute">opacity</span>: <span class="number">1</span>;</div><div class="line">    <span class="attribute">filter</span>: <span class="built_in">blur</span>(10px);</div><div class="line">    <span class="attribute">transform</span>: <span class="built_in">scale</span>(1);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-class">.blur-img-container</span> <span class="selector-class">.large-loaded</span> &#123;</div><div class="line">    <span class="attribute">opacity</span>: <span class="number">1</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-class">.blur-img-container</span> <span class="selector-class">.thumb-hidden</span> &#123;</div><div class="line">    <span class="attribute">opacity</span>: <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>然后，我们的重点在于 JavaScript 的处理。</p>
+<ul>
+<li>需要动态的设置每个图片的容器的 <code>padding-bottom</code> 以防止页面发生重排；</li>
+<li>通过 <code>image</code> 的 <code>onload</code> 事件来控制其样式和进度</li>
+</ul>
+<p>第一点，动态设置我们的容器的 <code>padding-bottom</code>。可以通过计算宽高比然后换算成百分比：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">elem.style.paddingBottom = <span class="string">`<span class="subst">$&#123;(realHeight <span class="regexp">/ realWidth) * 100&#125;%`;</span></span></span></div></pre></td></tr></table></figure>
+<p>第二点，使用图像的 <code>onload</code> 事件来控制加载的进度：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> thumb = <span class="keyword">new</span> Image();</div><div class="line">thumb.src = thumbSrc;</div><div class="line">thumb.onload = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">	<span class="comment">// 小图加载完成，显示小图，设置样式</span></div><div class="line">    setStyle(thumb, <span class="string">'thumb-loaded'</span>);</div><div class="line">&#125;;</div><div class="line">elem.appendChild(thumb);</div><div class="line"></div><div class="line"><span class="keyword">let</span> realImg = <span class="keyword">new</span> Image();</div><div class="line">realImg.src = lgSrc;</div><div class="line">realImg.onload = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">	<span class="comment">// 大图加载完成，显示大图，隐藏小图</span></div><div class="line">    setStyle(realImg, <span class="string">'large-loaded'</span>);</div><div class="line">    setStyle(thumb, <span class="string">'thumb-hidden'</span>);</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="comment">// 将大图添加到页面中</span></div><div class="line">elem.appendChild(realImg);</div></pre></td></tr></table></figure>
+<p>其实，只要把上面两点主要的功能做好了，我们的这个效果基本上就实现了。</p>
+<hr>
+<p><strong>可以通过我的 GitHub Repo 来查看完整的源代码和例子 <a href="https://github.com/Erichain/blur-image" target="_blank" rel="external">blur-image</a></strong>。</p>
+<p><strong>同时，我将这个小功能封装成了一个 package，需要的朋友可以通过 <code>npm install blur-image</code> 或者 <code>bower install blur-image</code> 进行安装和使用。具体的安装和使用方法可以查看文档</strong>。</p>
 <blockquote>
-<p>这里，说一点关于 JavaScript 语言特性的问题。以下的内容参考自 <a href="http://stackoverflow.com/questions/9886761/coffeescript-private-class-instance-variables" target="_blank" rel="external">CoffeeScript Private Class Instance Variables</a>。</p>
+<p>参考链接 <br><br><a href="https://jmperezperez.com/medium-image-progressive-loading-placeholder/" target="_blank" rel="external">How Medium does progressive image loading</a> <br><br><a href="https://css-tricks.com/the-blur-up-technique-for-loading-background-images/" target="_blank" rel="external">The “Blur Up” Technique for Loading Background Images</a></p>
 </blockquote>
-<p>以上的方法确实能够在 CoffeeScript 中实现所谓的”私有成员”。但是，需要知道的是，”私有成员”这个概念在 CoffeeScript 和 JavaScript 中本身就是不存在的。尽管看上去某个变量可能实现了”私有”，但这不是真正私有的，只是使用了 JavaScript 语言的特性( 说的更详细一点，就是闭包或者说函数作用域 )来实现了这个功能。</p>
-<p>所以，不需要浪费时间在添加一些本身不存在的概念上面，只管好好的解决问题就好了。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://erichain.me/2016/06/22/2016-06-22-private-members-in-coffeescript/" data-id="cj1w9deq600201hpho18axdw3" class="article-share-link">Share</a>
+      <a data-url="https://erichain.me/2016/08/28/2016-08-28-progressive-loading-images-with-blur-effect/" data-id="cj1xn9sa2002e1jphc9zblvrx" class="article-share-link">Partager</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/coffeescript/">coffeescript</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-2016-05-01-file-upload-with-ionic-and-express" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/05/01/2016-05-01-file-upload-with-ionic-and-express/" class="article-date">
-  <time datetime="2016-05-01T00:00:00.000Z" itemprop="datePublished">2016-05-01</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Full-Stack/">Full-Stack</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/05/01/2016-05-01-file-upload-with-ionic-and-express/">使用Ionic和Express实现文件上传</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>使用Ionic搭建移动App的时候，会遇到要向服务器上传图片或者文件的情况。普通的做法是可以使用表单来实现。但是，ngCordova提供了文件操作的插件，在构建App的时候可以直接使用。</p>
-<h3 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h3><blockquote>
-<p>注意，以下步骤的前提是在App的模块中已经注入了<code>ngCordova</code>模块。</p>
-</blockquote>
-<p><strong>1、安装插件</strong></p>
-<p>首先，在客户端，要安装上ngCordova所提供的文件操作的插件<code>File Transfer</code>。</p>
-<p>使用以下命令进行安装：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cordova plugin add cordova-plugin-file-transfer</div></pre></td></tr></table></figure>
-<p><strong>2、实现</strong></p>
-<p>然后，按照ngCordova官方文档所提供的方法，可以像下面这样来进行文件的上传：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">app.controller([<span class="string">'$cordovaFileTransfer'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"> $cordovaFileTransfer </span>) </span>&#123;</div><div class="line"></div><div class="line">	<span class="comment">// 一定要将代码放在事件监听中</span></div><div class="line">	<span class="comment">// 表示设备准备好了之后才能执行里面的代码</span></div><div class="line">    <span class="built_in">document</span>.addEventListener(<span class="string">'deviceready'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="keyword">var</span> uploadOptions = <span class="keyword">new</span> FileUploadOptions(),</div><div class="line">            server = <span class="string">'your_server_api'</span>,</div><div class="line">            imgPath = <span class="string">'your_img_path'</span>;</div><div class="line"></div><div class="line">        <span class="comment">// 注意此处设置的fileKey，Express服务端中也需要这个</span></div><div class="line">        uploadOptions.fileKey = <span class="string">'file'</span>;</div><div class="line">        uploadOptions.fileName = imgPath.substr(imgPath.lastIndexOf(<span class="string">'/'</span>) + <span class="number">1</span>);</div><div class="line">        uploadOptions.mimeType = <span class="string">'image/jpeg'</span>;</div><div class="line">        uploadOptions.chunkedMode = <span class="literal">false</span>;</div><div class="line"></div><div class="line">        $cordovaFileTransfer.upload( server, imgPath, uploadOptions )</div><div class="line">            .then(<span class="function"><span class="keyword">function</span> (<span class="params"> result </span>) </span>&#123;</div><div class="line">                <span class="comment">// 上传成功</span></div><div class="line">            &#125;, <span class="function"><span class="keyword">function</span> (<span class="params"> error </span>) </span>&#123;</div><div class="line">                <span class="comment">// 上传失败</span></div><div class="line">            &#125;, <span class="function"><span class="keyword">function</span> (<span class="params"> progress </span>) </span>&#123;</div><div class="line">                <span class="comment">// 上传进度</span></div><div class="line">            &#125;);</div><div class="line"></div><div class="line">    &#125;, <span class="literal">false</span>);</div><div class="line">&#125;]);</div></pre></td></tr></table></figure>
-<p>以上为客户端的文件上传实现代码。</p>
-<h3 id="服务端"><a href="#服务端" class="headerlink" title="服务端"></a>服务端</h3><p>服务端采用Express来实现，要接受来自客户端的文件，需要使用<a href="https://github.com/expressjs/multer" target="_blank" rel="external">multer</a>模块。可以使用<code>npm install --save multer</code>进行安装。</p>
-<p>multer可接受单个文件的上传和多个文件的上传。此处只涉及单个文件上传。</p>
-<p>在服务端，首先创建一个<code>fileUpload.js</code>：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* fileUpload.js */</span></div><div class="line"><span class="keyword">var</span> multer = <span class="built_in">require</span>(<span class="string">'multer'</span>),</div><div class="line">    storage = multer.diskStorage(&#123;</div><div class="line">        <span class="attr">destination</span>: <span class="function"><span class="keyword">function</span> (<span class="params"> req, file, callback </span>) </span>&#123;</div><div class="line">		    <span class="comment">// 注意，此处的uploads目录是从项目的根目录开始寻找</span></div><div class="line">		    <span class="comment">// 如果没有的话，需要手动新建此文件夹</span></div><div class="line">            callback(<span class="literal">null</span>, <span class="string">'./uploads'</span>);</div><div class="line">        &#125;,</div><div class="line">        <span class="attr">filename</span>: <span class="function"><span class="keyword">function</span> (<span class="params"> req, file, callback </span>) </span>&#123;</div><div class="line">	        </div><div class="line">	        <span class="comment">// multer不会自动添加文件后缀名，需要手动添加</span></div><div class="line">            callback(<span class="literal">null</span>, file.fieldname + <span class="string">'-'</span> + <span class="built_in">Date</span>.now() + <span class="string">'.'</span> + file.mimetype.split(<span class="string">'/'</span>)[<span class="number">1</span>]);</div><div class="line">        &#125;</div><div class="line">    &#125;),</div><div class="line"></div><div class="line">    upload = multer(&#123;</div><div class="line">        <span class="attr">storage</span>: storage,</div><div class="line">        <span class="attr">limits</span>: <span class="number">1000000</span></div><div class="line">    &#125;).single(<span class="string">'file'</span>);</div><div class="line"></div><div class="line"><span class="comment">// 将文件上传封装为一个模块，以供其他地方使用</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">uploadFile</span>(<span class="params"> req, res </span>) </span>&#123;</div><div class="line">    upload(req, res, <span class="function"><span class="keyword">function</span> (<span class="params"> error </span>) </span>&#123;</div><div class="line">        <span class="keyword">if</span> ( error ) &#123;</div><div class="line">            <span class="built_in">console</span>.error(<span class="built_in">JSON</span>.stringify(error));</div><div class="line">            <span class="keyword">return</span> res.end(<span class="string">'Error uploading file.'</span>);</div><div class="line">        &#125;</div><div class="line">        <span class="built_in">console</span>.log(<span class="string">'Success!'</span>);</div><div class="line">        res.end(<span class="string">'File is uploaded'</span>);</div><div class="line">    &#125;);</div><div class="line">&#125;</div><div class="line"></div><div class="line">exports.uploadFile = uploadFile;</div></pre></td></tr></table></figure>
-<p>然后，创建一个<code>router.js</code>，通过路由来调用文件上传。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* router.js */</span></div><div class="line"><span class="keyword">var</span> router = <span class="built_in">require</span>(<span class="string">'express'</span>).Router(),</div><div class="line">    uploadPhoto = <span class="built_in">require</span>(<span class="string">'/modules/path/fileUpload'</span>).uploadFile;</div><div class="line"></div><div class="line">router.all(<span class="string">'/photo_upload'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"> req, res </span>) </span>&#123;</div><div class="line">    uploadFile(req, res);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<p>以上就是一个简单的使用Ionic和Express实现的文件上传。</p>
-<p>参考自<a href="https://codeforgeek.com/2014/11/file-uploads-using-node-js/" target="_blank" rel="external">https://codeforgeek.com/2014/11/file-uploads-using-node-js/</a></p>
-<p>本文代码在我的Gist里也有包含：<a href="https://gist.github.com/Erichain/911c0d4a5f31e38b744b03cd65885ce6" target="_blank" rel="external">https://gist.github.com/Erichain/911c0d4a5f31e38b744b03cd65885ce6</a></p>
-<p>更多关于<a href="http://ngcordova.com" target="_blank" rel="external">ngCordova</a>和<a href="https://github.com/expressjs/multer" target="_blank" rel="external">multer</a>可以查看其官方文档。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://erichain.me/2016/05/01/2016-05-01-file-upload-with-ionic-and-express/" data-id="cj1w9deqc002a1hphonaa69dt" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/express/">express</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ionic/">ionic</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-2016-04-30-diff-between-sass-and-libsass" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/04/30/2016-04-30-diff-between-sass-and-libsass/" class="article-date">
-  <time datetime="2016-04-30T00:00:00.000Z" itemprop="datePublished">2016-04-30</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Front-End/">Front-End</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/30/2016-04-30-diff-between-sass-and-libsass/">Ruby Sass和LibSass的区别</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>翻译自<a href="http://sassbreak.com/ruby-sass-libsass-differences/" target="_blank" rel="external">http://sassbreak.com/ruby-sass-libsass-differences/</a></p>
-<p>当你习惯了使用Sass来工作之后，你会听说一种新的Sass类型叫做LibSass。然后，你马上就会想：“LibSass到底是什么？我需要从Ruby Sass转换到LibSass吗？噢不不，我应该只是在跟风而已”。</p>
-<p>别担心，你没有跟风。如你所学到的，Ruby Sass和LibSass是类似的。主要的区别在于它们的实现，编译速度和功能支持。在本文中，我将会联同它们的优缺点一起来叙述这两者的区别。</p>
-<h3 id="Ruby-Sass"><a href="#Ruby-Sass" class="headerlink" title="Ruby Sass"></a>Ruby Sass</h3><p>最原始的Sass是使用Ruby编写的。如果你刚开始使用Sass，那么你会接触到基于Ruby的Sass。只要你安装了Ruby和Sass，运行编译器，就可以使用Sass提供的令人惊叹的功能了。</p>
-<p>但是，如果开发环境里没有Ruby，那么Ruby Sass也就没用了。并且，依据项目的大小，Ruby Sass引擎可能会花大部分时间来将Sass编译为CSS。在大型项目这种现象很明显。项目越大，编译速度越慢。</p>
-<p>所以，如果在开发环境中没有Ruby该怎么办呢？或者说，怎么处理大型项目中编译速度慢的问题呢？</p>
-<h3 id="进入Ruby-Sass的世界"><a href="#进入Ruby-Sass的世界" class="headerlink" title="进入Ruby Sass的世界"></a>进入Ruby Sass的世界</h3><p>LibSass是原始Sass引擎的一个C/C++接口。使用它编译Sass的时候并不依赖于Ruby，所以，可以使用其他的语言来实现LibSass。</p>
-<p>LibSass本身不做任何事情，它只是一个库。要使用LibSass来工作，你需要一个包装器(或者说一个实现器)来包装LibSass并编译你的样式表。最普通的LibSass的实现器是SassC，也是最先开发出来的；然后就是node-sass，grunt-sass，甚至还有Ruby的实现器。</p>
-<p>例如，一个工程在运行node-sass，那么，LibSass就是核心库，而node-sass就是一个允许在Node.js里编译的包装器。</p>
-<h3 id="为什么要使用LibSass？"><a href="#为什么要使用LibSass？" class="headerlink" title="为什么要使用LibSass？"></a>为什么要使用LibSass？</h3><p>使用LibSass的话，你就不需要依赖于Ruby环境了。并且，有很多可用的包装器，可以很容易的将LibSass与其他任何语言整合起来。</p>
-<p>LibSass最大的优点就是编译速度。LibSass运行和编译样式的速度明显快于Ruby Sass，比Ruby Sass快4000%！可以查看这篇文章来比较Sass，LibSass和其他CSS预处理器的编译速度：<a href="http://www.solitr.com/blog/2014/01/css-preprocessor-benchmark/" target="_blank" rel="external">compile time comparison</a>。</p>
-<h3 id="与Ruby-Sass的兼容"><a href="#与Ruby-Sass的兼容" class="headerlink" title="与Ruby Sass的兼容"></a>与Ruby Sass的兼容</h3><p>尽管LibSass还不算完善，但是，许多开发者在犹豫是否要将它们的代码迁移到LibSass。因为在新功能出现的时候，LibSass要落后Ruby Sass一些。</p>
-<p>例如，Sass 3.4中的新功能<code>@at-root, @error</code>在LibSass上还不受支持。要想知道大部分的Sass，LibSass和旧版本的Sass引擎的兼容性，可以查看这个：<a href="http://sass-compatibility.github.io" target="_blank" rel="external">sass-compatibility.github.io</a>。</p>
-<p><strong>LibSass的未来是有希望的</strong></p>
-<p>好休息就是LibSass马上就会赶上Ruby Sass了。即将到来的LibSass 3.2版本将会支持<code>@at-root, @error, @media, @keyframes</code>等更多的指令。</p>
-<p>事实上，在LibSass添加上Ruby Sass已有的功能之前，Ruby Sass是不会发布任何新功能的。一旦发布新功能，这两者的功能就是一样的了。所以，很快，我们就可以在LibSass编译速度的基础上的拥有Ruby Sass的全部功能了。</p>
-<p>想要快速测试LibSass和Ruby 的功能，可以查看<a href="http://www.sassmeister.com" target="_blank" rel="external">SassMeister</a>。</p>
-<h3 id="最后的一点想法"><a href="#最后的一点想法" class="headerlink" title="最后的一点想法"></a>最后的一点想法</h3><p>一旦你设置好了LibSass之后，你会发现，使用起来与Ruby Sass一样简单，仅仅是更快了而已。如果你使用的只是Sass的核心功能，那么，你迁移到LibSass就会很容易了。</p>
-<p>如果你和你的团队以及你的项目，都很乐于使用Ruby Sass，那么就继续使用吧。但是，根据你的项目情况，LibSass的速度可能值得暂时性的缺失一些Sass的功能。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://erichain.me/2016/04/30/2016-04-30-diff-between-sass-and-libsass/" data-id="cj1w9deq1001s1hphyenzlmmb" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sass/">sass</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-2016-04-27-semantic-version" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/04/27/2016-04-27-semantic-version/" class="article-date">
-  <time datetime="2016-04-27T00:00:00.000Z" itemprop="datePublished">2016-04-27</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Front-End/">Front-End</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/27/2016-04-27-semantic-version/">语义化的版本号控制</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>使用bower和npm的时候进行依赖管理的时候，需要创建<code>bower.json</code>和<code>package.json</code>。</p>
-<p>此处以<code>package.json</code>为例。</p>
-<p>运行以下命令会将依赖项的版本信息写入<code>bower.json</code>或者<code>package.json</code>中：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm install PACKAGE_NAME --save</div></pre></td></tr></table></figure>
-<p>一个<code>package.json</code>可能会是下面这个样子：</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  <span class="attr">"name"</span>: <span class="string">"example-app"</span>,</div><div class="line">  <span class="attr">"version"</span>: <span class="string">"0.0.1"</span>,</div><div class="line">  <span class="attr">"private"</span>: <span class="literal">true</span>,</div><div class="line">  <span class="attr">"scripts"</span>: &#123;</div><div class="line">    <span class="attr">"start"</span>: <span class="string">"node app.js"</span></div><div class="line">  &#125;,</div><div class="line">  <span class="attr">"dependencies"</span>: &#123;</div><div class="line">    <span class="attr">"api_500px"</span>: <span class="string">"0.0.3"</span>,</div><div class="line">    <span class="attr">"body-parser"</span>: <span class="string">"^1.13.3"</span>,</div><div class="line">    <span class="attr">"cookie-parser"</span>: <span class="string">"^1.3.3"</span>,</div><div class="line">    <span class="attr">"express"</span>: <span class="string">"^4.13.4"</span>,</div><div class="line">    <span class="attr">"jquery"</span>: <span class="string">"~2.1.4"</span>,</div><div class="line">    <span class="attr">"gulp"</span>: <span class="string">"*"</span></div><div class="line">  &#125;,</div><div class="line">  <span class="attr">"devDependencies"</span>: &#123;&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>在这个文件里，有三种版本号的写法：<code>^</code>，<code>*</code>和<code>~</code>。如果要使用npm来对这些以来进行升级，这些符号就起作用了。</p>
-<blockquote>
-<p>版本号的格式为<code>主版本号.次版本号.补丁次数</code></p>
-</blockquote>
-<p>假设有一个依赖的版本为<code>1.0.1</code>，那么，根据这三种写法，更新依赖的时候，会按照以下的方式进行更新。</p>
-<p><strong>1、使用<code>~</code>的版本号</strong></p>
-<p>对于使用<code>~</code>的版本号，更新的时候，只会更新它的补丁版本号。</p>
-<p>在<code>package.json</code>里写入版本号或者安装依赖时指定版本的时候，可以写成<code>1.0</code>，<code>1.0.x</code>或者<code>~1.0.1</code>。</p>
-<p><strong>2、使用<code>^</code>的版本号</strong></p>
-<p>对于使用<code>^</code>的版本号，更新的时候，只会更新它的次版本号。</p>
-<p>在<code>package.json</code>里写入版本号或者安装依赖时指定版本的时候，可以写成<code>1</code>，<code>1.x</code>或者<code>^1.0.1</code>。</p>
-<p><strong>3、使用<code>*</code>的版本号</strong></p>
-<p>对于使用<code>*</code>的版本号，更新的时候，主版本号也会更新。</p>
-<p>在<code>package.json</code>里写入版本号或者安装依赖时指定版本的时候，可以写成<code>x</code>或者<code>*</code>。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://erichain.me/2016/04/27/2016-04-27-semantic-version/" data-id="cj1w9deq800231hphtm4hcrb2" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/npm/">npm</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
 
     </footer>
   </div>
@@ -387,7 +264,7 @@
 
 
   <nav id="page-nav">
-    <a class="extend prev" rel="prev" href="/">&laquo; __('prev')</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/3/">__('next') &raquo;</a>
+    <a class="extend prev" rel="prev" href="/"><<</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/3/">>></a>
   </nav>
 </section>
         
@@ -434,7 +311,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
+    <h3 class="widget-title">Articles Recents</h3>
     <div class="widget">
       <ul>
         
@@ -471,7 +348,6 @@
   <div class="outer">
     <div id="footer-info" class="inner">
       &copy; 2017 Erichain<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>
@@ -483,7 +359,17 @@
     <a href="/archives" class="mobile-nav-link">Archives</a>
   
 </nav>
-    
+    <script>
+  var disqus_shortname = 'undefined';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
 
 <script src="/js/jquery.min.js"></script>
 

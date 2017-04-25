@@ -55,9 +55,9 @@
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://erichain.me"></form>
@@ -68,10 +68,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-2015-11-01-scope-of-javascript" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-2016-04-06-great-css-tips-you-should-know" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2015/11/01/2015-11-01-scope-of-javascript/" class="article-date">
-  <time datetime="2015-11-01T00:00:00.000Z" itemprop="datePublished">2015-11-01</time>
+    <a href="/2016/04/06/2016-04-06-great-css-tips-you-should-know/" class="article-date">
+  <time datetime="2016-04-06T00:00:00.000Z" itemprop="datePublished">2016-04-06</time>
 </a>
     
   <div class="article-category">
@@ -86,7 +86,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2015/11/01/2015-11-01-scope-of-javascript/">关于 JavaScript 的作用域</a>
+      <a class="article-title" href="/2016/04/06/2016-04-06-great-css-tips-you-should-know/">你应该知道的关于CSS的一些奇淫巧技</a>
     </h1>
   
 
@@ -94,130 +94,52 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>JavaScript 是一门神奇的语言，这句话向来没错。与其它的高级语言不同，无论是从变量定义上还是类继承上等，JavaScript 都有自己的一套独立的风格。这一次着重理解JavaScript里面的作用域。</p>
-<p><strong>JavaScript</strong> 的作用域分三种：<strong>全局作用域，函数作用域，闭包</strong>，还有一个概念，叫做<strong>作用域链</strong>，那么，分别是什么意思呢？我们一个一个来慢慢解释。</p>
-<hr>
-<h2 id="全局作用域"><a href="#全局作用域" class="headerlink" title="全局作用域"></a>全局作用域</h2><p><strong>全局作用域</strong>，很普通的一个概念，所有语言大同小异。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//a位于全局作用域中</span></div><div class="line"><span class="keyword">var</span> a = <span class="number">0</span>;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">func1</span>(<span class="params"></span>) </span>&#123;&#125;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">func2</span>(<span class="params"></span>) </span>&#123;&#125;</div></pre></td></tr></table></figure>
-<p>很明显，变量 a 就位于全局作用域，并不属于任何一个函数所私有，大家都可以访问。</p>
-<hr>
-<h2 id="函数作用域"><a href="#函数作用域" class="headerlink" title="函数作用域"></a>函数作用域</h2><p>JavaScript 是一门解释性语言，它的作用域基于<strong>词法作用域</strong>的，所以，不存在块级作用域这一说法。在 JavaScript 里面，使用<strong>函数作用域</strong>来代替所谓的块级作用域。</p>
-<p>我们先来解释一下什么是<strong>词法作用域</strong>。</p>
-<p>《JavaScript 权威教程》有一句话是这样说的：“JavaScript 的函数在定义它们的作用域里运行，而不是在执行它们的作用域里运行”。什么意思呢？我们来看一段代码。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> a = <span class="string">'a'</span>;</div><div class="line"></div><div class="line">getValue();</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">getValue</span>(<span class="params"></span>) </span>&#123;</div><div class="line">	<span class="built_in">console</span>.log(a);</div><div class="line">	<span class="keyword">var</span> a = <span class="string">'b'</span>;</div><div class="line">	<span class="built_in">console</span>.log(a);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>试想一下，这段代码可以运行吗？运行的结果又是什么？</p>
-<p>很明显，这一段代码肯定可以运行，输出的结果分别是 <code>undefined</code> 和 <code>a</code>，这是为什么呢？</p>
-<p>首先，我们来解释第一个现象——关于这段代码的运行问题。</p>
-<p>我们都知道，函数必须在实现之后调用，或者说，在调用之前，必须得先声明了，但是和 C 语言或者其它的类C等高级语言不同，JavaScript 里可以先调用函数，再对函数进行功能实现，并不用声明什么的。这时候，我们就要想到那句话了：<strong>JavaScript 的函数在定义它们的作用域里运行，而不是在执行它们的作用域里运行</strong>。</p>
-<p>通俗一点就是说，JavaScript 里的函数在调用的时候，根本不管这个函数在哪里声明，是前还是后，只要这个函数定义在这个全局空间里，那么，在调用函数的时候，就能找到这个函数的声明。这就是<strong>词法作用域</strong>。</p>
-<p>然后，我们来看第二个现象——关于运行的结果。</p>
-<p>初学 JavaScript 的人，看到这段代码，一般都会回答运行结果为 <code>a</code> 和 <code>b</code>，然而，事实总是残酷的，所谓 too young，too simple。</p>
-<p>我们先来解释运行结果的第二个 <code>b</code>。很明显，在程序输出变量b的值之前有一个赋值语句 <code>var a = &#39;b&#39;</code>，所以，可以直接输出 a 的结果就是 <code>b</code>。这是我们都能够理解的。</p>
-<p>然后，我们再来看第一个结果 <code>undefined</code>，这是为什么呢？不是已经定义了变量 <code>a</code> 的值了吗？这时候，就要涉及到另外一个概念了——<strong>变量提升 (Hoisting)</strong>。</p>
-<p>所谓<strong>变量提升 (Hoisting)</strong>，意思就是，<strong>无论变量定义在哪里，只要你定义了这个变量，这个变量就会被提升到最顶部</strong>。所以，这也就不难理解为什么可以先调用函数再对函数进行声明了。</p>
+        <p><strong>本文分享关于CSS应用中的一些小技巧， 如果有不对的地方，欢迎指出建议和意见。</strong></p>
+<p><strong>Github项目地址：<a href="https://github.com/Erichain/Great-CSS-Tips-You-Should-Know" target="_blank" rel="external">Great-CSS-Tips-You-Should-Know</a>，欢迎fork和star，如果有更多的tips，也欢迎提交PR。</strong></p>
+<h3 id="使用CSS来垂直居中一切元素"><a href="#使用CSS来垂直居中一切元素" class="headerlink" title="使用CSS来垂直居中一切元素"></a>使用CSS来垂直居中一切元素</h3><p>其实很简单, 使用下面的代码就让你的所有元素都垂直居中</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">html</span>, <span class="selector-tag">body</span> &#123;</div><div class="line">  <span class="attribute">height</span>: <span class="number">100%</span>;</div><div class="line">  <span class="attribute">margin</span>: <span class="number">0</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-tag">body</span> &#123;</div><div class="line">  <span class="attribute">display</span>: -webkit-flex;</div><div class="line">  <span class="attribute">display</span>: flex;</div><div class="line">  <span class="attribute">-webkit-align-items</span>: center;  </div><div class="line">  <span class="attribute">-ms-flex-align</span>: center;  </div><div class="line">  <span class="attribute">align-items</span>: center;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>如果你的需求不只是垂直居中的话–比如你想要上下左右都居中, 那么, 可以看看我的另外一个项目: <a href="https://github.com/Erichain/css-center-complete" target="_blank" rel="external">css-center-complete</a></p>
+<h3 id="使用CSS来制作箭头"><a href="#使用CSS来制作箭头" class="headerlink" title="使用CSS来制作箭头"></a>使用CSS来制作箭头</h3><p>如果使用CSS来画我们常用的箭头呢? 就像下面这样:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* 向下的箭头 */</span></div><div class="line"><span class="selector-class">.caret</span> &#123;</div><div class="line">	<span class="attribute">display</span>: inline-block;</div><div class="line">	<span class="attribute">width</span>: <span class="number">0</span>;</div><div class="line">	<span class="attribute">height</span>: <span class="number">0</span>;</div><div class="line"></div><div class="line">	<span class="attribute">vertical-align</span>: middle;</div><div class="line">	</div><div class="line">	<span class="comment">/* 如果需要向上的箭头的话, 就把border-top改为border-bottom */</span></div><div class="line">	<span class="attribute">border-top</span>: <span class="number">20px</span> solid;</div><div class="line">	<span class="attribute">border-right</span>: <span class="number">20px</span> solid transparent;</div><div class="line">	<span class="attribute">border-left</span>: <span class="number">20px</span> solid transparent;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="使用CSS来让footer永远位于屏幕底部-并随内容而拉伸"><a href="#使用CSS来让footer永远位于屏幕底部-并随内容而拉伸" class="headerlink" title="使用CSS来让footer永远位于屏幕底部, 并随内容而拉伸"></a>使用CSS来让footer永远位于屏幕底部, 并随内容而拉伸</h3><p>这是个困扰我很久的问题, 不过最终, 我还是找到了一个比较好的解决方案</p>
+<p>假设你的html是下面这样写的:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"header"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"content"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"footer"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>我们要的效果是footer一直位于底部, 同时, 当内容的高度增加时, 他也会被内容给挤下去. 所以, 我们需要像下面这样定义CSS:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">html</span> &#123;</div><div class="line">	<span class="attribute">height</span>: <span class="number">100%</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-tag">body</span> &#123;</div><div class="line">	<span class="attribute">position</span>: relative;</div><div class="line">	<span class="attribute">min-height</span>: <span class="number">100%</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-tag">body</span><span class="selector-pseudo">:after</span> &#123;</div><div class="line">    <span class="attribute">display</span>: block;</div><div class="line">    <span class="attribute">content</span>: <span class="string">''</span>;</div><div class="line">    <span class="attribute">height</span>: <span class="number">200px</span>; <span class="comment">/* 此处的高度必须和footer的高度相同 */</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-class">.footer</span> &#123;</div><div class="line">	<span class="attribute">position</span>: absolute;</div><div class="line">	<span class="attribute">bottom</span>: <span class="number">0</span>;</div><div class="line">	<span class="attribute">width</span>: <span class="number">100%</span>;</div><div class="line">	<span class="attribute">height</span>: <span class="number">200px</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="使用CSS避免图片超出包含块"><a href="#使用CSS避免图片超出包含块" class="headerlink" title="使用CSS避免图片超出包含块"></a>使用CSS避免图片超出包含块</h3><p>我们想要我们的大图放在我们的文章或者其他地方, 所以, 要避免这些图片超出内容, 怎么做呢?</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">img</span> &#123;</div><div class="line">    <span class="attribute">display</span>: block;</div><div class="line">    <span class="attribute">max-width</span>: <span class="number">100%</span>;</div><div class="line">    <span class="attribute">margin</span>: <span class="number">0</span> auto;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="使用CSS制作带有分割线的导航"><a href="#使用CSS制作带有分割线的导航" class="headerlink" title="使用CSS制作带有分割线的导航"></a>使用CSS制作带有分割线的导航</h3><p>制作一个带有分割线的横向导航, 可以使用CSS的<code>:not</code>和<code>:last-child</code>来实现</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.nav</span> <span class="selector-tag">li</span><span class="selector-pseudo">:not(</span><span class="selector-pseudo">:last-child)</span> &#123;</div><div class="line">    <span class="attribute">border-right</span>: <span class="number">1px</span> solid <span class="number">#cccccc</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="使用CSS来通过动态计算设置元素的高度"><a href="#使用CSS来通过动态计算设置元素的高度" class="headerlink" title="使用CSS来通过动态计算设置元素的高度"></a>使用CSS来通过动态计算设置元素的高度</h3><p>不得不说, CSS3的<code>calc</code>属性真的很棒, 我们可以使用这个属性来动态计算一个元素的高度</p>
 <blockquote>
-<p>但是有另外一种情况，如果函数的声明是采用的 <code>var func = function () {}</code> 格式的声明的话，就必须在函数调用前声明函数。</p>
+<p>当你使用calc来计算元素的高度的时候你要注意, 计算的高度是依赖于父级元素的高度的, 所以, 你需要先设置父级元素的高度</p>
 </blockquote>
-<p>那。。。刚才那个，按照变量提升的说法，结果不应该是两个 <code>b</code> 吗？</p>
-<p>别急，我还没说完呢。变量提升，提升的只是变量的定义而已。它的赋值语句并不会随着变量提升到顶部。所以，刚才的代码可以写成这样：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> a = <span class="string">'a'</span>;</div><div class="line"></div><div class="line">getValue();</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">getValue</span>(<span class="params"></span>) </span>&#123;</div><div class="line">	<span class="keyword">var</span> a;</div><div class="line">	<span class="built_in">console</span>.log(a);</div><div class="line">	a = <span class="string">'b'</span>;</div><div class="line">	<span class="built_in">console</span>.log(a);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>这样，就一清二楚了吧。第一个结果 <code>undefined</code>，变量 <code>a</code> 只是定义了，还没赋值，当然会输出 <code>undefined</code>。而后面又给 <code>a</code> 赋值为 <code>&#39;b&#39;</code>，所以，当然会输出 <code>&#39;b&#39;</code> 啦。这就是<strong>变量提升 (Hoisting)</strong> 的作用。</p>
-<p>OK，我们在这里多说了两个概念，分别是<strong>词法作用域</strong>和<strong>变量提升 (Hoisting) </strong>。现在，我们应该能够理解这两个概念了。所以，现在来理解 JavaScript 的<strong>函数作用域</strong>。</p>
-<p>我们先看一段代码：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">myName</span>(<span class="params"></span>) </span>&#123;</div><div class="line">	<span class="keyword">var</span> me = <span class="string">'Erichain'</span>;</div><div class="line">	<span class="built_in">console</span>.log(me);</div><div class="line">&#125;</div><div class="line">myName();</div><div class="line"><span class="built_in">console</span>.log(me);</div></pre></td></tr></table></figure>
-<p>运行这段代码，结果是输出 <code>Erichain</code> 和收到一个报错 <code>ReferenceError: Can&#39;t find variable: me</code>。</p>
-<p>我们来分析一下，其实这个道理很简单。在函数内部，定义了一个变量 <code>me</code>，赋值为 <code>&#39;Erichain&#39;</code>，然后，我们输出，很正确的一个流程。但是，当我们再到函数外部去输出这个变量的时候，却报错了。</p>
-<p><strong>JavaScript 的变量，定义在函数体内，那么，这个变量就只能在函数体内访问，就如同私有变量一样。一旦这个函数运行结束，这个变量也随之销毁。</strong>——这就是 JavaScript 的<strong>函数作用域</strong>。</p>
-<p>我们的变量 <code>me</code> 是定义在函数体内部的，所以，<code>myName()</code> 函数一旦运行完成，变量<code>me</code>随之销毁，所以，在外面输出的话，当然会报错了。</p>
-<p>再看一段代码来理解函数作用域，并且，理解 JavaScript 里是没有块级作用域的。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">testScope</span>(<span class="params"></span>) </span>&#123;</div><div class="line">	<span class="keyword">var</span> myName = <span class="string">'Erichain'</span>;</div><div class="line">	<span class="keyword">for</span> ( <span class="keyword">var</span> i = <span class="number">8</span>; i &lt; <span class="number">10</span>; i++ ) &#123;</div><div class="line">		<span class="built_in">console</span>.log(myName);</div><div class="line">	&#125;</div><div class="line">	<span class="built_in">console</span>.log(i);</div><div class="line">&#125;</div><div class="line">testScope();</div><div class="line"><span class="built_in">console</span>.log(i);</div><div class="line"><span class="built_in">console</span>.log(myName);</div></pre></td></tr></table></figure>
-<p>这段代码输出的结果分别是：两次 <code>Erichain</code>，<code>10</code> 和两个报错，错误都是找不到变量 <code>i</code> 和 <code>myName</code>。</p>
-<p>根据函数作用域，后面两个报错不难理解。我们着重看 <code>10</code> 这个结果。我们发现，在函数内部，其实没有定义 <code>i</code> 这个变量，只是在for循环里定义了。要是在 C 或者类 C 语言里，变量 <code>i</code> 在循环体结束之后就销毁了。但是，在 JavaScript 里，不存在块级作用域，所以，在循环体内部定义的变量，就相当于在函数内部定义的变量，在函数内部依然可以访问。这也是 JavaScript 和其他语言不同的一个地方。</p>
-<hr>
-<h2 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h2><p>JavaScript 里的最特别的功能之一，当然是它的闭包。什么是闭包呢？通俗一点说就是：<strong>在函数里面声明并且实现函数，即所谓“函数的嵌套”</strong>。看一段代码自然就明白了。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">closure</span>(<span class="params"></span>) </span>&#123;</div><div class="line">	<span class="keyword">var</span> newVal = <span class="string">'Erichain'</span>;</div><div class="line">	<span class="function"><span class="keyword">function</span> <span class="title">getNewVal</span>(<span class="params"></span>) </span>&#123;</div><div class="line">		<span class="built_in">console</span>.log(newVal);</div><div class="line">	&#125;</div><div class="line">	getNewVal();</div><div class="line">&#125;</div><div class="line">closure();</div></pre></td></tr></table></figure>
-<p>这段代码的运行结果将会输出<code>Erichain</code>。</p>
-<p>我们把函数拆分为外函数<code>closure()</code>和内函数<code>getNewVal()</code>，同时，在外函数的内部，调用了内函数来运行。所以，调用<code>closure()</code>函数的同时也随即调用了<code>getNewVal()</code>。所以，能够输出结果。这就是一个很简单的闭包的实现。但是，这不是我要说的重点。本篇文章重点在作用域，所以，我们来分析一下闭包的作用域。</p>
-<p>我们把上面的这段代码稍微修改一下。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">closure</span> (<span class="params"></span>) </span>&#123;</div><div class="line">	<span class="keyword">var</span> newVal = <span class="string">'Erichain'</span>;</div><div class="line">	<span class="function"><span class="keyword">function</span> <span class="title">getNewVal</span> (<span class="params"></span>) </span>&#123;</div><div class="line">		<span class="keyword">var</span> newName = <span class="string">'Zain'</span>;</div><div class="line">		<span class="built_in">console</span>.log(newVal);</div><div class="line">		<span class="built_in">console</span>.log(newName);</div><div class="line">	&#125;</div><div class="line">	getNewVal();</div><div class="line">	<span class="built_in">console</span>.log(newName);</div><div class="line">&#125;</div><div class="line">closure();</div></pre></td></tr></table></figure>
-<p>运行这段代码，我们会得到两个输出结果：<code>Erichain</code>和<code>Zain</code>，另外，还有一个报错：<code>ReferenceError: Can&#39;t find variable: newName</code>。</p>
-<p>我们来解释一下这个现象。</p>
-<p>在上文中，有讲到，函数内部定义的变量只能函数自身访问。同理，<strong>闭包是函数内部的函数，所以，闭包里面所定义的变量，也只有闭包内部能够访问。但是，闭包能够访问外部函数的变量。</strong>这就是JavaScript的闭包的作用域。</p>
-<hr>
-<h2 id="作用域链"><a href="#作用域链" class="headerlink" title="作用域链"></a>作用域链</h2><p>说完了JavaScript的三种作用域，那么，接下来理解作用域链也就不是什么大问题了。</p>
-<p>还是先看一段代码：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> myName = <span class="string">'Erichain'</span>;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">getMyName</span> (<span class="params"></span>) </span>&#123;</div><div class="line">	<span class="built_in">console</span>.log(myName)；</div><div class="line">&#125;</div><div class="line">getMyName();</div></pre></td></tr></table></figure>
-<p>运行这段代码，输出的结果将是<code>Erichain</code>。</p>
-<p>我们发现，我们在函数里并没有定义变量<code>myName</code>，但是，最终函数却没有报错，而是正常输出结果。而这个结果，恰好是在全局空间里定义的变量<code>myName</code>的值。这就要涉及到JavaScript的作用域链了。</p>
-<p><strong>调用函数的时候，函数会先从函数内部找寻变量，如果找不到，那么就会一层一层的往上寻找，直到找到这个变量为止</strong>。</p>
-<p>在<code>getMyName()</code>函数里，我们虽然没有定义变量<code>myName</code>，但是，函数在全局空间里找到了这个变量，所以，可以使用这个变量输出其值。</p>
-<p>再看一段代码来理解。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> myName = <span class="string">'Erichain'</span>;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">getMyName</span> (<span class="params"></span>) </span>&#123;</div><div class="line">	<span class="keyword">var</span> myName = <span class="string">'Zain'</span>;</div><div class="line">	<span class="built_in">console</span>.log(myName);</div><div class="line">&#125;</div><div class="line">getMyName();</div></pre></td></tr></table></figure>
-<p>那么，这段代码又会输出怎么样的结果呢？答案是<code>Zain</code>。</p>
-<p>用上面的话来解释：函数在其内部就找到了变量<code>myName</code>，所以，他就不需要再往上去寻找变量。所以这里会输出<code>Zain</code>。</p>
-<p>这也就是JavaScript作用域链的工作机制。</p>
-<hr>
-<p>最后，加上一个小tip。<strong>关于JavaScript对变量的内存分配和回收的问题</strong>。</p>
-<p>第一，JavaScript的局部变量，也就是函数内部定义的变量，在函数调用完成之后会自动销毁，不需要人工在进行手动销毁；</p>
-<p>第二，JavaScript的全局变量和闭包里的变量在定义之后，如果不对其进行销毁的话，会一直存在内存空间，污染全局空间，必要的时候，需要对其进行手动销毁，怎么做呢？</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> a = <span class="string">'Erichain'</span>;</div><div class="line"><span class="built_in">console</span>.log(a);</div><div class="line">a = <span class="literal">null</span>;</div><div class="line"><span class="built_in">console</span>.log(a);</div></pre></td></tr></table></figure>
-<p>为变量赋值为<code>null</code>即可销毁这个变量。</p>
-<hr>
-<p>以上为本人所总结的有关于JavaScript的作用域的知识，每天学习一点，每天进步一点。如果有什么疑问或者问题，希望大家能与我交流。</p>
-
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.container</span> &#123;</div><div class="line">    <span class="attribute">height</span>: <span class="number">100vh</span>;  <span class="comment">/* 使用vh这个单位来设置高度为100% */</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-class">.content</span> &#123;</div><div class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;  </div><div class="line">  <span class="attribute">height</span>: <span class="built_in">calc</span>(100% - 150px);</div><div class="line">  <span class="attribute">background-color</span>: <span class="number">#aaaaaa</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="使用CSS设置全屏图片"><a href="#使用CSS设置全屏图片" class="headerlink" title="使用CSS设置全屏图片"></a>使用CSS设置全屏图片</h3><p>Set a full page image is so common for the website nowadays.<br>现在的很多网站都采用了全屏的图片, 那么, 这是怎么实现的呢? 有两种方法:</p>
+<p><strong>1. 设置全屏背景图</strong></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">html</span> &#123;</div><div class="line">    <span class="attribute">background</span>: <span class="built_in">url</span>(<span class="string">'the/path/to/your/image'</span>) no-repeat center center fixed;</div><div class="line">    <span class="attribute">-webkit-background-size</span>: cover;</div><div class="line">    <span class="attribute">-moz-background-size</span>: cover;</div><div class="line">    <span class="attribute">-o-background-size</span>: cover;</div><div class="line">    <span class="attribute">background-size</span>: cover;</div><div class="line">    <span class="attribute">filter</span>: progid:DXImageTransform.Microsoft.<span class="built_in">AlphaImageLoader</span>(src=<span class="string">'.myBackground.jpg'</span>, sizingMethod=<span class="string">'scale'</span>);</div><div class="line">    <span class="attribute">-ms-filter</span>: <span class="string">"progid:DXImageTransform.Microsoft.AlphaImageLoader(src='myBackground.jpg', sizingMethod='scale')"</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>2. 使用<code>img</code>标签的全屏图片</strong></p>
+<p>要使用<code>img</code>标签的话, 最好是将它放在一个div中</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"bg"</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"the/path/to/your/image"</span> <span class="attr">alt</span>=<span class="string">""</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.bg</span> &#123;</div><div class="line">	<span class="attribute">position</span>: fixed;</div><div class="line">	<span class="attribute">top</span>: -<span class="number">50%</span>;</div><div class="line">	<span class="attribute">left</span>: -<span class="number">50%</span>;</div><div class="line"></div><div class="line">	<span class="attribute">width</span>: <span class="number">200%</span>;</div><div class="line">	<span class="attribute">height</span>: <span class="number">200%</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-class">.bg</span> <span class="selector-tag">img</span> &#123;</div><div class="line">	<span class="attribute">position</span>: absolute;</div><div class="line">	<span class="attribute">top</span>: <span class="number">0</span>;</div><div class="line">	<span class="attribute">left</span>: <span class="number">0</span>;</div><div class="line">	<span class="attribute">right</span>: <span class="number">0</span>;</div><div class="line">	<span class="attribute">bottom</span>: <span class="number">0</span>;</div><div class="line">	<span class="attribute">margin</span>: auto;</div><div class="line">	<span class="attribute">min-width</span>: <span class="number">50%</span>;</div><div class="line">	<span class="attribute">min-height</span>: <span class="number">50%</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="使用CSS的BFC来清除浮动"><a href="#使用CSS的BFC来清除浮动" class="headerlink" title="使用CSS的BFC来清除浮动"></a>使用CSS的BFC来清除浮动</h3><p>使用BFC的特性来清除浮动是一个很常用的手段. 因为, 当计算BFC的高度的时候, 浮动元素也会参与计算.</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.container</span> &#123;</div><div class="line">    <span class="attribute">width</span>: <span class="number">800px</span>;</div><div class="line">    <span class="attribute">padding</span>: <span class="number">20px</span>;</div><div class="line">    <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#aaaaaa</span>;</div><div class="line">    <span class="attribute">overflow</span>: hidden; <span class="comment">/* or set to auto */</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="使用CSS来去除display为inline-block的li之间的间隙"><a href="#使用CSS来去除display为inline-block的li之间的间隙" class="headerlink" title="使用CSS来去除display为inline-block的li之间的间隙"></a>使用CSS来去除display为inline-block的li之间的间隙</h3><p>当制作一个横向列表的时候, 我们一般设置<code>li</code>的<code>display</code>属性为<code>inline-block</code></p>
+<p>但是, 这样就有一个问题就是每两个<code>li</code>之间总是会有你不知道是什么的间隙</p>
+<p>所以, 该怎么解决呢? 其实很简单, 设置<code>ul</code>的<code>font-size</code>为0, 再对<code>li</code>的字体大小进行单独设置就行了</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">ul</span> &#123;</div><div class="line">    <span class="attribute">font-size</span>: <span class="number">0</span>;</div><div class="line">    </div><div class="line">    <span class="comment">/* 以下两句视不同情况而定 */</span></div><div class="line">    <span class="attribute">letter-spacing</span>: -<span class="number">1px</span>;</div><div class="line">    <span class="attribute">word-spacing</span>: -<span class="number">1px</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-tag">ul</span> <span class="selector-tag">li</span> &#123;</div><div class="line">    <span class="attribute">font-size</span>: <span class="number">16px</span>;</div><div class="line">    <span class="attribute">letter-spacing</span>: normal;</div><div class="line">    <span class="attribute">word-spacing</span>: normal;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="使用CSS实现图片预加载"><a href="#使用CSS实现图片预加载" class="headerlink" title="使用CSS实现图片预加载"></a>使用CSS实现图片预加载</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="selector-id">#preload-01</span> &#123; <span class="attribute">background</span>: <span class="built_in">url</span>(http://domain.tld/image-01.png) no-repeat -<span class="number">9999px</span> -<span class="number">9999px</span>; &#125;</div><div class="line"><span class="selector-id">#preload-02</span> &#123; <span class="attribute">background</span>: <span class="built_in">url</span>(http://domain.tld/image-02.png) no-repeat -<span class="number">9999px</span> -<span class="number">9999px</span>; &#125;</div><div class="line"><span class="selector-id">#preload-03</span> &#123; <span class="attribute">background</span>: <span class="built_in">url</span>(http://domain.tld/image-03.png) no-repeat -<span class="number">9999px</span> -<span class="number">9999px</span>; &#125;</div></pre></td></tr></table></figure>
+<h3 id="使用CSS来避免闪烁"><a href="#使用CSS来避免闪烁" class="headerlink" title="使用CSS来避免闪烁"></a>使用CSS来避免闪烁</h3><p>如果我们的内容在图片加载好之前渲染好的话, 我们可能会看到包含块被撑开的一个过程, 这个过程就叫做闪烁</p>
+<p>所以,我们应该尽量避免这种现象, 通过<code>margin/padding</code>来实现</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"container"</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"the/path/to/your/image"</span> <span class="attr">alt</span>=<span class="string">""</span> /&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.container</span> &#123;</div><div class="line">	<span class="attribute">positiong</span>: relative;</div><div class="line">	<span class="attribute">width</span>: <span class="number">100%</span>;</div><div class="line">	<span class="attribute">max-height</span>: <span class="number">500px</span>;</div><div class="line">	<span class="attribute">background-color</span>: red;</div><div class="line">	</div><div class="line">	<span class="comment">/* 避免编边距折叠 */</span></div><div class="line">	<span class="attribute">overflow</span>: hidden;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-class">.container</span><span class="selector-pseudo">:after</span> &#123;</div><div class="line">	<span class="attribute">content</span>: <span class="string">''</span>;</div><div class="line">	<span class="attribute">display</span>: block;</div><div class="line">	<span class="attribute">margin-top</span>: <span class="number">50%</span>; <span class="comment">/* 或者设置padding-top: 50%; */</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>你应该能看到, 图片没有加载出来的时候, 内容也是有高度的.</p>
+<h3 id="使用CSS来制作图片加载失败的效果"><a href="#使用CSS来制作图片加载失败的效果" class="headerlink" title="使用CSS来制作图片加载失败的效果"></a>使用CSS来制作图片加载失败的效果</h3><p>在图片加载失败的时候, 使用CSS来让加载失败的图片显得更美观更友好</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">img</span><span class="selector-pseudo">:before</span> &#123;  </div><div class="line">  <span class="attribute">content</span>: <span class="string">"We're sorry, the image below is broken :("</span>;</div><div class="line">  <span class="attribute">display</span>: block;</div><div class="line">  <span class="attribute">margin-bottom</span>: <span class="number">10px</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-tag">img</span><span class="selector-pseudo">:after</span> &#123;  </div><div class="line">  <span class="attribute">content</span>: <span class="string">"(url: "</span> <span class="built_in">attr</span>(src) <span class="string">")"</span>;</div><div class="line">  <span class="attribute">display</span>: block;</div><div class="line">  <span class="attribute">font-size</span>: <span class="number">12px</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://erichain.me/2015/11/01/2015-11-01-scope-of-javascript/" data-id="cj1w9denl00011hphak1l2g8d" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-2015-07-26-use-css-to-get-three-cols-layout" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/07/26/2015-07-26-use-css-to-get-three-cols-layout/" class="article-date">
-  <time datetime="2015-07-26T00:00:00.000Z" itemprop="datePublished">2015-07-26</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Front-End/">Front-End</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/07/26/2015-07-26-use-css-to-get-three-cols-layout/">纯CSS实现三列布局(两边固定，中间自适应)</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>看了一些网上的案例，感觉较繁杂，于是，自己整理了一篇来说明这个东西。</p>
-<p>也是给我自己复习吧，以前有人问道，我还没答上来呢。＝＝</p>
-<p>总结了有两种方法:</p>
-<h3 id="使用绝对定位"><a href="#使用绝对定位" class="headerlink" title="使用绝对定位"></a>使用绝对定位</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"top"</span>&gt;</span>this is top<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"container"</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"left"</span>&gt;</span>this is left<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"center"</span>&gt;</span>this is center<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"right"</span>&gt;</span>this is right<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"footer"</span>&gt;</span>this is footer<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.top</span> &#123;</div><div class="line">	<span class="attribute">width</span>: <span class="number">100%</span>;</div><div class="line">	<span class="attribute">height</span>: <span class="number">40px</span>;</div><div class="line">	<span class="attribute">background-color</span>: <span class="number">#cccccc</span>;</div><div class="line">&#125;</div><div class="line"><span class="selector-class">.footer</span> &#123;</div><div class="line">	<span class="attribute">width</span>: <span class="number">100%</span>;</div><div class="line">	<span class="attribute">height</span>: <span class="number">50px</span>;</div><div class="line">	<span class="attribute">background-color</span>: <span class="number">#abdc44</span>;</div><div class="line">&#125;</div><div class="line"><span class="comment">/* 左右固定，中间自适应 */</span></div><div class="line"><span class="comment">/* Start */</span></div><div class="line"><span class="selector-class">.container</span> &#123;</div><div class="line">	<span class="attribute">width</span>: <span class="number">100%</span>;</div><div class="line">	<span class="attribute">height</span>: <span class="number">100%</span>;</div><div class="line">	<span class="attribute">position</span>: relative;</div><div class="line">&#125;</div><div class="line"><span class="selector-class">.left</span> &#123;</div><div class="line">	<span class="attribute">position</span>: absolute;</div><div class="line">	<span class="attribute">left</span>: <span class="number">0</span>;</div><div class="line">	<span class="attribute">top</span>: <span class="number">0</span>;</div><div class="line">	<span class="attribute">width</span>: <span class="number">400px</span>;</div><div class="line">	<span class="attribute">height</span>: <span class="number">800px</span>;</div><div class="line">	<span class="attribute">background-color</span>: black;</div><div class="line">&#125;</div><div class="line"><span class="selector-class">.center</span> &#123;</div><div class="line">	<span class="attribute">width</span>: auto;    <span class="comment">/* 如果没有这一句，那么，center这个div的文字就不会自动换行 */</span></div><div class="line">	<span class="attribute">margin</span>: <span class="number">0</span> <span class="number">400px</span>;</div><div class="line">	<span class="attribute">height</span>: <span class="number">1000px</span>;</div><div class="line">	<span class="attribute">background-color</span>: yellow;</div><div class="line">&#125;</div><div class="line"><span class="selector-class">.right</span> &#123;</div><div class="line">	<span class="attribute">position</span>: absolute;</div><div class="line">	<span class="attribute">top</span>: <span class="number">0</span>;</div><div class="line">	<span class="attribute">right</span>: <span class="number">0</span>;</div><div class="line">	<span class="attribute">width</span>: <span class="number">400px</span>;</div><div class="line">	<span class="attribute">height</span>: <span class="number">900px</span>;</div><div class="line">	<span class="attribute">background-color</span>: red;</div><div class="line">&#125;</div><div class="line"><span class="comment">/* End */</span></div></pre></td></tr></table></figure>
-<p>效果是这样的：<br><img src="http://img.blog.csdn.net/20150726162724428" alt="三列布局"></p>
-<h3 id="使用浮动"><a href="#使用浮动" class="headerlink" title="使用浮动"></a>使用浮动</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"container"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"right"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"left"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"center"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.container</span> &#123;</div><div class="line">    <span class="attribute">width</span>: <span class="number">100%</span>;</div><div class="line"></div><div class="line">    <span class="comment">/* 清除浮动 */</span></div><div class="line">    <span class="attribute">overflow</span>: hidden;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-class">.left</span>,</div><div class="line"><span class="selector-class">.center</span>,</div><div class="line"><span class="selector-class">.right</span> &#123;</div><div class="line">    <span class="attribute">height</span>: <span class="number">400px</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-class">.left</span> &#123;</div><div class="line">    <span class="attribute">float</span>: left;</div><div class="line">    <span class="attribute">width</span>: <span class="number">200px</span>;</div><div class="line">    <span class="attribute">background-color</span>: red;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-class">.center</span> &#123;</div><div class="line">    <span class="attribute">margin-left</span>: <span class="number">210px</span>;</div><div class="line">    <span class="attribute">margin-right</span>: <span class="number">410px</span>;</div><div class="line">    <span class="attribute">background-color</span>: antiquewhite;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-class">.right</span> &#123;</div><div class="line">    <span class="attribute">float</span>: right;</div><div class="line">    <span class="attribute">width</span>: <span class="number">400px</span>;</div><div class="line">    <span class="attribute">background-color</span>: aqua;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://erichain.me/2015/07/26/2015-07-26-use-css-to-get-three-cols-layout/" data-id="cj1w9deng00001hph83vxqcnr" class="article-share-link">Share</a>
+      <a data-url="https://erichain.me/2016/04/06/2016-04-06-great-css-tips-you-should-know/" data-id="cj1xn9s9b001i1jphewodbji8" class="article-share-link">Partager</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li></ul>
@@ -229,10 +151,61 @@
 
 
   
+    <article id="post-2016-03-30-tip-for-calc-when-setting-height" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/03/30/2016-03-30-tip-for-calc-when-setting-height/" class="article-date">
+  <time datetime="2016-03-30T00:00:00.000Z" itemprop="datePublished">2016-03-30</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Front-End/">Front-End</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/03/30/2016-03-30-tip-for-calc-when-setting-height/">CSS3的calc属性设置高度的时候的tip</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>CSS3有一个很强大的<code>calc</code>属性可以供我们通过动态计算的方法来设置元素的宽高。</p>
+<p>但是，在使用这个属性的时候，需要有一些注意的地方。</p>
+<p>看下面这个例子：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"container"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"title"</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"content"</span>&gt;</span>Content<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"footer"</span>&gt;</span>Footer<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.title</span> &#123;</div><div class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</div><div class="line">  <span class="attribute">height</span>: <span class="number">100px</span>;</div><div class="line">  <span class="attribute">background-color</span>: blue;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-class">.content</span> &#123;</div><div class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</div><div class="line">  </div><div class="line">  <span class="comment">/* 设置内容高度为视区的总高度减去footer和header的高度，使用CSS3的calc属性 */</span></div><div class="line">  <span class="attribute">height</span>: <span class="built_in">calc</span>(100% - 150px);</div><div class="line">  <span class="attribute">background-color</span>: <span class="number">#aaaaaa</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-class">.footer</span> &#123;</div><div class="line">    <span class="attribute">position</span>: fixed;</div><div class="line">    <span class="attribute">width</span>: <span class="number">100%</span>;</div><div class="line">    <span class="attribute">height</span>: <span class="number">50px</span>;</div><div class="line">    <span class="attribute">bottom</span>: <span class="number">0</span>;</div><div class="line">    <span class="attribute">background-color</span>: black;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>表面上看这段代码没有问题，但是，我们在使用的时候就会发现，高度没能设置成功。因为高度为100%的时候，是相对于父级容器的高度来的，所以，还需要给父级容器设置高度才行。</p>
+<p>所以，更改后的CSS如下：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* 父级容器设置高度为视区高度，vh表示view height，100vh表示高度为100% */</span></div><div class="line"><span class="selector-class">.container</span> &#123;</div><div class="line">    <span class="attribute">color</span>: <span class="number">#ffffff</span>;</div><div class="line">    <span class="attribute">height</span>: <span class="number">100vh</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-class">.title</span> &#123;</div><div class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</div><div class="line">  <span class="attribute">height</span>: <span class="number">100px</span>;</div><div class="line">  <span class="attribute">background-color</span>: blue;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-class">.content</span> &#123;</div><div class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</div><div class="line">  </div><div class="line">  <span class="comment">/* 设置内容高度为视区的总高度减去footer和header的高度，使用CSS3的calc属性 */</span></div><div class="line">  <span class="attribute">height</span>: <span class="built_in">calc</span>(100% - 150px);</div><div class="line">  <span class="attribute">background-color</span>: <span class="number">#aaaaaa</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-class">.footer</span> &#123;</div><div class="line">    <span class="attribute">position</span>: fixed;</div><div class="line">    <span class="attribute">width</span>: <span class="number">100%</span>;</div><div class="line">    <span class="attribute">height</span>: <span class="number">50px</span>;</div><div class="line">    <span class="attribute">bottom</span>: <span class="number">0</span>;</div><div class="line">    <span class="attribute">background-color</span>: black;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这样，我们的高度设置就可以了。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://erichain.me/2016/03/30/2016-03-30-tip-for-calc-when-setting-height/" data-id="cj1xn9s95001d1jphy1dyn50g" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css3/">css3</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
 
 
   <nav id="page-nav">
-    <a class="extend prev" rel="prev" href="/page/6/">&laquo; __('prev')</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span>
+    <a class="extend prev" rel="prev" href="/page/6/"><<</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/8/">>></a>
   </nav>
 </section>
         
@@ -279,7 +252,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
+    <h3 class="widget-title">Articles Recents</h3>
     <div class="widget">
       <ul>
         
@@ -316,7 +289,6 @@
   <div class="outer">
     <div id="footer-info" class="inner">
       &copy; 2017 Erichain<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>
@@ -328,7 +300,17 @@
     <a href="/archives" class="mobile-nav-link">Archives</a>
   
 </nav>
-    
+    <script>
+  var disqus_shortname = 'undefined';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
 
 <script src="/js/jquery.min.js"></script>
 

@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Erichain&#39;s Causeries</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Everything about Erichain, including blogs, portfolio, projects and life etc.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Erichain's Causeries">
+<meta property="og:url" content="https://erichain.me/page/13/index.html">
+<meta property="og:site_name" content="Erichain's Causeries">
+<meta property="og:description" content="Everything about Erichain, including blogs, portfolio, projects and life etc.">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Erichain's Causeries">
+<meta name="twitter:description" content="Everything about Erichain, including blogs, portfolio, projects and life etc.">
+  
+    <link rel="alternate" href="/atom.xml" title="Erichain&#39;s Causeries" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Erichain&#39;s Causeries</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">A website to record Erichain&#39;s life.</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://erichain.me"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-2016-02-26-the-fab-four-technique-to-create-responsive-emails-without-media-queries" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/02/26/2016-02-26-the-fab-four-technique-to-create-responsive-emails-without-media-queries/" class="article-date">
+  <time datetime="2016-02-26T00:00:00.000Z" itemprop="datePublished">2016-02-26</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Front-End-Responsive/">Front-End Responsive</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/02/26/2016-02-26-the-fab-four-technique-to-create-responsive-emails-without-media-queries/">不使用媒体查询实现响应式电子邮件的4个技术</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>翻译自<a href="https://medium.freecodecamp.com/the-fab-four-technique-to-create-responsive-emails-without-media-queries-baf11fdfa848#.y38p2okxs" target="_blank" rel="external">https://medium.freecodecamp.com/the-fab-four-technique-to-create-responsive-emails-without-media-queries-baf11fdfa848#.y38p2okxs</a></p>
+<p>我发现了一种新的方式来创建响应式的电子邮件，而且不使用媒体查询。这个方案包括了CSS的<code>calc()</code>函数和<code>width</code>，<code>min-width</code>，<code>max-width</code>三个属性。</p>
+<p>或者说，我喜欢这样称呼他们：绝妙的四剑客(在CSS里)</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*8MfWNObJP1mFnYJzKkdflQ.png" alt=""></p>
+<h3 id="主要问题"><a href="#主要问题" class="headerlink" title="主要问题"></a>主要问题</h3><p>制作响应式的邮件不简单，尤其是当邮件客户端在不支持媒体查询的手机上的时候(比如Gmail，Yahoo，或者Outlook.com)。使用混合的方法，Gmail的策略，或者说不用媒体查询的响应式邮件，对于适应这样的情况都是不错的方法。</p>
+<p>到目前为止，上面所说的最后一种方法是我最偏爱的。最大的灵感就是使用<code>display: inline-block;</code>让每一列的div都有一个固定的宽度。一旦一个屏幕只能包含两块内容的时候，他们就会自动的到下面去。但是，我这样做的时候总是会有问题。</p>
+<p>一旦这些内容块堆叠起来的时候，他们并不会占满邮件的空间。</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*ybAI7RS4xjmQY3Y_B4jUnw.png" alt=""></p>
+<p>我花费了很长的时间来寻找这个问题的解决方案。Flexbox很不错，但是不幸的是，Flexbox对邮件的支持简直糟透了。</p>
+<hr>
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p><strong>记住width，min-width和max-width</strong></p>
+<p>出了<code>calc()</code>函数之外，我发现这个解决方案还需要CSS的三个属性。为了深刻的理解他们是如何运作的，需要知道这三个属性在一起使用的时候会有什么样的行为(一个法国前端工程师做到非常清晰的总结)。</p>
+<ul>
+<li>如果<code>width</code>属性值大于<code>max-width</code>属性值，那么，最终取值为<code>max-width</code></li>
+<li>如果<code>min-width</code>属性值大于<code>width</code>属性值或者<code>max-width</code>属性值，那么，取值为<code>min-width</code></li>
+</ul>
+<p>能够猜出下面的样式中盒子的宽度吗？</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.box</span> &#123;</div><div class="line">    <span class="attribute">width</span>: <span class="number">320px</span>;</div><div class="line">    <span class="attribute">min-width</span>: <span class="number">480px</span>;</div><div class="line">    <span class="attribute">max-width</span>: <span class="number">160px</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>(答案：盒子宽度为480px)</p>
+</blockquote>
+<hr>
+<p><strong><code>calc()</code>函数和神奇的公式</strong></p>
+<p>先不要急着深入，看一个例子：使用四剑客创建了两列，并且在堆叠的时候会增长到480px。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.block</span> &#123;</div><div class="line">    <span class="attribute">display</span>: inline-block;</div><div class="line">    <span class="attribute">min-width</span>: <span class="number">50%</span>;</div><div class="line">    <span class="attribute">max-width</span>: <span class="number">100%</span>;</div><div class="line">    <span class="attribute">width</span>: <span class="built_in">calc</span>((480px — 100%) * <span class="number">480</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>让我们把这段代码拆开来看每一个宽度属性。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">min-width</span>: 50%;</div></pre></td></tr></table></figure>
+<p><code>min-width</code>属性定义了我们的桌面版本的列宽。我们可以改变这个值来添加更多的列(比如，4列的话就是25%)，或者说，将每一列的宽度设置为固定的像素值。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">max-width</span>: 100%;</div></pre></td></tr></table></figure>
+<p><code>max-width</code>定义了我们的手机版本的列宽。使用100%就能够让每一列适应父级容器。我们可以改变这个值以便与在手机上也是多列(比如，2列的话就是25%)。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">width</span>: <span class="selector-tag">calc</span>((480<span class="selector-tag">px</span> — 100%) * 480);</div></pre></td></tr></table></figure>
+<p>感谢<code>calc()</code>这个函数，让宽度属性成为了奇迹。<strong>480</strong>这个值吻合了我们渴望的平衡点的值。<strong>100%</strong>符合我们的列宽的父级容器的宽度。这个计算公式的目的就在于创建一个比<code>max-width</code>大或者比<code>min-width</code>小的值，然后应用其中的一个值。</p>
+<p>看两个例子。</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*zCzf5ZChfB1WB5FGULzpig.png" alt=""></p>
+<p>在父级容器的宽度为500px的时候，计算出来的宽度值为-9600px。小于<code>min-width</code>的值，所以，最小宽度为50%。这样，我们的布局就是两列了。</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*PJANsECXH1VCJ5UxxaJ-5w.png" alt=""></p>
+<p>在父级宽度为400px的时候，计算出来的宽度值为38400px，大于了<code>min-width</code>，但是<code>max-width</code>比他小，所以宽度为100%。这样，我们的布局就是一列了。</p>
+<hr>
+<h3 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h3><p>有一个使用这个技术做的demo，可以在<a href="http://emails.hteumeuleu.fr/wp-content/uploads/2016/02/the-fab-four.html" target="_blank" rel="external">这儿查看</a>。</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*YcVo7AGzJekmg5eupqLK0A.png" alt=""></p>
+<p>下面是这个demo分别在Gmail的桌面端和iOS端的截图。同样的代码，不同的渲染效果。</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*GUknMjQDihG2WkqHIEBBUA.png" alt=""></p>
+<p>在这个demo中，我设置了不同的网格的例子(2列，3列，4列)。第一个使用图片的网格，在桌面端将是4列，在手机端将是2列。其他的网格在移动端将是填满屏幕的宽度。</p>
+<p>另外，注意标题是如何切换的。在桌面端是左对齐，在手机端是居中对齐。这是通过给标题设置190px的固定宽度以及设置<code>margin:0 auto;</code>来居中的。在桌面端，标题的父级容器应用的是最小宽度190px，所以会在左边。在手机端，父级容器为满屏宽度，所以会居中。</p>
+<p>由于每一个元素都是建立在网格的父级容器的宽度上，所以这个技术最棒的一个方面就是，一封邮件甚至可以适应网页邮件应用。例如，在Oulook.com上，无论你选择邮件面板在底部或者在右边，邮件都会很正确的响应面板的宽度。使用媒体查询是不可能做到这样的。</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*lbGOlHr5J-I2XSlbLrfQCg.png" alt=""></p>
+<hr>
+<h3 id="浏览器支持"><a href="#浏览器支持" class="headerlink" title="浏览器支持"></a>浏览器支持</h3><p><code>calc()</code>对浏览器的支持在IE9及以上。事实证明，<code>calc()</code>对邮件客户端的支持也很好。在Apple Mail(iOS和OS X)，Thunderbird，Outlook(iOS和Android应用)，Gmail(网页邮件，iOS和Android应用)，AOL(网页应用)，以及旧版的Outlook.com(只在欧洲使用)这些上面都能很好的运作。</p>
+<p><strong>旧版的Outlook.com</strong></p>
+<p>尽管Outlook.com有一个小怪癖。他会通过<code>calc()</code>过滤掉任何包含包含小圆括号的语句的属性。这也就意味着，<code>calc(480px - 100%)</code>这一语句是支持的，但是<code>calc((480px - 100%) * 480)</code>这一语句就不支持了。由于我的初始的公式包含小括号，我们需要对他进行重构来避免小括号。所以，支持旧版的Outlook.com的公式就是这个样子：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">width</span>: <span class="selector-tag">calc</span>(480<span class="selector-tag">px</span> * 480 — 100% * 480);</div></pre></td></tr></table></figure>
+<p><strong>不支持的客户端</strong></p>
+<p>当然，<code>calc()</code>在一些老的邮件客户端上不受支持，比如Lotus Notes，或者最新的Windows的Outlook。在Outlook的网页应用和Yahoo(网页应用，iOS和Android应用)上都不受支持。这两者会去掉任何包含<code>calc()</code>的属性。</p>
+<p><strong>退却的方案</strong></p>
+<p>在这些例子中，我建议为那些不支持<code>calc()</code>的客户端通过设置固定的宽度来复制所有的需要的属性。为了从那些客户端中隐藏掉四剑客，我建议使用<code>calc()</code>，即使在技术层面没有那么有用。我们的第一个例子会像下面这样：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.block</span> &#123;</div><div class="line">    <span class="attribute">display</span>: inline-block;</div><div class="line">    <span class="attribute">min-width</span>: <span class="number">240px</span>;</div><div class="line">    <span class="attribute">width</span>: <span class="number">50%</span>;</div><div class="line">    <span class="attribute">max-width</span>: <span class="number">100%</span>;</div><div class="line">    <span class="attribute">min-width</span>: <span class="built_in">calc</span>(50%);</div><div class="line">    <span class="attribute">width</span>: <span class="built_in">calc</span>(480px * 480 — 100% * 480);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>Outlook网页应用</strong></p>
+<p>然而，Outlook的网页应用(Office 365和新的Outlook.com)又有一个他自己的怪癖。当<code>calc()</code>函数中包含了乘法符号<code>*</code>的时候，他会移除整句样式。意味着，我们需要手动的算出结果并且只保留减法。比如下面这样：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">width</span>: <span class="selector-tag">calc</span>(230400<span class="selector-tag">px</span> — 48000%);</div></pre></td></tr></table></figure>
+<p><strong>Webkit前缀</strong></p>
+<p>老版本的Android(Android5.0以前)或者iOS(iOS 7以前)需要<code>-webkit-</code>才能起作用。我们的最终版本就会是下面这个样子：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.block</span> &#123;</div><div class="line">    <span class="attribute">display</span>: inline-block;</div><div class="line">    <span class="attribute">min-width</span>: <span class="number">240px</span>;</div><div class="line">    <span class="attribute">width</span>: <span class="number">50%</span>;</div><div class="line">    <span class="attribute">max-width</span>: <span class="number">100%</span>;</div><div class="line">    <span class="attribute">min-width</span>: <span class="built_in">-webkit-calc</span>(50%);</div><div class="line">    <span class="attribute">min-width</span>: <span class="built_in">calc</span>(50%);</div><div class="line">    <span class="attribute">width</span>: <span class="built_in">-webkit-calc</span>(230400px — 48000%);</div><div class="line">    <span class="attribute">width</span>: <span class="built_in">calc</span>(230400px — 48000%);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<hr>
+<h3 id="缺点和总结"><a href="#缺点和总结" class="headerlink" title="缺点和总结"></a>缺点和总结</h3><p>与其它在电子邮件世界开发的东西一样，四剑客这样的技术也不是完美的，下面是我能够想到的一些缺陷：</p>
+<ul>
+<li>在Yahoo上不会起作用。虽然他的桌面端支持媒体查询。所以，我们能够通过制作一个移动端优先的版本来改进一下，然后再在桌面端上提升他的兼容性。</li>
+<li>你只能设置一个平衡点。对于邮件来说，这也许不是那么大的一个问题。就像设计桌面端几乎不会超过600px以及顶多需要一个平衡点来适应手机。</li>
+<li>从桌面端到手机端的时候，你只能减少列的数量。很正常，你不可能在手机上显示4列，在桌面上显示一列。</li>
+<li>最终计算的版本(为了支持旧版的Outlook.com以及优雅的退化在新的版本)的可读性很差。使用预处理器和mixin来省城这些需要的属性可能会更有帮助。</li>
+</ul>
+<p>我仍然觉得这种技术在以后会有更多的使用，尤其是对Gmail的优化。当热，肯定也会有网站的使用之处(比如小部件，广告等)。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://erichain.me/2016/02/26/2016-02-26-the-fab-four-technique-to-create-responsive-emails-without-media-queries/" data-id="cj1xn9s7w000f1jphyhcjet71" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/html5/">html5</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2016-02-23-understand-digest-and-apply-in-angular" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/02/23/2016-02-23-understand-digest-and-apply-in-angular/" class="article-date">
+  <time datetime="2016-02-23T00:00:00.000Z" itemprop="datePublished">2016-02-23</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Angular-Front-End/">Angular Front-End</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/02/23/2016-02-23-understand-digest-and-apply-in-angular/">理解Angular中的$digest()和$apply()</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>翻译自<a href="http://www.sitepoint.com/understanding-angulars-apply-digest/" target="_blank" rel="external">http://www.sitepoint.com/understanding-angulars-apply-digest/</a></p>
+<p><code>$digest()</code>和<code>$apply()</code>是AngularJS中的两个核心并且有时候容易引人误解的部分。我们需要深入理解这两者是如何运作的，从而才能理解AngularJS本身是如何运作的。本文的目的就是为了和你解释，在你的日复一日使用AngularJS编写代码的过程中，<code>$digest()</code>和<code>$apply()</code>是如何确确实实的对你有用的。</p>
+<h3 id="digest-和-apply-的探索"><a href="#digest-和-apply-的探索" class="headerlink" title="$digest()和$apply()的探索"></a><code>$digest()</code>和<code>$apply()</code>的探索</h3><p>AngularJS为我们提供了一个广为人知的令人惊叹的功能，那就是数据的双向绑定。这个功能极大的方便了我们的编码。数据绑定意味着，当视图(view)中的数据发生变化的时候，作用域下的数据模型(model)也会相应的更新。同样的，无论何时，当数据模型(model)发生变化的时候，视图(view)也会相应的更新。那么，AngularJS是怎么做到的呢？当你写这样的一个表达式的时候(  )，AngularJS在背后为这个数据模型(model)设置了一个监听器(watcher)，正是由于这个监听器(watcher)，无论何时当数据模型(model)发生变化的时候，视图(view)也会更新。这个监听器(watcher)与你在AngularJS中设置的其它监听器类似(watcher)：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$scope.$watch(<span class="string">'aModel'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"> newValue, oldValue </span>) </span>&#123;</div><div class="line">	<span class="comment">// update the DOM with newValue</span></div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>大家都知道，传入<code>$watch()</code>的第二个参数是一个监听函数，并且，无论何时当<code>aModel</code>的值发生改变的时候，他都会被调用。对于我们来说，这样理解很简单，当<code>aModel</code>发生改变的时候，这个监听函数被调用，然后，更新HTML中的表达式的值。但是，有一个很大的问题在于，AngularJS是怎么知道什么时候去调用这个监听函数呢？换句话说，AngularJS是怎么知道<code>aModel</code>发生变化的从而去调用相对应的监听函数呢？难道是周期性的运行一个函数来检测数据模型是否发生了变化吗？好吧，这时候，就需要讲到<code>$digest</code>循环了。</p>
+<p>监听器(watcher)是在<code>$digest</code>循环中被启用的。当一个监听器(watcher)被启用的时候，AngularJS就会去评估数据模型(model)，并且，当数据模型(model)的值发生改变的时候，就会去调用相应的监听函数。所以，下一个问题就是，<code>$digest</code>循环是怎么开始的。</p>
+<p>当运行<code>$scope.$digest()</code>的时候，<code>$digest</code>循环就开始了。假设你通过<code>ng-click</code>指令来调用处理函数来改变一个数据模型(model)，在这种情况下，AngularJS就会自动调用<code>$digest()</code>触发<code>$digest</code>循环。当<code>$digest</code>循环开始的时候，他就会启动每一个监听器(watcher)。这些监听器(watcher)会去检查当前的数据模型(model)中的值是否与最后一次计算的值相同，如果不相同，那么，对应的监听函数就会被执行。结果就是，如果你的视图(view)中有表达式，那么，这些表达式就都会被更新。除了<code>ng-click</code>，还有一些其它的内置指令(或者服务)可以让你改变数据模型(比如<code>ng-model</code>，<code>$timeout</code>等)，并且自动触发<code>$digest</code>循环。</p>
+<p>到目前为止，很棒有没有？但是，仍然有一些小的不足。在上面的例子中，AngularJS并不是直接调用<code>$digest()</code>，而是通过<code>$scope.$apply()</code>然后，相应的调用<code>$rootScope.$digest()</code>。这样做的结果就是，一个<code>$digest</code>循环在<code>$rootScope</code>开始，随后，逐步的遍历所有的子作用域来调用监听器(watcher)。</p>
+<p>现在，假设你给一个按钮添加了<code>ng-click</code>指令，并且为他传递了一个函数。当你点击这个按钮的时候，AngularJS会把这个函数放进<code>$scope.$apply()</code>中进行调用。所以，你的函数能够正常的执行，改变数据模型(如果有的话)，并且，<code>$digest</code>循环会开始来保证你的更改会反映到视图(view)中。</p>
+<blockquote>
+<p>注意：<code>$scope.$apply()</code>会自动调用<code>$rootScope.$digest()</code>。<code>$apply()</code>函数可以以两种方式运行。第一种是将函数作为参数，并且评估他，然后触发<code>$digest</code>循环。第二种并不传入任何参数，仅仅是执行一个<code>$digest</code>循环。我们将会知道为什么前一种方法是更好更直接的方法。</p>
+</blockquote>
+<h3 id="什么时候需要人为的调用-apply-呢"><a href="#什么时候需要人为的调用-apply-呢" class="headerlink" title="什么时候需要人为的调用$apply()呢"></a>什么时候需要人为的调用<code>$apply()</code>呢</h3><p>如果AngularJS总是将我们的代码放在<code>$apply()</code>中并且执行<code>$digest</code>循环，那么，什么时候需要我们人为的调用<code>$apply</code>呢？事实上，AngularJS已经很明确的告诉我们了。AngularJS只会关心在AngularJS的执行上下文中的发生的数据模型(model)的变化(比如，改变数据的代码在<code>$apply()</code>里面)。AngularJS内建的指令也会自动触发<code>$digest</code>循环所以任何数据模型(model)的改变都会反映到视图中。但是，如果我们更改一个不在AngularJS执行上下文中的数据模型(model)，就需要人为的调用<code>$apply()</code>来提醒AngularJS数据发生变化了。就像是要告诉AngularJS，我们改变了一些数据，他应该启用监听器以便于让我们所做的改变能够反映出来。</p>
+<p>例如，当使用JavaScript的<code>setTimeout()</code>函数来更新一个数据模型的时候，AngularJS就没办法知道你改变了数据模型。这种情况下，调用<code>$apply()</code>来触发<code>$digest</code>循环就是你的责任了。类似的，如果你写了一个指令，这个指令是设置了一个DOM事件监听器，更改数据模型的代码在事件处理函数里，那么，也需要调用<code>$apply()</code>来保证更改能够反映出来。</p>
+<p>让我们来看个例子。假设有一个页面，我们想在页面加载完之后两秒显示一个信息。我们可能这样写：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">ng-app</span>=<span class="string">"myApp"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">ng-controller</span>=<span class="string">"MessageController"</span>&gt;</span></div><div class="line">        Delayed Message: &#123;&#123;message&#125;&#125;</div><div class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span>  </div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* 没有$apply()会发生什么 */</span></div><div class="line">angular.module(<span class="string">'myApp'</span>, []).controller(<span class="string">'MessageController'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"> $scope </span>) </span>&#123;</div><div class="line"></div><div class="line">    $scope.getMessage = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">        setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">            $scope.message = <span class="string">'Fetched after 3 seconds'</span>;</div><div class="line">            <span class="built_in">console</span>.log(<span class="string">'message:'</span>+$scope.message);</div><div class="line">        &#125;, <span class="number">2000</span>);</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    $scope.getMessage();</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>通过运行这个例子，我们会发现，在两秒之后，函数开始执行，并且更新数据模型。但是，视图却没有更新。原因我们也应该猜到了，我们忘了调用<code>$apply()</code>。因此，我们需要像下面这样来写我们的<code>getMessage()</code>函数。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* 使用了$apply()会发生什么 */</span></div><div class="line">angular.module(<span class="string">'myApp'</span>, []).controller(<span class="string">'MessageController'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"> $scope </span>) </span>&#123;</div><div class="line">    $scope.getMessage = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">        setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">            $scope.$apply(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">                <span class="comment">//wrapped this within $apply</span></div><div class="line">                $scope.message = <span class="string">'Fetched after 3 seconds'</span>;</div><div class="line">                <span class="built_in">console</span>.log(<span class="string">'message:'</span> + $scope.message);</div><div class="line">            &#125;);</div><div class="line">        &#125;, <span class="number">2000</span>);</div><div class="line">    &#125;;</div><div class="line">    </div><div class="line">    $scope.getMessage();</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>运行更新后的例子，两秒之后，我们就能够看到视图更新了。我们所做的唯一的改变就是将代码放进了<code>$scope.$apply()</code>中。这样，就能自动的去调用<code>$rootScope.$digest()</code>，然后，监听器就会启动，视图就会更新了。</p>
+<blockquote>
+<p>注意：顺便说一句，当需要延时的时候，尽可能的使用<code>$timout</code>，这样，就不用人为的去调用<code>$appply()</code>了。</p>
+</blockquote>
+<p>并且，注意看上面的代码，我们也可以在调用<code>$apply()</code>的时候不传参数。就像下面这样：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$scope.getMessage = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">	setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">		$scope.message = <span class="string">'Fetched after two seconds'</span>;</div><div class="line">	    <span class="built_in">console</span>.log(<span class="string">'message:'</span> + $scope.message);</div><div class="line">	    $scope.$apply(); <span class="comment">// 这儿就触发了$digest循环</span></div><div class="line">	&#125;, <span class="number">2000</span>);</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>上面的代码调用<code>$apply()</code>的时候没有传入参数，但是也起作用了。记住，在调用<code>$apply()</code>的时候，应该总是要传入函数参数。因为，当你为<code>$apply()</code>传入函数的时候，这个函数在调用的时候是包含在<code>try..catch</code>中的，并且，任何发生的异常都能够被<code>$exceptionHandler</code>服务所接收。</p>
+<h3 id="digest循环要执行多少次呢"><a href="#digest循环要执行多少次呢" class="headerlink" title="$digest循环要执行多少次呢"></a><code>$digest</code>循环要执行多少次呢</h3><p>当一个<code>$digest</code>循环运行的时候，监听器就会被执行以查看数据模型是否发生改变。如果改变了，对应的监听函数就会被执行。这就导致了一个很重要的问题，假如一个监听函数自己改变了数据模型，AngularJS怎么知道呢？</p>
+<p>答案就是，<code>$digest</code>循环并不只是运行一次。在当前循环的结束之后，他会再次启动来检查是否有数据发生改变。这被叫做脏检查，用来对那些可能被监听函数所更改的数据模型进行监测。所以，<code>$digest</code>循环会一直保持循环直到再也没有数据模型发生改变，或者，到达最大的循环次数(10次)。保持幂等以及最小化监听函数里的数据模型的更改总是比较好的。</p>
+<blockquote>
+<p>注意：<code>$digest</code>至少会循环两次即使监听函数没有更改任何数据模型。正如上文讨论的那样，他会多运行一次以确保没有数据发生改变。</p>
+</blockquote>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>我希望这篇文章能够清楚的描述<code>$digest</code>和<code>$apply</code>是什么。记住最重要的就是AngularJS是否能够监测到你的更改。如果不能，那么，你就得必须人为调用<code>$apply()</code>。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://erichain.me/2016/02/23/2016-02-23-understand-digest-and-apply-in-angular/" data-id="cj1xn9s7q000c1jphc7jvm7el" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/angular/">angular</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    <a class="extend prev" rel="prev" href="/page/12/"><<</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="page-number" href="/page/12/">12</a><span class="page-number current">13</span><a class="page-number" href="/page/14/">14</a><a class="page-number" href="/page/15/">15</a><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/14/">>></a>
+  </nav>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Angular-Front-End/">Angular Front-End</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Front-End/">Front-End</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Front-End-Full-Stack/">Front-End Full-Stack</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Front-End-Responsive/">Front-End Responsive</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Full-Stack/">Full-Stack</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Full-Stack-Mobile/">Full-Stack Mobile</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular/">angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bower/">bower</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/coffeescript/">coffeescript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css3/">css3</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/express/">express</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gem/">gem</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git-flow/">git-flow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html5/">html5</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ionic/">ionic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jquery/">jquery</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mongodb/">mongodb</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/">npm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/">react</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ruby/">ruby</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sass/">sass</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/android/" style="font-size: 10px;">android</a> <a href="/tags/angular/" style="font-size: 15px;">angular</a> <a href="/tags/bower/" style="font-size: 10px;">bower</a> <a href="/tags/coffeescript/" style="font-size: 10px;">coffeescript</a> <a href="/tags/css/" style="font-size: 20px;">css</a> <a href="/tags/css3/" style="font-size: 10px;">css3</a> <a href="/tags/express/" style="font-size: 10px;">express</a> <a href="/tags/gem/" style="font-size: 10px;">gem</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/git-flow/" style="font-size: 10px;">git-flow</a> <a href="/tags/html5/" style="font-size: 10px;">html5</a> <a href="/tags/ionic/" style="font-size: 10px;">ionic</a> <a href="/tags/javascript/" style="font-size: 17.5px;">javascript</a> <a href="/tags/jquery/" style="font-size: 10px;">jquery</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/mac/" style="font-size: 12.5px;">mac</a> <a href="/tags/mongodb/" style="font-size: 10px;">mongodb</a> <a href="/tags/node/" style="font-size: 12.5px;">node</a> <a href="/tags/npm/" style="font-size: 12.5px;">npm</a> <a href="/tags/react/" style="font-size: 10px;">react</a> <a href="/tags/ruby/" style="font-size: 10px;">ruby</a> <a href="/tags/sass/" style="font-size: 10px;">sass</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">July 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Articles Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/04/17/2017-04-17-more-reasonable-setstate/">更合理的 setState</a>
+          </li>
+        
+          <li>
+            <a href="/2016/10/16/2016-10-16-css-negative-margin/">理解并运用 CSS 的负 margin 值</a>
+          </li>
+        
+          <li>
+            <a href="/2016/09/05/2016-09-05-how-to-implement-responsive-font-size/">如何实现 font-size 的响应式</a>
+          </li>
+        
+          <li>
+            <a href="/2016/08/28/2016-08-28-progressive-loading-images-with-blur-effect/">使用模糊效果逐步加载图片 (仿 Medium)</a>
+          </li>
+        
+          <li>
+            <a href="/2016/08/23/2016-08-23-making-indicator-with-pure-css/">Making An Indicator With Pure CSS</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 Erichain<br>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    <script>
+  var disqus_shortname = 'undefined';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+<script src="/js/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
