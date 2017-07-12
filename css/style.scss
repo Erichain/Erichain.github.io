@@ -128,12 +128,12 @@ a:hover, a:active {
 .content {
 	height: auto;
 	float: right;
-	width: 60%;
+	width: 70%;
 	margin-top:60px;
 }
 
 .page-top{
-	width: 60%;
+	width: 70%;
 	position: fixed;
 	right: 0;
 	z-index: 3;
@@ -193,7 +193,7 @@ a:hover, a:active {
 
 }
 .sidebar {
-	width: 40%;
+	width: 30%;
 	-webkit-background-size: cover;
 	background-size: cover;
 	background-color: #fff;
@@ -208,7 +208,6 @@ a:hover, a:active {
 	.logo-title{
 		text-align: center;
 		padding-top:240px;
-
 
 		.description {
 			font-size: 14px;
@@ -226,12 +225,11 @@ a:hover, a:active {
 			}
 
 			h3 {
-				text-transform: uppercase;
 				font-size: 2rem;
 				font-weight: bold;
 				letter-spacing: 2px;
 				line-height: 1;
-				margin:0;
+				margin: 15px 0 0;
 			}
 
 			a {
@@ -293,7 +291,6 @@ a:hover, a:active {
 		}
 
 		h3 {
-			text-transform: uppercase;
 			letter-spacing: 1px;
 			line-height: 1;
 			font-weight: 600;
@@ -763,6 +760,10 @@ a.btn {
 					}
 					h3{
 						font-size: 20px;
+
+						a {
+							font-size: 28px;
+						}
 					}
 				}
 			}
@@ -772,12 +773,22 @@ a.btn {
 	}
 	.post-title h3{
 		line-height: 1.6;
+
+		a {
+			font-size: 20px;
+		}
 	}
 	.content{
 		margin-top: 420px;
 		width: 100%;
 		z-index: 2;
 		position: absolute;
+
+		.post-content {
+			blockquote p {
+				word-break: break-all;
+			}
+		}
 	}
 	.footer{
 		display: none;
